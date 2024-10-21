@@ -2,6 +2,6 @@
 public class HolaMundo {
 	
 	public static void main(String[] args) {
-		System.out.println("malas Tardes");
+		System.out.println("Malisimas Tardes");
 	}
 }
