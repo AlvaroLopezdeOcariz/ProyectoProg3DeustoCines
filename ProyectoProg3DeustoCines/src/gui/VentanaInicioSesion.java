@@ -29,7 +29,7 @@ public class VentanaInicioSesion extends JFrame{
 		  
 		   
 		  setTitle("INICIO DE SESION");
-		  setSize(800,600);
+		  setSize(800,500);
 		  setDefaultCloseOperation(EXIT_ON_CLOSE);
 		  
 		  
