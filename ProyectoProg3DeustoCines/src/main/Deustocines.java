@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import gui.VentanaPrincipal;
+
 public class Deustocines {
 
     public static HashMap<String, ArrayList> mapaUsuarios() {
@@ -80,5 +82,9 @@ public class Deustocines {
         }
         return false;
     }
+    
+    public static void main(String[] args) {
+		new VentanaPrincipal();
+	}
 
 }
