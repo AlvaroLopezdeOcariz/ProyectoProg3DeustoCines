@@ -12,11 +12,11 @@ import java.util.Scanner;
 import gui.VentanaPrincipal;
 
 public class Deustocines {
-
+	private static File f = new File("src/UsuariosRegistrados.txt");
+	
     public static HashMap<String, ArrayList> mapaUsuarios() {
         
     	HashMap<String, ArrayList> mapaUsuarios= new HashMap<>(); 
-    	 File f = new File("UsuariosRegistrados.txt");
         
          if (!f.exists()) {
              System.err.println("El archivo UsuariosRegistrados.txt no existe.");
@@ -52,7 +52,7 @@ public class Deustocines {
                 return false; 
             }
         }
-        File f = new File("UsuariosRegistrados.txt");
+        
         if (!f.exists()) {
             System.err.println("El archivo UsuariosRegistrados.txt no existe.");
             return false; 
@@ -66,7 +66,7 @@ public class Deustocines {
                 pw.close();
                 return true; 
             } catch (IOException e) {
-                System.err.println("Error al escribir en el fichero.");
+                System.err.println("Error al escribir en el fichero.");		
                 return false; 
             }
         }
