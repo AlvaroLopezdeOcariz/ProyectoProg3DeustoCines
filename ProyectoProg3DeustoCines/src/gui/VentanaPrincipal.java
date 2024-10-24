@@ -55,7 +55,10 @@ public class VentanaPrincipal extends JFrame {
 						vActual.dispose();//Cerrar ventana actual
 						new VentanaInicioSesion(vActual);
 						
-					}							
+					}else if(boton.getText().equals("OPINIONES")){
+						vActual.dispose();
+						new VentanaOpiniones(vActual);
+					}
 					else {
 					JOptionPane.showMessageDialog(VentanaPrincipal.this,"Has Tocado el Boton");
 					}
