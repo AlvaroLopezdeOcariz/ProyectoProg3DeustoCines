@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import main.Usuario;
+
 public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 		JFrame vActual;
@@ -56,6 +58,7 @@ public class VentanaPrincipal extends JFrame {
 						new VentanaInicioSesion(vActual);
 						
 					}else if(boton.getText().equals("OPINIONES")){
+						
 						vActual.dispose();
 						new VentanaOpiniones(vActual);
 					}

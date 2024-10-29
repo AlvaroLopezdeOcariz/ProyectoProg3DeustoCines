@@ -75,6 +75,7 @@ public class Deustocines {
     public static boolean iniciarSesion(String usu,String contra){
         for(String ususario: mapaUsuarios().keySet()){
             if (usu.equals(ususario)&&contra.equals(mapaUsuarios().get(ususario).get(1))) {
+            	Usuario.setUsuarioActual(new Usuario("", usu, contra));
                 return true;
             }else{
                 return false;

@@ -10,9 +10,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import main.Usuario;
 
 public class VentanaOpiniones extends JFrame {
 
@@ -66,12 +69,23 @@ public class VentanaOpiniones extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					vActual.dispose();//Cerrar ventana actual
-					new VentanaEstasRegitrado(vActual);
-					
-					
-				}
-			});
+					 if (Usuario.getUsuarioActual() != null) {
+		                    JOptionPane.showMessageDialog(VentanaOpiniones.this, "HOLA " + Usuario.getUsuarioActual().getNomUsuario());
+		                } else {
+		                    // Si no hay usuario, mostrar diálogo
+		                    int option = JOptionPane.showConfirmDialog(VentanaOpiniones.this,
+		                            "¿Estás registrado?", "Registro", JOptionPane.YES_NO_OPTION);
+
+		                    if (option == JOptionPane.YES_OPTION) {
+		                        vActual.dispose(); // Cerrar ventana actual
+		                        new VentanaInicioSesion(vActual);
+		                    } else {
+		                        vActual.dispose(); // Cerrar ventana actual
+		                        new VentanaRegistro(vActual);
+		                    }
+		                }
+		            }
+		        });
 		  
 		  
 		  

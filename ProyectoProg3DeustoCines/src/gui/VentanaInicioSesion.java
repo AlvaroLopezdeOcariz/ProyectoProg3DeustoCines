@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import main.Usuario;
+
 public class VentanaInicioSesion extends JFrame{
 	 JFrame vActual, vAnterior;
 	 JPanel panelInferior, panelPrincipal;
@@ -71,7 +73,6 @@ public class VentanaInicioSesion extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(main.Deustocines.iniciarSesion(txtUsuario.getText(),txtContrasenia.getText())==true){
 				JOptionPane.showMessageDialog(VentanaInicioSesion.this,"Has iniciado sesion con exito");
-
 				vActual.dispose();
 				vAnterior.setVisible(true);
 				}else{
