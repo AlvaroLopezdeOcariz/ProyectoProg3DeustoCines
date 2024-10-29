@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,13 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class EstasRegitrado extends JFrame {
+public class VentanaEstasRegitrado extends JFrame {
 
 	JLabel lblPregunta;
 	 JFrame vActual, vAnterior;
 	
 	
-	public  EstasRegitrado(JFrame vAnterior){
+	public  VentanaEstasRegitrado(JFrame vAnterior){
 		 vActual = this;
 		  this.vAnterior= vAnterior;
 
@@ -31,7 +32,7 @@ public class EstasRegitrado extends JFrame {
 	  
 	  JPanel panelSuperior = new JPanel(new BorderLayout());
 	  panelSuperior.setBackground(Color.MAGENTA);
-	  JPanel panelInferior = new JPanel(new BorderLayout());
+	  JPanel panelInferior = new JPanel(new GridLayout(1,4,40,0));
 	  
 	  
 	  JButton botonSi = new JButton("SI");
@@ -39,8 +40,9 @@ public class EstasRegitrado extends JFrame {
 	  
 	  panelSuperior.add(lblPregunta);
 	  
-	  panelInferior.add(botonNo,BorderLayout.EAST);
-	  panelInferior.add(botonSi,BorderLayout.WEST);
+	  panelInferior.add(botonSi);
+	  panelInferior.add(botonNo);
+	  
 	  
 	  
 	  
@@ -53,7 +55,7 @@ public class EstasRegitrado extends JFrame {
 		  
 		  public void actionPerformed(ActionEvent e) {
 			  vActual.dispose();
-				vAnterior.setVisible(true);
+				new VentanaInicioSesion(vActual);
 		  }
 	  });
 	  
