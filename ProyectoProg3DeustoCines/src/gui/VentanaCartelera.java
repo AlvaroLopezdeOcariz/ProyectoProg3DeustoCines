@@ -28,6 +28,23 @@ public class VentanaCartelera extends JFrame {
         panelCartelera.setLayout(new GridLayout(0, 2, 10, 10)); // Organiza en una cuadrícula
         panelCartelera.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        JButton botonVolver = new JButton("Volver");
+        
+        panelSuperior.add(botonVolver, BorderLayout.WEST);
+        add(panelSuperior, BorderLayout.NORTH);
+        
+        botonVolver.addActionListener(new ActionListener() {
+    		
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			vActual.dispose();
+    			vAnterior.setVisible(true);
+    			
+    		}
+    	});
+        
         // Crear una lista de películas
         ArrayList<Pelicula> peliculas = new ArrayList<>();
         peliculas.add(new Pelicula("Inception", "2h 28m", "Ciencia Ficción", 4.8));

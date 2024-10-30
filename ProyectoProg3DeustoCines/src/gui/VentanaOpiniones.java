@@ -59,6 +59,20 @@ public class VentanaOpiniones extends JFrame {
 		  
 		  panelInferior.add(botonOpinion);
 		  
+		  JButton botonVolver = new JButton();
+		  panelSuperior.add(botonVolver, BorderLayout.WEST);
+		  add(panelSuperior, BorderLayout.NORTH);
+		  
+		  botonVolver.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vActual.dispose();
+				vAnterior.setVisible(true);
+				
+			}
+		});
+		  
 		  
 		  
 		  
