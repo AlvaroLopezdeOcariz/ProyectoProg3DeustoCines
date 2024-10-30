@@ -61,7 +61,12 @@ public class VentanaPrincipal extends JFrame {
 						
 						vActual.dispose();
 						new VentanaOpiniones(vActual);
+					}else if(boton.getText().equals("CARTELERA")){
+						
+						vActual.dispose();
+						new VentanaCartelera(vActual);
 					}
+					
 					else {
 					JOptionPane.showMessageDialog(VentanaPrincipal.this,"Has Tocado el Boton");
 					}
