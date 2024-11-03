@@ -6,13 +6,17 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VentanaCartelera extends JFrame {
-	
-	JFrame vActual, vAnterior;
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private JFrame vActual, vAnterior;
+	private JPanel panelCartelera, panelSuperior;
+	private JButton botonVolver, botonPelicula;
+	private ArrayList<Pelicula> peliculas;
+	private ImageIcon imagenRedimensionada;
 
 	public VentanaCartelera(JFrame vAnterior) {
 		vActual = this;
@@ -24,13 +28,13 @@ public class VentanaCartelera extends JFrame {
         setLocationRelativeTo(null);
 
         // Panel principal para contener la cartelera
-        JPanel panelCartelera = new JPanel();
+        panelCartelera = new JPanel();
         panelCartelera.setLayout(new GridLayout(0, 2, 10, 10)); // Organiza en una cuadrícula
         panelCartelera.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         
-        JPanel panelSuperior = new JPanel(new BorderLayout());
-        JButton botonVolver = new JButton("Volver");
+        panelSuperior = new JPanel(new BorderLayout());
+        botonVolver = new JButton("Volver");
         
         panelSuperior.add(botonVolver, BorderLayout.WEST);
         add(panelSuperior, BorderLayout.NORTH);
@@ -46,27 +50,29 @@ public class VentanaCartelera extends JFrame {
     	});
         
         // Crear una lista de películas
-        ArrayList<Pelicula> peliculas = new ArrayList<>();
-        peliculas.add(new Pelicula("Inception", "2h 28m", "Ciencia Ficción", 4.8));
-        peliculas.add(new Pelicula("Titanic", "3h 15m", "Romance/Drama", 4.5));
-        peliculas.add(new Pelicula("The Dark Knight", "2h 32m", "Acción/Crimen", 4.9));
-        peliculas.add(new Pelicula("Toy Story", "1h 21m", "Animación/Familia", 4.7));
-        peliculas.add(new Pelicula("Parasite", "2h 12m", "Drama/Thriller", 4.6));
+        peliculas = new ArrayList<>();
+        peliculas.add(new Pelicula("Inception", "2h 28m", "Ciencia Ficción", 4.8, new ImageIcon(getClass().getResource("/Imagenes/Inception.jpg"))));
+        peliculas.add(new Pelicula("Titanic", "3h 15m", "Romance/Drama", 4.5, new ImageIcon(getClass().getResource("/Imagenes/Titanic.jpg"))));
+        peliculas.add(new Pelicula("The Dark Knight", "2h 32m", "Acción/Crimen", 4.9, new ImageIcon(getClass().getResource("/Imagenes/TheDarkNight.jpg"))));
+        peliculas.add(new Pelicula("Toy Story", "1h 21m", "Animación/Familia", 4.7, new ImageIcon(getClass().getResource("/Imagenes/ToyStory.jpg"))));
+        peliculas.add(new Pelicula("Parasite", "2h 12m", "Drama/Thriller", 4.6, new ImageIcon(getClass().getResource("/Imagenes/Parasite.jpg"))));
         // Puedes añadir más películas aquí...
-
+        
         // Crear botones para cada película en la cartelera
         for (Pelicula pelicula : peliculas) {
-            JButton botonPelicula = new JButton(pelicula.getTitulo());
+            //JButton botonPelicula;
+            if (pelicula.getImagen() != null) {
+            	imagenRedimensionada = redimensionarImagen(pelicula.getImagen(), 125, 125); // redimensionar las imagenes debido a su tamaño
+				botonPelicula = new JButton(pelicula.getTitulo(), imagenRedimensionada);
+				botonPelicula.setVerticalTextPosition(SwingConstants.BOTTOM);
+				botonPelicula.setHorizontalTextPosition(SwingConstants.CENTER);
+			} else {
+				botonPelicula = new JButton(pelicula.getTitulo());
+			}
             botonPelicula.setFont(new Font("Arial", Font.PLAIN, 16));
-
-            // Agregar ActionListener para mostrar detalles de la película
-            botonPelicula.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    mostrarInformacionPelicula(pelicula);
-                }
-            });
-
+            
+            botonPelicula.addActionListener(e -> mostrarInformacionPelicula(pelicula));
+           
             panelCartelera.add(botonPelicula);
         }
 
@@ -80,13 +86,20 @@ public class VentanaCartelera extends JFrame {
     private void mostrarInformacionPelicula(Pelicula pelicula) {
         // Crear un JDialog para mostrar la información de la película
         JDialog dialogoPelicula = new JDialog(this, pelicula.getTitulo(), true);
-        dialogoPelicula.setSize(400, 300);
+        dialogoPelicula.setSize(450, 350);
         dialogoPelicula.setLayout(new BorderLayout());
         dialogoPelicula.setLocationRelativeTo(this);
 
         // Crear el panel de información
         JPanel panelInformacion = new JPanel(new GridLayout(4, 1, 10, 10));
         panelInformacion.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        // Añadir la imagen al dialogo cuando cliquemos para ver la info
+        if (pelicula.getImagen() != null) {
+        	ImageIcon imagenRedimensionada = redimensionarImagen(pelicula.getImagen(), 125, 125);
+			JLabel labelImagen = new JLabel(imagenRedimensionada);
+			dialogoPelicula.add(labelImagen, BorderLayout.NORTH);
+		}
 
         // Añadir la información de la película al panel
         panelInformacion.add(new JLabel("Título: " + pelicula.getTitulo()));
@@ -110,6 +123,14 @@ public class VentanaCartelera extends JFrame {
         // Mostrar el diálogo
         dialogoPelicula.setVisible(true);
     }
+    
+    // Metodo para redimensionar una imagen y que entren todas en la ventan y que se vea bien
+    public ImageIcon redimensionarImagen(ImageIcon imagenOriginal, int ancho, int alto) {
+        Image imagen = imagenOriginal.getImage(); // Obtener la imagen original
+        Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        return new ImageIcon(imagenRedimensionada); // Devolver la imagen redimensionada como ImageIcon
+    }
+
 
     
 }

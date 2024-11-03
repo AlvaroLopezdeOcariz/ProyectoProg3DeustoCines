@@ -1,5 +1,7 @@
 package gui;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,29 +16,42 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class VentanaRegistro extends JFrame{
-	 JFrame vActual, vAnterior;
+	
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JFrame vActual, vAnterior;
+	private JPanel panelSuperior, panelPrincipal, panelInferior;
+	private JButton botonVolver, botonRegistrarse;
+	private JLabel lblRegistro;
+	private JTextField txtNombre, txtUsuario, txtContrasenia;
+	
  public VentanaRegistro(JFrame vAnterior) {
 	 vActual=this;
 	 this.vAnterior=vAnterior;
 	 
 	 setTitle("Registrarse");
-	 setSize(800,600);
+	 setSize(375, 275);
 	 setDefaultCloseOperation(EXIT_ON_CLOSE);
 	 
 	 //Parte Superior
-	 JPanel panelSuperior = new JPanel(new BorderLayout());
-	 JButton botonVolver = new JButton("Volver");
-	 JLabel lblRegistro= new JLabel("Registro");
+	 panelSuperior = new JPanel(new BorderLayout());
+	 botonVolver = new JButton("Volver");
+	 lblRegistro= new JLabel("REGISTRO", JLabel.CENTER);
+	 lblRegistro.setFont(new Font("Arial", Font.BOLD, 20));
+	 panelSuperior.setBackground(Color.LIGHT_GRAY);
 	 panelSuperior.add(lblRegistro,BorderLayout.CENTER);
 	 panelSuperior.add(botonVolver,BorderLayout.WEST);
 	 
 	 //Parte Central
-	 JPanel panelPrincipal = new JPanel(new GridLayout(3,1));
-	 JTextField txtNombre = new JTextField();
+	 panelPrincipal = new JPanel(new GridLayout(3,1));
+	 txtNombre = new JTextField();
 	 txtNombre.setBorder(BorderFactory.createTitledBorder("Ingreasa tu nombre"));
-	 JTextField txtUsuario= new JTextField();
+	 txtUsuario= new JTextField();
 	 txtUsuario.setBorder(BorderFactory.createTitledBorder("Ingresa tu Usuario o correo electrónico"));
-	 JTextField txtContrasenia= new JPasswordField();
+	 txtContrasenia= new JPasswordField();
 	 txtContrasenia.setBorder(BorderFactory.createTitledBorder("Ingresa tu Contraseña"));
 	 
 	 panelPrincipal.add(txtNombre);
@@ -44,8 +59,8 @@ public class VentanaRegistro extends JFrame{
 	 panelPrincipal.add(txtContrasenia);
 	 
 	 //Parte inferior
-	 JPanel panelInferior = new JPanel();
-	 JButton botonRegistrarse = new JButton("Registrarse");
+	 panelInferior = new JPanel();
+	 botonRegistrarse = new JButton("Registrarse");
 	 panelInferior.add(botonRegistrarse);
 	 
 	 

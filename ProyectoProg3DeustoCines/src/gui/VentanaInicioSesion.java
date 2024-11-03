@@ -1,6 +1,7 @@
 package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,31 +21,38 @@ import javax.swing.JTextField;
 import main.Usuario;
 
 public class VentanaInicioSesion extends JFrame{
-	 JFrame vActual, vAnterior;
-	 JPanel panelInferior, panelPrincipal;
-	 JLabel lblInicio;
-	 JTextField txtUsuario;
-	 JPasswordField txtContrasenia;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JFrame vActual, vAnterior;
+	private JPanel panelInferior, panelPrincipal, panelSuperior;
+	private JLabel lblInicio, etiquetaRegistro;
+	private JTextField txtUsuario;
+	private JPasswordField txtContrasenia;
+	private JButton botonIniciarSesion, botonVolver;
+	
 	public VentanaInicioSesion(JFrame vAnterior) {
 		  vActual = this;
 		  this.vAnterior= vAnterior;
 		  
 		   
 		  setTitle("INICIO DE SESION");
-		  setSize(800,600);
+		  setSize(375,275);
 		  setDefaultCloseOperation(EXIT_ON_CLOSE);
 		  
 		  
-		  lblInicio= new JLabel("Iniciar Sesion",JLabel.CENTER);
-		  lblInicio.setFont(new Font("Arial", Font.BOLD, 22));
+		  lblInicio= new JLabel("INICIAR SESION",JLabel.CENTER);
+		  lblInicio.setFont(new Font("Arial", Font.BOLD, 20));
 		  
-		  JPanel panelSuperior = new JPanel(new BorderLayout());
-		  panelSuperior.setBackground(Color.RED);
+		  panelSuperior = new JPanel(new BorderLayout());
+		  panelSuperior.setBackground(Color.LIGHT_GRAY);
 		  
 		  panelInferior = new JPanel();
 		  panelInferior.setBackground(Color.BLACK);
-		  JLabel etiquetaRegistro = new JLabel("Registrarse");
-	      etiquetaRegistro.setForeground(Color.BLUE);
+		  etiquetaRegistro = new JLabel("REGISTRARSE");
+	      etiquetaRegistro.setForeground(Color.WHITE);
 		  
 		  panelPrincipal = new JPanel();
 		  panelPrincipal.setLayout(new GridLayout(3, 1, 10, 10));
@@ -54,11 +62,12 @@ public class VentanaInicioSesion extends JFrame{
 		  txtUsuario= new JTextField();
 		  txtUsuario.setBorder(BorderFactory.createTitledBorder("Usuario o correo electrónico"));
 		  
+		  
 		  txtContrasenia= new JPasswordField();
 		  txtContrasenia.setBorder(BorderFactory.createTitledBorder("Contraseña"));
 	        
-		  JButton botonIniciarSesion= new JButton("Iniciar Sesion");
-		  JButton botonVolver = new JButton("Volver");
+		  botonIniciarSesion= new JButton("Iniciar Sesion");
+		  botonVolver = new JButton("Volver");
 		  
 		  panelSuperior.add(lblInicio);
 		  panelSuperior.add(botonVolver,BorderLayout.WEST);
@@ -139,7 +148,7 @@ public class VentanaInicioSesion extends JFrame{
 		
 		
 		
-		
+		//pack();
 		setVisible(true);
 		  
 	}

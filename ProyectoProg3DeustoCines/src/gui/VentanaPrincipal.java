@@ -16,8 +16,16 @@ import javax.swing.JPanel;
 import main.Usuario;
 
 public class VentanaPrincipal extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JFrame vActual, vAnterior;
+	private JPanel mainPanel, menuPanel, botonPanel, titulosPeliculas;
+	private JLabel deustoCinesLabel, populares;
+
 	public VentanaPrincipal() {
-		JFrame vActual;
 		vActual=this;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,15 +33,15 @@ public class VentanaPrincipal extends JFrame {
 		setSize(800,600);
 		
 		
-		JPanel mainPanel = new JPanel();
+		mainPanel = new JPanel();
         mainPanel.setBackground(Color.BLUE); 
         mainPanel.setLayout(new BorderLayout());
         
-        JPanel menuPanel = new JPanel();
+        menuPanel = new JPanel();
         menuPanel.setBackground(Color.WHITE);
         menuPanel.setLayout(new BorderLayout());
         
-        JPanel botonPanel = new JPanel();
+        botonPanel = new JPanel();
         botonPanel.setBackground(Color.BLACK);
         botonPanel.setLayout(new FlowLayout());
         
@@ -76,25 +84,25 @@ public class VentanaPrincipal extends JFrame {
         }
         
        //DEUSTOCINES
-        JLabel deustoCinesLabel = new JLabel("DeustoCines");
-        deustoCinesLabel.setForeground(Color.WHITE);
+        deustoCinesLabel = new JLabel("DeustoCines");
+        deustoCinesLabel.setForeground(Color.BLACK);
         deustoCinesLabel.setFont(new Font("Arial", Font.BOLD, 18));
         menuPanel.add(deustoCinesLabel, BorderLayout.WEST);
         menuPanel.add(botonPanel, BorderLayout.EAST);
         add(menuPanel,BorderLayout.NORTH);
       
         //el panel done pone polpulares ahora mismo
-        JPanel titulosPeliculas = new JPanel();
-       titulosPeliculas.setBackground(Color.BLACK);
-       titulosPeliculas.setLayout(new FlowLayout(FlowLayout.LEFT,20,80));
-       mainPanel.add(titulosPeliculas, BorderLayout.NORTH);
+        titulosPeliculas = new JPanel();
+        titulosPeliculas.setBackground(Color.BLACK);
+        titulosPeliculas.setLayout(new FlowLayout(FlowLayout.LEFT,20,80));
+        mainPanel.add(titulosPeliculas, BorderLayout.NORTH);
 
        
        
-       JLabel populares= new JLabel("Populares Ahora Mismo: ");
-       populares.setForeground(Color.WHITE);
-       populares.setFont(new Font("ARIAL", Font.BOLD, 20));
-       titulosPeliculas.add(populares);
+        populares= new JLabel("Populares Ahora Mismo: ");
+        populares.setForeground(Color.WHITE);
+        populares.setFont(new Font("ARIAL", Font.BOLD, 20));
+        titulosPeliculas.add(populares);
        	
        
 		

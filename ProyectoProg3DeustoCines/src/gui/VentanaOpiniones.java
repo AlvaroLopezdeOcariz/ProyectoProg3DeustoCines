@@ -19,16 +19,15 @@ import main.Usuario;
 
 public class VentanaOpiniones extends JFrame {
 
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	
-	
-	 JFrame vActual, vAnterior;
-	 JPanel panelInferior, panelPrincipal;
-	 JLabel lblInicio;
-	 JTextField txtUsuario;
-	 JPasswordField txtContrasenia;
-	
-	
+	 private JFrame vActual, vAnterior;
+	 private JPanel panelInferior,  panelSuperior;
+	 private JLabel lblInicio;
+	 private JButton botonOpinion, botonVolver;
 	
 	public VentanaOpiniones(JFrame vAnterior) {
 		 vActual = this;
@@ -41,7 +40,7 @@ public class VentanaOpiniones extends JFrame {
 		  
 		  
 		  
-		  JPanel panelInferior = new JPanel(new BorderLayout());
+		  panelInferior = new JPanel(new BorderLayout());
 		  panelInferior.setBackground(Color.GREEN);
 		  
 		  
@@ -49,17 +48,17 @@ public class VentanaOpiniones extends JFrame {
 		  lblInicio.setFont(new Font("Arial", Font.BOLD, 22));
 		  
 		  
-		  JPanel panelSuperior= new JPanel(new BorderLayout());
+		  panelSuperior= new JPanel(new BorderLayout());
 		  panelSuperior.setBackground(Color.CYAN);
 		  
-		  JButton botonOpinion= new JButton("Nueva Opinion");
+		  botonOpinion= new JButton("Nueva Opinion");
 		  
 	
 		  panelSuperior.add(lblInicio);
 		  
 		  panelInferior.add(botonOpinion);
 		  
-		  JButton botonVolver = new JButton();
+		  botonVolver = new JButton();
 		  panelSuperior.add(botonVolver, BorderLayout.WEST);
 		  add(panelSuperior, BorderLayout.NORTH);
 		  
