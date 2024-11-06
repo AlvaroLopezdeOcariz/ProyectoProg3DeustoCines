@@ -87,7 +87,7 @@ public class VentanaOpiniones extends JFrame {
 		                } else {
 		                    // Si no hay usuario, mostrar diálogo
 		                    int option = JOptionPane.showConfirmDialog(VentanaOpiniones.this,
-		                            "¿Estás registrado?", "Registro", JOptionPane.YES_NO_OPTION);
+		                            "¿Estás registrado?","REGISTRO", JOptionPane.YES_NO_OPTION);
 
 		                    if (option == JOptionPane.YES_OPTION) {
 		                        vActual.dispose(); // Cerrar ventana actual
