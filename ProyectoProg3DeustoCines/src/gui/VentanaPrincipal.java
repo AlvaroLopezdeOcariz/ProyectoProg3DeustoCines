@@ -68,7 +68,8 @@ public class VentanaPrincipal extends JFrame {
 					}else if(boton.getText().equals("OPINIONES")){
 						
 						vActual.dispose();
-						new VentanaOpiniones(vActual);
+						//new VentanaOpiniones(vActual);
+						
 					}else if(boton.getText().equals("CARTELERA")){
 						
 						vActual.dispose();
