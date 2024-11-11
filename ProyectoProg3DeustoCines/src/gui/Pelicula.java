@@ -1,5 +1,8 @@
 package gui;
 
+import java.util.ArrayList;
+
+
 import javax.swing.ImageIcon;
 
 public class Pelicula {
@@ -8,6 +11,8 @@ public class Pelicula {
     private String genero;
     private double valoracion;
     private ImageIcon imagen;
+    public ArrayList<Opinion> opiniones;
+    
 
     public Pelicula(String titulo, String duracion, String genero, double valoracion, ImageIcon imagen) {
         this.titulo = titulo;
@@ -15,6 +20,7 @@ public class Pelicula {
         this.genero = genero;
         this.valoracion = valoracion;
         this.imagen = imagen;
+        this.opiniones = new ArrayList<>(); 
     }
 
     // Getters para obtener la información de la película
@@ -37,4 +43,20 @@ public class Pelicula {
     public ImageIcon getImagen() {
     	return imagen;
     }
+
+	
+	
+
+	public void setOpiniones(ArrayList<Opinion> opiniones) {
+		this.opiniones = opiniones;
+	}
+	
+	
+	//Metedo para agergar Opiniones
+	
+	public void agregarOpiniones(Opinion opinion) {
+		opiniones.add(opinion);
+	
+	}
+    
 }

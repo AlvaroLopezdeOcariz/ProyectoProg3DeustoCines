@@ -89,10 +89,12 @@ public class VentanaCartelera extends JFrame {
         dialogoPelicula.setSize(450, 350);
         dialogoPelicula.setLayout(new BorderLayout());
         dialogoPelicula.setLocationRelativeTo(this);
+        
 
         // Crear el panel de información
-        JPanel panelInformacion = new JPanel(new GridLayout(4, 1, 10, 10));
+        JPanel panelInformacion = new JPanel(new GridLayout(0,1));
         panelInformacion.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
         
         // Añadir la imagen al dialogo cuando cliquemos para ver la info
         if (pelicula.getImagen() != null) {
@@ -106,6 +108,8 @@ public class VentanaCartelera extends JFrame {
         panelInformacion.add(new JLabel("Duración: " + pelicula.getDuracion()));
         panelInformacion.add(new JLabel("Género: " + pelicula.getGenero()));
         panelInformacion.add(new JLabel("Valoración: " + pelicula.getValoracion() + " / 5"));
+        
+        
 
         // Botón para cerrar el diálogo
         JButton btnCerrar = new JButton("Cerrar");
@@ -114,11 +118,38 @@ public class VentanaCartelera extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dialogoPelicula.dispose();
             }
+          
         });
+        // Boton para ver las opiniones sobre la pelicula
+        JButton btnOpinion = new JButton("Opiniones");
+        btnOpinion.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dialogoPelicula.dispose();
+				
+				
+			}
+        	
+        });
+        
+        
+        
+        JButton btnCompras = new JButton("Compras");
+        
+        
+        
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,10));
+        panelBotones.add(btnCompras);
+        panelBotones.add(btnOpinion);
+        panelBotones.add(btnCerrar);
+        
+        
         // Añadir los componentes al diálogo
         dialogoPelicula.add(panelInformacion, BorderLayout.CENTER);
-        dialogoPelicula.add(btnCerrar, BorderLayout.SOUTH);
+        dialogoPelicula.add(panelBotones, BorderLayout.SOUTH);
+        
+       
 
         // Mostrar el diálogo
         dialogoPelicula.setVisible(true);
@@ -130,7 +161,4 @@ public class VentanaCartelera extends JFrame {
         Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
         return new ImageIcon(imagenRedimensionada); // Devolver la imagen redimensionada como ImageIcon
     }
-
-
-    
 }
