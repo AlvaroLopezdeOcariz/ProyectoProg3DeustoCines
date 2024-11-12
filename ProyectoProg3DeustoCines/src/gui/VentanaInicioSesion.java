@@ -18,8 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import main.Usuario;
-
 public class VentanaInicioSesion extends JFrame{
 	 /**
 	 * 
@@ -39,7 +37,7 @@ public class VentanaInicioSesion extends JFrame{
 		  
 		   
 		  setTitle("INICIO DE SESION");
-		  setSize(375,275);
+		  setSize(800,600);
 		  setDefaultCloseOperation(EXIT_ON_CLOSE);
 		  
 		  

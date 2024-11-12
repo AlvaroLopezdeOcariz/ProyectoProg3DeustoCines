@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import gui.Usuario;
 import gui.VentanaPrincipal;
 
 public class Deustocines {

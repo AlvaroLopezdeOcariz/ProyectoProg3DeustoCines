@@ -127,8 +127,9 @@ public class VentanaCartelera extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dialogoPelicula.dispose();
-				new VentanaOpiniones(vAnterior, pelicula);
 				
+				new VentanaOpiniones(vAnterior, pelicula);
+				vActual.dispose();
 				
 			}
         	
