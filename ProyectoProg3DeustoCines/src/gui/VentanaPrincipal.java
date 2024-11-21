@@ -44,7 +44,7 @@ public class VentanaPrincipal extends JFrame {
         botonPanel.setLayout(new FlowLayout());
         
         //botones parte superior derecha
-        String[] menuItems = {"CARTELERA", "OPINIONES","IDIOMA" ,"INICIAR SESION/REGISTRARSE"};
+        String[] menuItems = {"CARTELERA","IDIOMA" ,"INICIAR SESION/REGISTRARSE"};
         
         for(String item: menuItems) {
         	JButton boton = new JButton(item);
@@ -62,11 +62,6 @@ public class VentanaPrincipal extends JFrame {
 					if (boton.getText().equals("INICIAR SESION/REGISTRARSE")){
 						vActual.dispose();//Cerrar ventana actual
 						new VentanaInicioSesion(vActual);
-						
-					}else if(boton.getText().equals("OPINIONES")){
-						
-						vActual.dispose();
-						//new VentanaOpiniones(vActual);
 						
 					}else if(boton.getText().equals("CARTELERA")){
 						

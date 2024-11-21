@@ -48,6 +48,29 @@ public class VentanaCartelera extends JFrame {
     			
     		}
     	});
+ String[] opciones = {"Madrid", "Bilbao", "Barcelona", "Vigo","Sevilla"};
+        
+
+        
+        JComboBox<String> jcomboCiudades= new JComboBox<>(opciones);
+        jcomboCiudades.setBounds(30,30,100,30);
+        panelSuperior.add(jcomboCiudades,BorderLayout.EAST);
+        
+        JLabel peli= new JLabel("Peliculas en "+opciones[0]);
+        panelSuperior.add(peli, BorderLayout.CENTER);
+        jcomboCiudades.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtener el elemento seleccionado
+                String seleccion = (String) jcomboCiudades.getSelectedItem();
+                
+                	peli.setText("Peliculas en " + seleccion);
+                	
+                	panelSuperior.revalidate();
+                	panelSuperior.repaint();
+            }
+        });
+        
         
         // Crear una lista de películas
         peliculas = new ArrayList<>();
@@ -120,6 +143,10 @@ public class VentanaCartelera extends JFrame {
             }
           
         });
+        
+        
+       
+        
         // Boton para ver las opiniones sobre la pelicula
         JButton btnOpinion = new JButton("Opiniones");
         btnOpinion.addActionListener(new ActionListener(){
