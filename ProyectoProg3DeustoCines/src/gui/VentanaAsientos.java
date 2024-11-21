@@ -1,85 +1,178 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 
 public class VentanaAsientos extends JDialog {
     private static final long serialVersionUID = 1L;
-
+    private JTable tablaAsientos;
+    private DefaultTableModel modeloTabla;
     private Set<String> asientosSeleccionados;
-    private Timer temporizador;
-    private int tiempoRestante = 7 * 60; // 420 segundos de límite
+    private JLabel labelTiempo, labelTotal; // Label -- tiempo restante y total a pagar
+    private int tiempoRestante = 7 * 60; // 7 minutos en segundos
+    private double precioTotal = 0.0; // Precio total de los asientos seleccionados
 
-    // Constructor de la ventana
     public VentanaAsientos(JFrame padre) {
-        super(padre, "Seleccionar Asientos", true); // Ventana modal (bloquea la ventana anterior mientras está abierta)
-        asientosSeleccionados = new HashSet<>(); // Conjunto para guardar asientos seleccionados sin duplicados
-        setSize(700, 500); 
+        super(padre, "Seleccionar Asientos", true);
+        asientosSeleccionados = new HashSet<>();
+        setSize(730, 530);
         setLayout(new BorderLayout());
-        setLocationRelativeTo(padre); // Centrar la ventana respecto a su "padre"
+        setLocationRelativeTo(padre);
 
-        // ** Panel que muestra los botones de los asientos **
-        JPanel panelAsientos = new JPanel(new GridLayout(10, 10, 5, 5)); // Cuadrícula: 10 filas x 10 columnas con espacio entre botones
-        for (int fila = 0; fila < 10; fila++) {
-            for (int columna = 0; columna < 10; columna++) {
-                String asiento = (fila + 1) + "-" + (columna + 1);
-                JButton botonAsiento = new JButton(asiento);
-                botonAsiento.setBackground(Color.GREEN);
-                botonAsiento.addActionListener(e -> { 
-                    if (asientosSeleccionados.contains(asiento)) {
-                        asientosSeleccionados.remove(asiento);
-                        botonAsiento.setBackground(Color.GREEN);
-                    } else {
-                        asientosSeleccionados.add(asiento);
-                        botonAsiento.setBackground(Color.RED);
-                    }
-                });
-                panelAsientos.add(botonAsiento);
+        // Panel superior: Pantalla
+        JLabel labelPantalla = new JLabel("Pantalla", SwingConstants.CENTER);
+        labelPantalla.setFont(new Font("Arial", Font.BOLD, 20));
+        labelPantalla.setOpaque(true);
+        labelPantalla.setBackground(Color.LIGHT_GRAY);
+        labelPantalla.setPreferredSize(new Dimension(getWidth(), 30));
+        add(labelPantalla, BorderLayout.NORTH);
+
+        // Crear tabla de asientos
+        modeloTabla = new DefaultTableModel(8, 12) { // 8 filas x 12 columnas
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Las celdas no son editables
             }
-        }
+        };
 
-        // Panel inferior con el temporizador y botón de confirmación
-        JPanel panelInferior = new JPanel(new BorderLayout());
-        JLabel labelTiempo = new JLabel("Tiempo restante: " + tiempoRestante + "s");
-        JButton btnConfirmar = new JButton("Confirmar");
-        btnConfirmar.addActionListener(e -> {
-            temporizador.stop();
-            JOptionPane.showMessageDialog(this, "Asientos confirmados: " + asientosSeleccionados);
-            dispose(); // Cerrar la ventana
+        tablaAsientos = new JTable(modeloTabla);
+        tablaAsientos.getTableHeader().setReorderingAllowed(false); // No se pueden mover las columnas
+        tablaAsientos.setRowHeight(50); // Altura de cada fila
+        tablaAsientos.setDefaultRenderer(Object.class, new AsientosRenderer()); // Renderer personalizado para las celdas
+        tablaAsientos.addMouseListener(new java.awt.event.MouseAdapter() { // Listener para los clicks
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int fila = tablaAsientos.getSelectedRow();
+                int columna = tablaAsientos.getSelectedColumn();
+                String asiento = String.format("%c%d", 'A' + fila, columna + 1);
+
+                if (modeloTabla.getValueAt(fila, columna).equals("Ocupado")) {
+                    return; // No se pueden seleccionar asientos ocupados
+                }
+
+                if (asientosSeleccionados.contains(asiento)) {
+                    asientosSeleccionados.remove(asiento);
+                    precioTotal -= obtenerPrecio(fila);
+                    modeloTabla.setValueAt("Libre", fila, columna);
+                } else {
+                    asientosSeleccionados.add(asiento);
+                    precioTotal += obtenerPrecio(fila);
+                    modeloTabla.setValueAt("Seleccionado", fila, columna);
+                }
+
+                actualizarPrecioTotal();
+            }
         });
 
-        // Temporizador para limitar el tiempo de selección
-        temporizador = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tiempoRestante--;
+        inicializarAsientos();
+        add(new JScrollPane(tablaAsientos), BorderLayout.CENTER);
 
-                // Calcular minutos y segundos
-                int minutos = tiempoRestante / 60;
-                int segundos = tiempoRestante % 60;
+        // Panel inferior: Temporizador, precio y botones
+        JPanel panelInferior = new JPanel(new BorderLayout());
+        labelTiempo = new JLabel("Tiempo restante: 07:00");
+        labelTotal = new JLabel("Total: €0.0");
+        JButton btnConfirmar = new JButton("Confirmar");
+        JButton btnCancelar = new JButton("Cancelar Compra");
 
-                // Actualizar el texto del temporizador en formato "MM:SS"
-                labelTiempo.setText(String.format("Tiempo restante: %02d:%02d", minutos, segundos));
+        btnConfirmar.addActionListener(e -> { // Accion al confirmar
+            JOptionPane.showMessageDialog(this, "Compra confirmada.\nAsientos: " + asientosSeleccionados + "\nTotal: €" + precioTotal);
+            dispose();
+        });
 
-                if (tiempoRestante == 0) {
-                    temporizador.stop();
-                    JOptionPane.showMessageDialog(VentanaAsientos.this, "Tiempo agotado. Selección cancelada.");
-                    dispose(); // Cerrar la ventana
+        btnCancelar.addActionListener(e -> { // Accion al cancelar
+            JOptionPane.showMessageDialog(this, "Compra cancelada.");
+            dispose();
+        });
+
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(btnConfirmar);
+        panelBotones.add(btnCancelar);
+        panelInferior.add(labelTiempo, BorderLayout.WEST);
+        panelInferior.add(labelTotal, BorderLayout.CENTER);
+        panelInferior.add(panelBotones, BorderLayout.EAST);
+
+        add(panelInferior, BorderLayout.SOUTH);
+
+        // Hilo para manejar el temporizador
+        new Thread(() -> {
+            while (tiempoRestante > 0) {
+                try {
+                    Thread.sleep(1000); // Dormimos 1 segundo
+                    tiempoRestante--; // Reducimos 1 segundo del tiempo restante
+                    SwingUtilities.invokeLater(() -> { // Actualizamos la interfaz en el hilo
+                        int minutos = tiempoRestante / 60;
+                        int segundos = tiempoRestante % 60;
+                        labelTiempo.setText(String.format("Tiempo restante: %02d:%02d", minutos, segundos));
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        });
-        temporizador.start();
+            JOptionPane.showMessageDialog(VentanaAsientos.this, "Tiempo agotado. Selección cancelada.");
+            dispose(); // Se cierra la ventana si se acaba el tiempo
+        }).start(); // Iniciamos el hilo
+    }
 
-        // Añadir componentes al panel inferior
-        panelInferior.add(labelTiempo, BorderLayout.WEST);
-        panelInferior.add(btnConfirmar, BorderLayout.EAST);
+    // Inicializar asientos con disponibilidad
+    private void inicializarAsientos() {
+        for (int fila = 0; fila < modeloTabla.getRowCount(); fila++) {
+            for (int columna = 0; columna < modeloTabla.getColumnCount(); columna++) {
+                if (Math.random() < 0.2) { // 20% de probabilidad de estar ocupado
+                    modeloTabla.setValueAt("Ocupado", fila, columna);
+                } else {
+                    modeloTabla.setValueAt("Libre", fila, columna);
+                }
+            }
+        }
+    }
 
-        // Añadir paneles a la ventana principal
-        add(panelAsientos, BorderLayout.CENTER);
-        add(panelInferior, BorderLayout.SOUTH);
+    // Obtener precio según la fila
+    private double obtenerPrecio(int fila) {
+        if (fila < 2) return 15.0; // Fila VIP
+        if (fila < 5) return 10.0; // Fila estándar
+        return 7.0; // Fila económica
+    }
+
+    // Actualizar el total en tiempo real
+    private void actualizarPrecioTotal() {
+        labelTotal.setText(String.format("Total: €%.2f", precioTotal)); // Precio total con dos decimales
+    }
+
+    // Renderer para personalizar la apariencia de las celdas
+    private class AsientosRenderer extends JLabel implements TableCellRenderer {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setHorizontalAlignment(SwingConstants.CENTER); // Texto centrado en la celda
+            setOpaque(true);
+
+            if (value.equals("Ocupado")) {
+                setBackground(Color.GRAY);
+                setForeground(Color.WHITE);
+            } else if (value.equals("Seleccionado")) {
+                setBackground(Color.RED);
+                setForeground(Color.WHITE);
+            } else { // Libre
+                if (row < 2) setBackground(new Color(255, 215, 0)); // VIP
+                else if (row < 5) setBackground(new Color(173, 216, 230)); // Estándar
+                else setBackground(new Color(144, 238, 144)); // Económica
+                setForeground(Color.BLACK);
+            }
+
+            setText(value.toString());
+            return this;
+        }
     }
 }
