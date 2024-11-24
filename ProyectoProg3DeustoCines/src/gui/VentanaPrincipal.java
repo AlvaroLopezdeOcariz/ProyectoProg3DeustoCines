@@ -69,7 +69,7 @@ public class VentanaPrincipal extends JFrame {
 						new VentanaCartelera(vActual);
 					}else if(boton.getText().equals("ADMINISTRADOR")) {
 						vActual.dispose();
-						new VentanaAdministracion();
+						new VentanaAdministracion(vActual);
 					}
 					
 					else {

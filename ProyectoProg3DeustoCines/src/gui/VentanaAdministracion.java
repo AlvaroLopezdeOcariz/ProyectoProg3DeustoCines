@@ -2,9 +2,12 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,17 +22,23 @@ public class VentanaAdministracion extends JFrame{
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
 	
-
+	
+	private JFrame vActual, vAnterior;
+	private JPanel panelSuperior;
+	private JButton botonVolver;
 	private DefaultTableModel modeloDatos;
 	private JTable tabla;
 	private ArrayList<Pelicula> peliculas;
 	
-	public VentanaAdministracion(){
+	public VentanaAdministracion(JFrame ventanaAnterior){
+		vActual = this;
+		this.vAnterior = ventanaAnterior;
 	
 		
 		
-			setSize(800,600);
+		setSize(800,600);
 		setTitle("Tabla Administracion");
 		JPanel panel = new JPanel(new BorderLayout());
 		
@@ -76,8 +85,26 @@ public class VentanaAdministracion extends JFrame{
 			  };
 			  
 			  tabla.setDefaultRenderer(Object.class, cellRenderer);
-			  
 			  add(panel,BorderLayout.CENTER);
+			  
+			  panelSuperior = new JPanel(new BorderLayout());
+			  botonVolver = new JButton("Volver");	
+			  
+			  panelSuperior.add(botonVolver,BorderLayout.WEST);
+			  botonVolver.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					vActual.dispose();
+					vAnterior.setVisible(true);
+					
+				}
+			});
+			
+			  
+			  
+			  
+			  add(panelSuperior, BorderLayout.NORTH);
 			  
 			  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
