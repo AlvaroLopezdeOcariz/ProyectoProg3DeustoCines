@@ -16,6 +16,9 @@ public class Pelicula {
     private Boolean rentabilidad;
     private String presupuesto;
     private String taquilla;
+    private String descripcion;
+    private double precio;
+
     
 
     public Pelicula(String titulo, String duracion, String genero, double valoracion, ImageIcon imagen,
@@ -33,10 +36,67 @@ public class Pelicula {
 		this.taquilla=taquilla;
 	}
     
+    public Pelicula(String titulo, String descripcion, String duracion, String genero, double precio) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.genero = genero;
+        this.precio = precio;
+    }
+    public Pelicula(String titulo, String descripcion, String duracion, String genero, double precio,ImageIcon imagen) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.genero = genero;
+        this.precio = precio;
+        this.imagen = imagen;
+    }
 
     // Getters para obtener la información de la película
     
-    public String getTitulo() {
+    public String getDescripcion() {
+		return descripcion;
+	}
+
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+
+	public double getPrecio() {
+		return precio;
+	}
+
+
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+
+
+	public void setDuracion(String duracion) {
+		this.duracion = duracion;
+	}
+
+
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+
+
+	public String getTitulo() {
         return titulo;
     }
 

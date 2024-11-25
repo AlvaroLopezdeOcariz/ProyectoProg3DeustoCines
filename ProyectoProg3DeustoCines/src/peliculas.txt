@@ -1,0 +1,20 @@
+El Padrino;La vida de una poderosa familia de la mafia italiana, liderada por Don Vito Corleone, y los desafíos que enfrentan al proteger su legado;175;Drama;12;ElPadrino.jpg
+El Señor de los Anillos: El Retorno del Rey;La batalla final por el destino de la Tierra Media mientras Frodo intenta destruir el Anillo Único;201;Fantasía;15;ElSeñorDeLosAnillos.jpg
+Inception;Un ladrón que roba secretos a través de los sueños debe completar una misión peligrosa para recuperar su vida;148;Ciencia ficción;10;Inception.jpg
+Titanic;La historia de amor entre un artista pobre y una joven rica que se desarrolla en el trágico viaje del Titanic;195;Romance;12;Titanic.jpg
+Forrest Gump;La extraordinaria vida de un hombre simple que, sin darse cuenta, influye en momentos clave de la historia;142;Drama;10;ForrestGump.jpg
+Gladiator;Un general romano convertido en esclavo busca venganza contra el emperador que destruyó su vida;155;Acción;10;Gladiator.jpg
+Avatar;Un humano es enviado a un mundo alienígena y debe decidir entre proteger a su especie o al pueblo nativo;162;Fantasía;14;Avatar.jpg
+Interstellar;Un equipo de exploradores espaciales busca un nuevo hogar para la humanidad mientras enfrentan dilemas personales;169;Ciencia ficción;13;Interstellar.jpg
+Joker;La transformación de un hombre marginado en el infame villano Joker, tras vivir en una sociedad que lo ignora;122;Drama;11;Joker.jpg
+El Caballero Oscuro;Batman lucha contra el caos desatado por el Joker mientras protege Gotham de su destrucción;152;Acción;12;ElCaballeroOscuro.jpg
+Pulp Fiction;Historias entrelazadas de criminales y personajes peculiares en Los Ángeles, llenas de giros inesperados;154;Crimen;10;PulpFiction.jpg
+La La Land;Dos soñadores, un músico de jazz y una actriz, navegan por su amor y sus aspiraciones en Los Ángeles;128;Musical;10;LaLaLand.jpg
+Coco;Un niño amante de la música viaja al mundo de los muertos para descubrir el misterio de su familia;105;Animación;9;Coco.jpg
+Shrek;Un ogro sarcástico se embarca en una misión para rescatar a una princesa que guarda un secreto;90;Comedia;8;Shrek.jpg
+Frozen;Dos hermanas deben superar malentendidos y un reino congelado para restaurar la paz y su relación;102;Fantasía;9;Frozen.jpg
+Los Vengadores: Endgame;Los héroes restantes unen fuerzas para revertir la destrucción causada por Thanos y salvar el universo;181;Acción;14;LosVengadoresEndgame.jpg
+Toy Story 4;Woody y Buzz enfrentan nuevos desafíos mientras ayudan a una nueva amiga en busca de su propósito;100;Animación;9;ToyStory4.jpg
+La Vida es Bella;Un padre judío usa su ingenio y humor para proteger a su hijo de los horrores de un campo de concentración;116;Drama;10;LaVidaEsBella.jpg
+It;Un grupo de niños enfrenta a Pennywise, un aterrador payaso que se alimenta de sus miedos;135;Terror;10;It.jpg
+Spider-Man: No Way Home;Peter Parker enfrenta las consecuencias del multiverso desatado, mientras busca redención y respuestas;148;Acción;13;SpiderManNoWayHome.jpg
