@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class VentanaAsientos extends JDialog {
@@ -82,10 +83,35 @@ public class VentanaAsientos extends JDialog {
         JButton btnConfirmar = new JButton("Confirmar");
         JButton btnCancelar = new JButton("Cancelar Compra");
 
-        btnConfirmar.addActionListener(e -> { // Accion al confirmar
-            JOptionPane.showMessageDialog(this, "Compra confirmada.\nAsientos: " + asientosSeleccionados + "\nTotal: €" + precioTotal);
+        btnConfirmar.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Compra confirmada.\nAsientos: " + asientosSeleccionados + "\nTotal asientos: €" + precioTotal);
+
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea comprar comida?", "Comprar comida", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                VentanaComida ventanaComida = new VentanaComida(this);
+                ventanaComida.setVisible(true);
+
+                // Obtener el total de comida
+                double totalComida = ventanaComida.getTotalComida();
+                Map<String, Integer> comidaSeleccionada = ventanaComida.getComidaSeleccionada();
+
+                // Mostrar desglose final
+                StringBuilder desgloseComida = new StringBuilder();
+                comidaSeleccionada.forEach((comida, cantidad) -> {
+                    desgloseComida.append("\n- ").append(comida).append(": ").append(cantidad).append(" unidad(es)");
+                });
+
+                JOptionPane.showMessageDialog(this,
+                        "Resumen de compra:\n" +
+                                "Asientos: €" + precioTotal +
+                                "\nComida: €" + totalComida +
+                                (desgloseComida.length() > 0 ? "\nDetalle de comida:" + desgloseComida : "") +
+                                "\n\nTotal final: €" + (precioTotal + totalComida));
+            }
+
             dispose();
         });
+
 
         btnCancelar.addActionListener(e -> { // Accion al cancelar
             JOptionPane.showMessageDialog(this, "Compra cancelada.");
