@@ -1,6 +1,7 @@
 package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -43,7 +44,17 @@ public class VentanaRegistro extends JFrame{
 	 
 	 //Parte Superior
 	 panelSuperior = new JPanel(new BorderLayout());
+	 
 	 botonVolver = new JButton("Volver");
+     botonVolver.setFont(new Font("Arial", Font.PLAIN, 14));
+     botonVolver.setBackground(new Color(220, 220, 220));
+     botonVolver.setForeground(Color.DARK_GRAY);
+     botonVolver.setFocusPainted(false);
+     botonVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));
+     botonVolver.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+	 
+	 
+	 
 	 lblRegistro= new JLabel("REGISTRO", JLabel.CENTER);
 	 lblRegistro.setFont(new Font("Arial", Font.BOLD, 20));
 	 panelSuperior.setBackground(Color.LIGHT_GRAY);

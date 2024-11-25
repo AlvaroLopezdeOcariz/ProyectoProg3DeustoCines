@@ -61,7 +61,7 @@ public class VentanaPrincipal extends JFrame {
                         vActual.dispose(); // Cerrar ventana actual
                         new VentanaInicioSesion(vActual);
                     } else if (boton.getText().equals("CARTELERA")) {
-                        vActual.dispose();
+                        vActual.dispose(); 
                         new VentanaCartelera(vActual);
                     } else if (boton.getText().equals("ADMINISTRADOR")) {
                         vActual.dispose();

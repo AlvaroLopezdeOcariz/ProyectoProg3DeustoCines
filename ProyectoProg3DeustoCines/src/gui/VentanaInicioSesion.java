@@ -1,153 +1,135 @@
 package gui;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class VentanaInicioSesion extends JFrame{
-	 /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private JFrame vActual, vAnterior;
-	private JPanel panelInferior, panelPrincipal, panelSuperior;
-	private JLabel lblInicio, etiquetaRegistro;
-	private JTextField txtUsuario;
-	private JPasswordField txtContrasenia;
-	private JButton botonIniciarSesion, botonVolver;
-	
-	public VentanaInicioSesion(JFrame vAnterior) {
-		  vActual = this;
-		  this.vAnterior= vAnterior;
-		  
-		   
-		  setTitle("INICIO DE SESION");
-		  setSize(800,600);
-		  setDefaultCloseOperation(EXIT_ON_CLOSE);
-		  
-		  
-		  lblInicio= new JLabel("INICIAR SESION",JLabel.CENTER);
-		  lblInicio.setFont(new Font("Arial", Font.BOLD, 20));
-		  
-		  panelSuperior = new JPanel(new BorderLayout());
-		  panelSuperior.setBackground(Color.LIGHT_GRAY);
-		  
-		  panelInferior = new JPanel();
-		  panelInferior.setBackground(Color.BLACK);
-		  etiquetaRegistro = new JLabel("REGISTRARSE");
-	      etiquetaRegistro.setForeground(Color.WHITE);
-		  
-		  panelPrincipal = new JPanel();
-		  panelPrincipal.setLayout(new GridLayout(3, 1, 10, 10));
-	      panelPrincipal.setBackground(Color.WHITE);
-	     
-		  
-		  txtUsuario= new JTextField();
-		  txtUsuario.setBorder(BorderFactory.createTitledBorder("Usuario o correo electrónico"));
-		  
-		  
-		  txtContrasenia= new JPasswordField();
-		  txtContrasenia.setBorder(BorderFactory.createTitledBorder("Contraseña"));
-	        
-		  botonIniciarSesion= new JButton("Iniciar Sesion");
-		  botonVolver = new JButton("Volver");
-		  
-		  panelSuperior.add(lblInicio);
-		  panelSuperior.add(botonVolver,BorderLayout.WEST);
-		  panelInferior.add(etiquetaRegistro);
-		  panelPrincipal.add(txtUsuario);
-		  panelPrincipal.add(txtContrasenia);
-		  panelPrincipal.add(botonIniciarSesion);
-		  
-		  botonIniciarSesion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(main.Deustocines.iniciarSesion(txtUsuario.getText(),txtContrasenia.getText())==true){
-				JOptionPane.showMessageDialog(VentanaInicioSesion.this,"Has iniciado sesion con exito");
-				vActual.dispose();
-				vAnterior.setVisible(true);
-				}else{
-					JOptionPane.showMessageDialog(VentanaInicioSesion.this,"Usuario o Contraseña incorrecta");
-				}
-				
-			}
-		});
-		  
-		  
-		  botonVolver.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				vActual.dispose();
-				vAnterior.setVisible(true);
-				
-			}
-		});
-		  etiquetaRegistro.addMouseListener(new MouseListener() {
-				
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					new VentanaRegistro(vActual);
-					vActual.dispose();
-					
-				}
-			});
-		  
-		  
-		
-		  
-		  
-		  
-		add(panelInferior,BorderLayout.SOUTH);
-		add(panelPrincipal,BorderLayout.CENTER);
-		add(panelSuperior,BorderLayout.NORTH);
-		
-		
-		
-		
-		
-		//pack();
-		setVisible(true);
-		  
-	}
+public class VentanaInicioSesion extends JFrame {
+    private static final long serialVersionUID = 1L;
+
+    private JFrame vActual, vAnterior;
+    private JPanel panelInferior, panelPrincipal, panelSuperior;
+    private JLabel lblInicio, etiquetaRegistro;
+    private JTextField txtUsuario;
+    private JPasswordField txtContrasenia;
+    private JButton botonIniciarSesion, botonVolver;
+
+    public VentanaInicioSesion(JFrame vAnterior) {
+        vActual = this;
+        this.vAnterior = vAnterior;
+
+        // Configuración de la ventana
+        setTitle("INICIO DE SESION");
+        setSize(600, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Centra la ventana en la pantalla
+
+        // Crear paneles
+        panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setBackground(new Color(34, 34, 34));
+
+        panelInferior = new JPanel();
+        panelInferior.setBackground(new Color(34, 34, 34));
+
+        panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new GridLayout(4, 1, 10, 10));
+        panelPrincipal.setBackground(Color.WHITE);
+        panelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Etiqueta de título
+        lblInicio = new JLabel("INICIAR SESION", JLabel.CENTER);
+        lblInicio.setFont(new Font("Arial", Font.BOLD, 22));
+        lblInicio.setForeground(Color.WHITE);
+
+        // Campos de texto
+        txtUsuario = new JTextField();
+        txtUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtUsuario.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2), "Usuario o correo electrónico", 0, 0, new Font("Arial", Font.BOLD, 12), new Color(0, 102, 204)));
+
+        txtContrasenia = new JPasswordField();
+        txtContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtContrasenia.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2), "Contraseña", 0, 0, new Font("Arial", Font.BOLD, 12), new Color(0, 102, 204)));
+
+        // Botones
+        botonIniciarSesion = new JButton("Iniciar Sesion");
+        botonIniciarSesion.setFont(new Font("Arial", Font.PLAIN, 16));
+        botonIniciarSesion.setBackground(new Color(34, 153, 255));
+        botonIniciarSesion.setForeground(Color.WHITE);
+        botonIniciarSesion.setFocusPainted(false);
+        botonIniciarSesion.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonIniciarSesion.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        botonVolver = new JButton("Volver");
+        botonVolver.setFont(new Font("Arial", Font.PLAIN, 14));
+        botonVolver.setBackground(new Color(220, 220, 220));
+        botonVolver.setForeground(Color.DARK_GRAY);
+        botonVolver.setFocusPainted(false);
+        botonVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonVolver.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        // Etiqueta de registro
+        etiquetaRegistro = new JLabel("REGISTRARSE");
+        etiquetaRegistro.setFont(new Font("Arial", Font.PLAIN, 14));
+        etiquetaRegistro.setForeground(Color.WHITE);
+        etiquetaRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Agregar componentes a los paneles
+        panelSuperior.add(lblInicio, BorderLayout.CENTER);
+        panelSuperior.add(botonVolver, BorderLayout.WEST);
+
+        panelPrincipal.add(txtUsuario);
+        panelPrincipal.add(txtContrasenia);
+        panelPrincipal.add(botonIniciarSesion);
+
+        panelInferior.add(etiquetaRegistro);
+
+        // Agregar paneles a la ventana
+        add(panelSuperior, BorderLayout.NORTH);
+        add(panelPrincipal, BorderLayout.CENTER);
+        add(panelInferior, BorderLayout.SOUTH);
+
+        // Acciones de los botones
+        botonIniciarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Lógica de inicio de sesión
+                if (main.Deustocines.iniciarSesion(txtUsuario.getText(), new String(txtContrasenia.getPassword()))) {
+                    JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Has iniciado sesión con éxito.");
+                    vActual.dispose();
+                    vAnterior.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Usuario o Contraseña incorrecta.");
+                }
+            }
+        });
+
+        botonVolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vActual.dispose();
+                vAnterior.setVisible(true);
+            }
+        });
+
+        etiquetaRegistro.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new VentanaRegistro(vActual);
+                vActual.dispose();
+            }
+
+            // Métodos no utilizados
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+
+        // Mostrar la ventana
+        setVisible(true);
+    }
 }
