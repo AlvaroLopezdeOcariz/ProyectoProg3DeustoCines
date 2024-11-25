@@ -40,6 +40,7 @@ public class VentanaAdministracion extends JFrame{
 		
 		setSize(800,600);
 		setTitle("Tabla Administracion");
+		setLocationRelativeTo(null);
 		JPanel panel = new JPanel(new BorderLayout());
 		
 		  this.modeloDatos = new DefaultTableModel(new String[]{"Titulo", "Productora", "Presupuesto", "Recaudacion","Rentabilidad"}, 0) {

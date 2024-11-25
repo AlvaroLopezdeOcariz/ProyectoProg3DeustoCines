@@ -40,6 +40,7 @@ public class VentanaRegistro extends JFrame{
 	 setTitle("Registrarse");
 	 setSize(800, 600);
 	 setDefaultCloseOperation(EXIT_ON_CLOSE);
+	 setLocationRelativeTo(null);
 	 
 	 //Parte Superior
 	 panelSuperior = new JPanel(new BorderLayout());
