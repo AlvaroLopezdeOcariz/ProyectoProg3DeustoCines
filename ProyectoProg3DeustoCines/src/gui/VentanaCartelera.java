@@ -196,7 +196,7 @@ public class VentanaCartelera extends JFrame {
         
         
         
-        JButton btnCompras = new JButton("Compras");
+        JButton btnCompras = new JButton("Comprar");
         btnCompras.addActionListener(e -> {
             new VentanaAsientos(this).setVisible(true);
         });
