@@ -51,7 +51,18 @@ public class Pelicula {
         this.precio = precio;
         this.imagen = imagen;
     }
-
+    public Pelicula(String titulo, String duracion, String genero, double valoracion,
+			 String productora, Boolean rentabilidad, String presupuesto,String taquilla) {
+		super();
+		this.titulo = titulo;
+		this.duracion = duracion;
+		this.genero = genero;
+		this.valoracion = valoracion;
+		this.productora = productora;
+		this.rentabilidad = rentabilidad;
+		this.presupuesto = presupuesto;
+		this.taquilla=taquilla;
+    }
     // Getters para obtener la información de la película
     
     public String getDescripcion() {

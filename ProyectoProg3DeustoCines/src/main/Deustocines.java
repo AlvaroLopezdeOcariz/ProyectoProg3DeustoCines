@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import gui.BDPeliculas;
 import gui.Usuario;
 import gui.VentanaPrincipal;
 
@@ -86,7 +87,16 @@ public class Deustocines {
     }
     
     public static void main(String[] args) {
-		new VentanaPrincipal();
+    	BDPeliculas baseDatos= new BDPeliculas();
+   	 	baseDatos.InicializarBD();
+   	 	baseDatos.insertarPeliculas();
+
+    	
+    	
+    	
+    	
+    	
+    	new VentanaPrincipal();
 	}
 
 }
