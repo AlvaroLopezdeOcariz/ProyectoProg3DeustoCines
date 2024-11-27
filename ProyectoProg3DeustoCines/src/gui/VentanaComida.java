@@ -13,10 +13,10 @@ public class VentanaComida extends JDialog {
 
     public VentanaComida(VentanaAsientos ventanaAsientos) {
         super(ventanaAsientos, "Menú de Comida", true);
-        setSize(450, 350);
+        setSize(500, 600);
         setLocationRelativeTo(ventanaAsientos);
         setLayout(new BorderLayout());
-        
+
         // Configurar colores
         Color backgroundColor = new Color(240, 248, 255);
         Color buttonColor = new Color(100, 149, 237);
@@ -28,38 +28,54 @@ public class VentanaComida extends JDialog {
         panelMenu.setBackground(backgroundColor);
         panelMenu.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        String[] comidas = {"Palomitas", "Refresco", "Chocolate"};
-        double[] precios = {5.0, 3.0, 2.5};
+        // Categorías y datos del menú
+        String[][] categorias = {
+                {"Comida principal", "Hamburguesa", "Pizza", "Hot Dog"},
+                {"Snacks", "Palomitas", "Nachos", "Patatas fritas"},
+                {"Bebidas", "Refresco", "Agua", "Cerveza"}
+        };
+        double[][] precios = {
+                {8.0, 7.5, 6.0}, // Precios de Comida principal
+                {5.0, 4.5, 3.5}, // Precios de Snacks
+                {3.0, 1.5, 4.0}  // Precios de Bebidas
+        };
+
         Map<String, JSpinner> spinners = new HashMap<>();
 
-        for (int i = 0; i < comidas.length; i++) {
-            String comida = comidas[i];
-            double precio = precios[i];
+        for (int cat = 0; cat < categorias.length; cat++) {
+            // Título de la categoría
+            JPanel panelCategoria = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            panelCategoria.setBackground(backgroundColor);
 
-            // Panel horizontal para cada comida
-            JPanel panelComida = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            panelComida.setBackground(backgroundColor);
-            
-            // Etiqueta estilizada
-            JLabel labelComida = new JLabel(comida + " (€" + precio + ")");
-            labelComida.setFont(new Font("Arial", Font.BOLD, 14));
-            labelComida.setForeground(textColor);
-            panelComida.add(labelComida);
+            JLabel labelCategoria = new JLabel("• " + categorias[cat][0]);
+            labelCategoria.setFont(new Font("Arial", Font.BOLD, 14));
+            labelCategoria.setForeground(textColor);
+            panelCategoria.add(labelCategoria);
 
-            // Spinner para seleccionar cantidad
-            JSpinner spinnerCantidad = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1)); // De 0 a 10
-            spinners.put(comida, spinnerCantidad);
-            spinnerCantidad.setPreferredSize(new Dimension(50, 25));
-            panelComida.add(spinnerCantidad);
+            panelMenu.add(panelCategoria);
 
-            // Añadir panel horizontal al panel principal
-            panelMenu.add(panelComida);
-            
-            // Separador para mayor claridad
-            if (i < comidas.length - 1) {
-                JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-                separator.setForeground(Color.LIGHT_GRAY);
-                panelMenu.add(separator);
+            // Crear opciones de comida dentro de la categoría
+            for (int item = 1; item < categorias[cat].length; item++) {
+                String comida = categorias[cat][item];
+                double precio = precios[cat][item - 1];
+
+                JPanel panelComida = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                panelComida.setBackground(backgroundColor);
+
+                // Etiqueta estilizada para la comida
+                JLabel labelComida = new JLabel("   " + comida + " (€" + precio + ")");
+                labelComida.setFont(new Font("Arial", Font.PLAIN, 14));
+                labelComida.setForeground(textColor);
+                panelComida.add(labelComida);
+
+                // Spinner para seleccionar cantidad
+                JSpinner spinnerCantidad = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
+                spinners.put(comida, spinnerCantidad);
+                spinnerCantidad.setPreferredSize(new Dimension(50, 25));
+                panelComida.add(spinnerCantidad);
+
+                // Añadir cada opción al panel principal
+                panelMenu.add(panelComida);
             }
         }
 
@@ -84,17 +100,18 @@ public class VentanaComida extends JDialog {
             comidaSeleccionada.clear();
 
             // Procesar selección
-            for (int i = 0; i < comidas.length; i++) {
-                String comida = comidas[i];
-                int cantidad = (int) spinners.get(comida).getValue();
-                if (cantidad > 0) {
-                    comidaSeleccionada.put(comida, cantidad);
-                    totalComida += cantidad * precios[i];
+            for (int cat = 0; cat < categorias.length; cat++) {
+                for (int item = 1; item < categorias[cat].length; item++) {
+                    String comida = categorias[cat][item];
+                    int cantidad = (int) spinners.get(comida).getValue();
+                    if (cantidad > 0) {
+                        comidaSeleccionada.put(comida, cantidad);
+                        totalComida += cantidad * precios[cat][item - 1];
+                    }
                 }
             }
 
-            JOptionPane.showMessageDialog(this, "Compra de comida confirmada.\n"
-                    + "Total: €" + totalComida);
+            JOptionPane.showMessageDialog(this, generarResumenCompra(), "Resumen de Compra", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         });
 
@@ -103,7 +120,7 @@ public class VentanaComida extends JDialog {
         panelBotones.add(btnConfirmar);
         panelBotones.add(btnCancelar);
         add(panelBotones, BorderLayout.SOUTH);
-        
+
         // Título en la parte superior
         JLabel titulo = new JLabel("Seleccione su comida");
         titulo.setFont(new Font("Arial", Font.BOLD, 18));
@@ -111,6 +128,16 @@ public class VentanaComida extends JDialog {
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
         titulo.setBorder(new EmptyBorder(10, 10, 10, 10));
         add(titulo, BorderLayout.NORTH);
+    }
+
+    private String generarResumenCompra() {
+        StringBuilder resumen = new StringBuilder("Resumen de su compra:\n\n");
+        comidaSeleccionada.forEach((comida, cantidad) -> resumen.append(comida)
+                .append(" x ")
+                .append(cantidad)
+                .append("\n"));
+        resumen.append("\nTotal: €").append(String.format("%.2f", totalComida));
+        return resumen.toString();
     }
 
     public double getTotalComida() {

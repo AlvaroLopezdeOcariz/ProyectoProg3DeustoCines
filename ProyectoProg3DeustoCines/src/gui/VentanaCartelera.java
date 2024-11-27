@@ -3,21 +3,18 @@ package gui;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaCartelera extends JFrame {
     private JFrame vActual, vAnterior;
-    private ArrayList<Pelicula> peliculas; // Lista de películas
+    private ArrayList<Pelicula> peliculas;
     private JPanel panelCartelera, panelSuperior;
-    private JButton botonVolver, botonPelicula;
-    private ImageIcon imagenRedimensionada;
+    private JButton botonVolver;
     private JLabel lblBuscador;
     private JTextField txtPeliculaBuscar;
 
@@ -26,36 +23,48 @@ public class VentanaCartelera extends JFrame {
         this.vAnterior = vAnterior;
 
         setTitle("Cartelera");
-        setSize(800, 600);
+        setSize(1000, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        // Configuración de paneles
-        panelCartelera = new JPanel(new GridLayout(0, 2, 10, 10));
-        panelCartelera.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
+        // Panel superior con buscador y botón Volver
         panelSuperior = new JPanel(new BorderLayout());
-        botonVolver = new JButton("Volver");
-        panelSuperior.add(botonVolver, BorderLayout.WEST);
-        add(panelSuperior, BorderLayout.NORTH);
+        panelSuperior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelSuperior.setBackground(new Color(230, 240, 255));
 
-        botonVolver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vActual.dispose();
-                vAnterior.setVisible(true);
-            }
+        botonVolver = crearBoton("Volver", new Color(200, 230, 255));
+        botonVolver.addActionListener(e -> {
+            vActual.dispose();
+            vAnterior.setVisible(true);
         });
 
-        // Configuración del buscador
-        JPanel panelBuscador = new JPanel();
-        lblBuscador = new JLabel("Película: ");
+        lblBuscador = new JLabel("Buscar película: ");
+        lblBuscador.setFont(new Font("Arial", Font.PLAIN, 16));
+
         txtPeliculaBuscar = new JTextField(30);
+        txtPeliculaBuscar.setFont(new Font("Arial", Font.PLAIN, 16));
+        txtPeliculaBuscar.setBorder(BorderFactory.createLineBorder(new Color(200, 230, 255), 2));
+
+        JPanel panelBuscador = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panelBuscador.setBackground(new Color(230, 240, 255));
         panelBuscador.add(lblBuscador);
         panelBuscador.add(txtPeliculaBuscar);
+
+        panelSuperior.add(botonVolver, BorderLayout.WEST);
         panelSuperior.add(panelBuscador, BorderLayout.CENTER);
 
-        // Listener para actualizar la cartelera según la búsqueda
+        add(panelSuperior, BorderLayout.NORTH);
+
+        // Panel principal de la cartelera
+        panelCartelera = new JPanel(new GridLayout(0, 3, 15, 15));
+        panelCartelera.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelCartelera.setBackground(Color.WHITE);
+        JScrollPane scrollPanelCartelera = new JScrollPane(panelCartelera);
+
+        add(scrollPanelCartelera, BorderLayout.CENTER);
+
+        // Listener para el buscador
         txtPeliculaBuscar.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -73,86 +82,68 @@ public class VentanaCartelera extends JFrame {
             }
 
             private void actualizarCartelera() {
-                // Obtener el texto del cuadro de búsqueda
                 String texto = txtPeliculaBuscar.getText().toLowerCase();
-
-                // Filtrar películas según el texto
-                ArrayList<Pelicula> peliculasFiltradas = filtrarPeliculas(texto);
-
-                // Limpiar el panelCartelera
-                panelCartelera.removeAll();
-
-                // Crear botones para las películas filtradas
-                for (Pelicula pelicula : peliculasFiltradas) {
-                    ImageIcon imagenRedimensionada = redimensionarImagen(pelicula.getImagen(), 125, 125);
-                    JButton botonPelicula = new JButton(pelicula.getTitulo(), imagenRedimensionada);
-                    botonPelicula.setFont(new Font("Arial", Font.PLAIN, 16));
-                    botonPelicula.addActionListener(e -> mostrarInformacionPelicula(pelicula));
-                    botonPelicula.setVerticalTextPosition(SwingConstants.BOTTOM);
-                    botonPelicula.setHorizontalTextPosition(SwingConstants.CENTER);
-                    panelCartelera.add(botonPelicula);
-                }
-
-                // Actualizar la interfaz
-                panelCartelera.revalidate();
-                panelCartelera.repaint();
-            }
-
-            private ArrayList<Pelicula> filtrarPeliculas(String texto) {
-                ArrayList<Pelicula> filtradas = new ArrayList<>();
-                for (Pelicula p : peliculas) {
-                    if (p.getTitulo().toLowerCase().contains(texto)) {
-                        filtradas.add(p);
-                    }
-                }
-                return filtradas;
+                mostrarPeliculas(filtrarPeliculas(texto));
             }
         });
 
-        // Leer películas desde el archivo
+        // Cargar y mostrar todas las películas
         peliculas = cargarPeliculas();
+        mostrarPeliculas(peliculas);
 
-        // Crear botones para cada película
-        for (Pelicula pelicula : peliculas) {
-            imagenRedimensionada = redimensionarImagen(pelicula.getImagen(), 125, 125);
-            botonPelicula = new JButton(pelicula.getTitulo(), imagenRedimensionada);
-            botonPelicula.setFont(new Font("Arial", Font.PLAIN, 16));
-            botonPelicula.addActionListener(e -> mostrarInformacionPelicula(pelicula));
-            panelCartelera.add(botonPelicula);
-            botonPelicula.setVerticalTextPosition(SwingConstants.BOTTOM);
-            botonPelicula.setHorizontalTextPosition(SwingConstants.CENTER);
-        }
-
-        add(new JScrollPane(panelCartelera));
         setVisible(true);
     }
 
-    private ArrayList<Pelicula> cargarPeliculas() {
-        File f = new File("src/peliculas.txt");
-        ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
-        if (!f.exists()) {
-            System.err.println("El archivo peliculas.txt no existe.");
+    private void mostrarPeliculas(ArrayList<Pelicula> peliculasFiltradas) {
+        panelCartelera.removeAll();
+
+        for (Pelicula pelicula : peliculasFiltradas) {
+            ImageIcon imagenRedimensionada = redimensionarImagen(pelicula.getImagen(), 120, 150);
+            JButton botonPelicula = crearBoton(pelicula.getTitulo(), Color.WHITE);
+            botonPelicula.setIcon(imagenRedimensionada);
+            botonPelicula.setHorizontalTextPosition(SwingConstants.CENTER);
+            botonPelicula.setVerticalTextPosition(SwingConstants.BOTTOM);
+            botonPelicula.addActionListener(e -> mostrarInformacionPelicula(pelicula));
+            panelCartelera.add(botonPelicula);
         }
-        try {
-            Scanner sc = new Scanner(f);
-            while (sc.hasNext()) {
-                String linea = sc.nextLine();
-                String[] datos = linea.split(";");
+
+        panelCartelera.revalidate();
+        panelCartelera.repaint();
+    }
+
+    private ArrayList<Pelicula> filtrarPeliculas(String texto) {
+        ArrayList<Pelicula> filtradas = new ArrayList<>();
+        for (Pelicula p : peliculas) {
+            if (p.getTitulo().toLowerCase().contains(texto)) {
+                filtradas.add(p);
+            }
+        }
+        return filtradas;
+    }
+
+    private ArrayList<Pelicula> cargarPeliculas() {
+        ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
+        File archivo = new File("src/peliculas.txt");
+        if (!archivo.exists()) {
+            System.err.println("El archivo peliculas.txt no existe.");
+            return listaPeliculas;
+        }
+        try (Scanner sc = new Scanner(archivo)) {
+            while (sc.hasNextLine()) {
+                String[] datos = sc.nextLine().split(";");
                 if (datos.length == 6) {
                     String titulo = datos[0];
                     String descripcion = datos[1];
                     String duracion = datos[2];
                     String genero = datos[3];
                     double precio = Double.parseDouble(datos[4]);
-                    String i = ("/imagenes/" + datos[5]);
-                    ImageIcon imagen = new ImageIcon(getClass().getResource(i));
+                    ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/" + datos[5]));
                     listaPeliculas.add(new Pelicula(titulo, descripcion, duracion, genero, precio, imagen));
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
         return listaPeliculas;
     }
 
@@ -210,6 +201,16 @@ public class VentanaCartelera extends JFrame {
         dialogoPelicula.add(panelBotones, BorderLayout.SOUTH);
 
         dialogoPelicula.setVisible(true);
+    }
+
+    private JButton crearBoton(String texto, Color colorFondo) {
+        JButton boton = new JButton(texto);
+        boton.setFont(new Font("Arial", Font.PLAIN, 16));
+        boton.setFocusPainted(false);
+        boton.setBackground(colorFondo);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(200, 230, 255), 2));
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return boton;
     }
 
     public ImageIcon redimensionarImagen(ImageIcon imagenOriginal, int ancho, int alto) {
