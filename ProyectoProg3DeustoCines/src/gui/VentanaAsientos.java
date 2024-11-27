@@ -84,6 +84,10 @@ public class VentanaAsientos extends JDialog {
         JButton btnCancelar = new JButton("Cancelar Compra");
 
         btnConfirmar.addActionListener(e -> {
+        	if (asientosSeleccionados.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No has seleccionado ningun asiento. Por favor, seleccione uno.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+        	}
             JOptionPane.showMessageDialog(this, "Compra confirmada.\nAsientos: " + asientosSeleccionados + "\nTotal asientos: €" + precioTotal);
 
             int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea comprar comida?", "Comprar comida", JOptionPane.YES_NO_OPTION);
