@@ -55,6 +55,9 @@ public class VentanaAdministracion extends JFrame{
 	            }
 	        };
 	        
+	       
+	        
+	        
 	        tabla= new JTable(modeloDatos);
 			
 			JScrollPane scrollProduct= new JScrollPane(tabla);
@@ -100,7 +103,9 @@ public class VentanaAdministracion extends JFrame{
 					
 				}
 			});
-			
+			  JButton btnInsertar= new JButton();
+			  JButton btnEliminar= new JButton();
+			  JButton btnModificar= new JButton();
 			  
 			  
 			  
