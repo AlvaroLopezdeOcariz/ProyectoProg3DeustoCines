@@ -16,9 +16,9 @@ import gui.VentanaPrincipal;
 public class Deustocines {
 	private static File f = new File("src/UsuariosRegistrados.txt");
 	
-    public static HashMap<String, ArrayList> mapaUsuarios() {
+    public static HashMap<String, ArrayList<String>> mapaUsuarios() {
         
-    	HashMap<String, ArrayList> mapaUsuarios= new HashMap<>(); 
+    	HashMap<String, ArrayList<String>> mapaUsuarios= new HashMap<>(); 
         
          if (!f.exists()) {
              System.err.println("El archivo UsuariosRegistrados.txt no existe.");
@@ -28,7 +28,6 @@ public class Deustocines {
          try {
              Scanner sc = new Scanner(f);
              while (sc.hasNext()) {
-                ArrayList nombreyContrasenia = new ArrayList<>();
                  String linea = sc.nextLine();
                  String[] datos = linea.split(";");
                  
@@ -36,6 +35,7 @@ public class Deustocines {
                      String nombre = datos[0];
                      String usuario = datos[1];
                      String contrasenia = datos[2];
+                     ArrayList<String> nombreyContrasenia = new ArrayList<>();
                      nombreyContrasenia.add(nombre);
                      nombreyContrasenia.add(contrasenia);
                      mapaUsuarios.put(usuario, nombreyContrasenia);
@@ -49,39 +49,36 @@ public class Deustocines {
     }
     
     public static boolean IniciarRegistro(String nom, String usu, String contra) {
-        for (String usuario : mapaUsuarios().keySet()) {
-            if (usu.equals(usuario)) {
-                return false; 
-            }
+    	HashMap<String, ArrayList<String>> usuarios = mapaUsuarios();
+        if (usuarios.containsKey(usu)) {
+            return false;
         }
-        
+
         if (!f.exists()) {
             System.err.println("El archivo UsuariosRegistrados.txt no existe.");
             return false; 
-        } else {
-            try {
-                FileWriter fw = new FileWriter(f, true);
-                PrintWriter pw = new PrintWriter(fw);
-                pw.print(nom + ";" + usu + ";" + contra);
-                pw.println();
-                pw.flush();
-                pw.close();
-                return true; 
-            } catch (IOException e) {
-                System.err.println("Error al escribir en el fichero.");		
-                return false; 
-            }
+        }
+
+        
+        try {
+        	FileWriter fw = new FileWriter(f, true); 
+             PrintWriter pw = new PrintWriter(fw);
+            pw.print(nom + ";" + usu + ";" + contra);
+            pw.println();
+            pw.flush();
+            pw.close();
+            return true; 
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el fichero.");		
+            return false; 
         }
     }
    
     public static boolean iniciarSesion(String usu,String contra){
-        for(String ususario: mapaUsuarios().keySet()){
-            if (usu.equals(ususario)&&contra.equals(mapaUsuarios().get(ususario).get(1))) {
-            	Usuario.setUsuarioActual(new Usuario("", usu, contra));
-                return true;
-            }else{
-                return false;
-            }
+    	HashMap<String, ArrayList<String>> usuarios = mapaUsuarios();
+        if (usuarios.containsKey(usu)) {
+        	Usuario.setUsuarioActual(new Usuario("", usu, contra));
+            return contra.equals(usuarios.get(usu).get(1));
         }
         return false;
     }
