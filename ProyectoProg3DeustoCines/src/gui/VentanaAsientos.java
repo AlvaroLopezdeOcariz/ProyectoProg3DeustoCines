@@ -10,6 +10,8 @@ import java.util.Set;
 
 public class VentanaAsientos extends JDialog {
     private static final long serialVersionUID = 1L;
+    private boolean tiempoCorriendo = true; // Flag para controlar si el tiempo sigue corriendo
+    
     private JTable tablaAsientos;
     private DefaultTableModel modeloTabla;
     private Set<String> asientosSeleccionados;
@@ -131,9 +133,9 @@ public class VentanaAsientos extends JDialog {
 
         add(panelInferior, BorderLayout.SOUTH);
 
-        // Hilo para manejar el temporizador
+     // Hilo para manejar el temporizador
         new Thread(() -> {
-            while (tiempoRestante > 0) {
+            while (tiempoRestante > 0 && tiempoCorriendo) { // Agregar la condición de tiempoCorriendo
                 try {
                     Thread.sleep(1000); // Dormimos 1 segundo
                     tiempoRestante--; // Reducimos 1 segundo del tiempo restante
@@ -146,8 +148,10 @@ public class VentanaAsientos extends JDialog {
                     e.printStackTrace();
                 }
             }
-            JOptionPane.showMessageDialog(VentanaAsientos.this, "Tiempo agotado. Selección cancelada.");
-            dispose(); // Se cierra la ventana si se acaba el tiempo
+            if (tiempoRestante == 0) {
+                JOptionPane.showMessageDialog(VentanaAsientos.this, "Tiempo agotado. Selección cancelada.");
+                dispose(); // Se cierra la ventana si se acaba el tiempo
+            }
         }).start(); // Iniciamos el hilo
     }
 
@@ -205,4 +209,10 @@ public class VentanaAsientos extends JDialog {
             return this;
         }
     }
+    
+    @Override
+	public void dispose() {
+		super.dispose(); // Llama al dispose original
+	    tiempoCorriendo = false; // Detenemos el hilo
+	}
 }
