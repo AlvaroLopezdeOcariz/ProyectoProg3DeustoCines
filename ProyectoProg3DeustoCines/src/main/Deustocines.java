@@ -9,11 +9,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
+
 import gui.BDPeliculas;
+import gui.Carrito;
 import gui.Usuario;
 import gui.VentanaPrincipal;
 
 public class Deustocines {
+	public static Carrito carrito = new Carrito();
 	private static File f = new File("src/UsuariosRegistrados.txt");
 	
     public static HashMap<String, ArrayList<String>> mapaUsuarios() {
@@ -87,13 +91,13 @@ public class Deustocines {
     	BDPeliculas baseDatos= new BDPeliculas();
    	 	baseDatos.InicializarBD();
    	 	baseDatos.insertarPeliculas();
-
+   	 	SwingUtilities.invokeLater(() -> new VentanaPrincipal().setVisible(true));
     	
     	
     	
     	
     	
-    	new VentanaPrincipal();
+    	//new VentanaPrincipal();
 	}
 
 }

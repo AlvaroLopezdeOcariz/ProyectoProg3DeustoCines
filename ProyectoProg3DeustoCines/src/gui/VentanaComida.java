@@ -2,6 +2,9 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import main.Deustocines;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,6 +110,9 @@ public class VentanaComida extends JDialog {
                     if (cantidad > 0) {
                         comidaSeleccionada.put(comida, cantidad);
                         totalComida += cantidad * precios[cat][item - 1];
+
+                        // Agregar al carrito
+                        Deustocines.carrito.agregarItem(new ItemCarrito(comida + " x" + cantidad, cantidad * precios[cat][item - 1]));
                     }
                 }
             }

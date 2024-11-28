@@ -44,10 +44,10 @@ public class VentanaPrincipal extends JFrame {
         botonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
         // Crear los botones
-        String[] menuItems = {"CARTELERA", "ADMINISTRADOR", "INICIAR SESION/REGISTRARSE"};
+        String[] menuItems = {"CARTELERA", "ADMINISTRADOR", "CARRITO", "INICIAR SESION/REGISTRARSE"};
         for (String item : menuItems) {
             JButton boton = new JButton(item);
-            boton.setFont(new Font("Verdana", Font.BOLD, 14));
+            boton.setFont(new Font("Verdana", Font.BOLD, 11));
             boton.setBackground(new Color(0, 128, 255)); 
             boton.setFocusPainted(false);
             boton.setOpaque(true);
@@ -66,6 +66,9 @@ public class VentanaPrincipal extends JFrame {
                     } else if (boton.getText().equals("ADMINISTRADOR")) {
                         vActual.dispose();
                         new VentanaAdministracion(vActual);
+                    } else if (boton.getText().equals("CARRITO")) {
+                    	vActual.dispose();
+                    	new VentanaCarrito(vActual);
                     }
                 }
             });
