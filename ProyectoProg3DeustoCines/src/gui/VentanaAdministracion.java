@@ -104,7 +104,7 @@ public class VentanaAdministracion extends JFrame{
 				}
 			});
 			  JButton btnInsertar= new JButton();
-			  JButton btnEliminar= new JButton();
+			  JButton btnEliminarr= new JButton();
 			  JButton btnModificar= new JButton();
 			  
 			  
@@ -119,7 +119,7 @@ public class VentanaAdministracion extends JFrame{
 
 	}
 	private void loadPro() {
-		 peliculas = BDPeliculas.obtenerPeliculas();
+		ArrayList<Pelicula> listaPeliculas = BDPeliculas.obtenerPeliculas();
 	      /*  peliculas.add(new Pelicula("Inception", "2h 28m", "Ciencia Ficción", 4.8, new ImageIcon(getClass().getResource("/imagenes/Inception.jpg")),"Warner Bros",true,"160000000","839000000"));
 	        peliculas.add(new Pelicula("Titanic", "3h 15m", "Romance/Drama", 4.5, new ImageIcon(getClass().getResource("/imagenes/Titanic.jpg")),"20th Century Fox",true,"200000000","2260000000"));
 	        peliculas.add(new Pelicula("The Dark Knight", "2h 32m", "Acción/Crimen", 4.9, new ImageIcon(getClass().getResource("/imagenes/TheDarkNight.jpg")),"Warner Bros", true,"185000000","1010000000"));
@@ -130,7 +130,7 @@ public class VentanaAdministracion extends JFrame{
 		 
 		 this.modeloDatos.setRowCount(0);
 			//Se añaden las pelis uno a uno al modelo de datos
-			peliculas.forEach(peli -> this.modeloDatos.addRow(
+			listaPeliculas.forEach(peli -> this.modeloDatos.addRow(
 					new Object[] {peli.getTitulo(),peli.getProductora(),peli.getPresupuesto(),peli.getTaquilla(),peli.getRentabilidad()} )
 			);
 		

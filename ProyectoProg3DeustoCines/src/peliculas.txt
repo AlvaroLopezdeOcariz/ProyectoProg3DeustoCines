@@ -1,20 +1,20 @@
-El Padrino;La vida de una poderosa familia de la mafia italiana, liderada por Don Vito Corleone, y los desafíos que enfrentan al proteger su legado;175;Drama;12;ElPadrino.jpg
-El Señor de los Anillos: El Retorno del Rey;La batalla final por el destino de la Tierra Media mientras Frodo intenta destruir el Anillo Único;201;Fantasía;15;ElSeñorDeLosAnillos.jpg
-Inception;Un ladrón que roba secretos a través de los sueños debe completar una misión peligrosa para recuperar su vida;148;Ciencia ficción;10;Inception.jpg
-Titanic;La historia de amor entre un artista pobre y una joven rica que se desarrolla en el trágico viaje del Titanic;195;Romance;12;Titanic.jpg
-Forrest Gump;La extraordinaria vida de un hombre simple que, sin darse cuenta, influye en momentos clave de la historia;142;Drama;10;ForrestGump.jpg
-Gladiator;Un general romano convertido en esclavo busca venganza contra el emperador que destruyó su vida;155;Acción;10;Gladiator.jpg
-Avatar;Un humano es enviado a un mundo alienígena y debe decidir entre proteger a su especie o al pueblo nativo;162;Fantasía;14;Avatar.jpg
-Interstellar;Un equipo de exploradores espaciales busca un nuevo hogar para la humanidad mientras enfrentan dilemas personales;169;Ciencia ficción;13;Interstellar.jpg
-Joker;La transformación de un hombre marginado en el infame villano Joker, tras vivir en una sociedad que lo ignora;122;Drama;11;Joker.jpg
-El Caballero Oscuro;Batman lucha contra el caos desatado por el Joker mientras protege Gotham de su destrucción;152;Acción;12;ElCaballeroOscuro.jpg
-Pulp Fiction;Historias entrelazadas de criminales y personajes peculiares en Los Ángeles, llenas de giros inesperados;154;Crimen;10;PulpFiction.jpg
-La La Land;Dos soñadores, un músico de jazz y una actriz, navegan por su amor y sus aspiraciones en Los Ángeles;128;Musical;10;LaLaLand.jpg
-Coco;Un niño amante de la música viaja al mundo de los muertos para descubrir el misterio de su familia;105;Animación;9;Coco.jpg
-Shrek;Un ogro sarcástico se embarca en una misión para rescatar a una princesa que guarda un secreto;90;Comedia;8;Shrek.jpg
-Frozen;Dos hermanas deben superar malentendidos y un reino congelado para restaurar la paz y su relación;102;Fantasía;9;Frozen.jpg
-Los Vengadores: Endgame;Los héroes restantes unen fuerzas para revertir la destrucción causada por Thanos y salvar el universo;181;Acción;14;LosVengadoresEndgame.jpg
-Toy Story 4;Woody y Buzz enfrentan nuevos desafíos mientras ayudan a una nueva amiga en busca de su propósito;100;Animación;9;ToyStory4.jpg
-La Vida es Bella;Un padre judío usa su ingenio y humor para proteger a su hijo de los horrores de un campo de concentración;116;Drama;10;LaVidaEsBella.jpg
-It;Un grupo de niños enfrenta a Pennywise, un aterrador payaso que se alimenta de sus miedos;135;Terror;10;It.jpg
-Spider-Man: No Way Home;Peter Parker enfrenta las consecuencias del multiverso desatado, mientras busca redención y respuestas;148;Acción;13;SpiderManNoWayHome.jpg
+El Padrino;La vida de una poderosa familia de la mafia italiana, liderada por Don Vito Corleone, y los desafíos que enfrentan al proteger su legado;175;Drama;ElPadrino.jpg;4.9;Paramount Pictures;true;6000000;246120974
+El Señor de los Anillos: El Retorno del Rey;La épica batalla final por la Tierra Media, mientras Frodo y Sam llevan el anillo único al Monte del Destino;201;Aventura/Fantasía;ElRetornoDelRey.jpg;4.8;New Line Cinema;true;94000000;1146030912
+Inception;Un ladrón que roba secretos a través de los sueños debe completar una misión peligrosa para recuperar su vida;148;Ciencia ficción;Inception.jpg;4.8;Warner Bros.;true;160000000;836800000
+Titanic;La historia de amor entre un artista pobre y una joven rica que se desarrolla en el trágico viaje del Titanic;195;Romance;Titanic.jpg;4.7;Paramount Pictures;true;200000000;2187000000
+Forrest Gump;La vida de un hombre con un corazón puro que presencia eventos históricos mientras busca a su amor de la infancia, Jenny;142;Drama/Romance;ForrestGump.jpg;4.7;Paramount Pictures;true;55000000;678200000
+Gladiator;Un general romano traicionado busca venganza como gladiador contra el emperador que lo condenó;155;Acción/Drama;Gladiator.jpg;4.5;DreamWorks Pictures;true;103000000;460583960
+Avatar;Un humano es enviado a un mundo alienígena y debe decidir entre proteger a su especie o al pueblo nativo;162;Fantasía;Avatar.jpg;4.7;20th Century Fox;true;237000000;2925000000
+Interstellar;Un equipo de exploradores espaciales busca un nuevo hogar para la humanidad mientras enfrentan dilemas personales;169;Ciencia ficción;Interstellar.jpg;4.6;Paramount Pictures;true;165000000;773900000
+Joker;La transformación de un hombre marginado en el infame villano Joker, tras vivir en una sociedad que lo ignora;122;Drama;Joker.jpg;4.5;Warner Bros.;true;55000000;1074000000
+El Caballero Oscuro;Batman lucha contra el caos desatado por el Joker mientras protege Gotham de su destrucción;152;Acción;ElCaballeroOscuro.jpg;4.9;Warner Bros.;true;185000000;1005000000
+Pulp Fiction;Historias entrelazadas de criminales y personajes peculiares en Los Ángeles, llenas de giros inesperados;154;Crimen;PulpFiction.jpg;4.8;Miramax Films;true;8000000;213900000
+La La Land;Dos soñadores, un músico de jazz y una actriz, navegan por su amor y sus aspiraciones en Los Ángeles;128;Musical;LaLaLand.jpg;4.6;Summit Entertainment;true;30000000;447400000
+Coco;Un niño amante de la música viaja al mundo de los muertos para descubrir el misterio de su familia;105;Animación;Coco.jpg;4.7;Pixar Animation Studios;true;175000000;807100000
+Shrek;Un ogro sarcástico se embarca en una misión para rescatar a una princesa que guarda un secreto;90;Comedia;Shrek.jpg;4.6;DreamWorks Animation;true;60000000;487900000
+Frozen;Dos hermanas deben superar malentendidos y un reino congelado para restaurar la paz y su relación;102;Fantasía;Frozen.jpg;4.5;Walt Disney Animation Studios;true;150000000;1300000000
+Los Vengadores: Endgame;Los héroes restantes unen fuerzas para revertir la destrucción causada por Thanos y salvar el universo;181;Acción;LosVengadoresEndgame.jpg;4.7;Marvel Studios;true;356000000;2797800000
+Toy Story 4;Woody y Buzz enfrentan nuevos desafíos mientras ayudan a una nueva amiga en busca de su propósito;100;Animación;ToyStory4.jpg;4.7;Pixar Animation Studios;true;200000000;1073000000
+La Vida es Bella;Un padre judío usa su ingenio y humor para proteger a su hijo de los horrores de un campo de concentración;116;Drama;LaVidaEsBella.jpg;4.9;Cecchi Gori Pictures;true;20000000;230000000
+It;Un grupo de niños enfrenta a Pennywise, un aterrador payaso que se alimenta de sus miedos;135;Terror;It.jpg;4.3;New Line Cinema;true;35000000;701800000
+Spider-Man: No Way Home;Peter Parker enfrenta las consecuencias del multiverso desatado, mientras busca redención y respuestas;148;Acción;SpiderManNoWayHome.jpg;4.6;Marvel Studios;true;200000000;1966000000

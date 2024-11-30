@@ -14,15 +14,16 @@ public class Pelicula {
     public ArrayList<Opinion> opiniones;
     private String productora;
     private Boolean rentabilidad;
-    private String presupuesto;
-    private String taquilla;
+    private Double presupuesto;
+    private Double taquilla;
     private String descripcion;
     private double precio;
+    private String imagen2;
 
     
 
     public Pelicula(String titulo, String duracion, String genero, double valoracion, ImageIcon imagen,
-			 String productora, Boolean rentabilidad, String presupuesto,String taquilla) {
+			 String productora, Boolean rentabilidad, Double presupuesto,Double taquilla) {
 		super();
 		this.titulo = titulo;
 		this.duracion = duracion;
@@ -51,12 +52,14 @@ public class Pelicula {
         this.precio = precio;
         this.imagen = imagen;
     }
-    public Pelicula(String titulo, String duracion, String genero, double valoracion,
-			 String productora, Boolean rentabilidad, String presupuesto,String taquilla) {
+    public Pelicula(String titulo, String descripcion,String duracion, String genero,String imagen2, double valoracion,
+			 String productora, Boolean rentabilidad, Double presupuesto,Double taquilla) {
 		super();
 		this.titulo = titulo;
+		this.descripcion=descripcion;
 		this.duracion = duracion;
 		this.genero = genero;
+		this.imagen2= imagen2;
 		this.valoracion = valoracion;
 		this.productora = productora;
 		this.rentabilidad = rentabilidad;
@@ -65,11 +68,22 @@ public class Pelicula {
     }
     // Getters para obtener la información de la película
     
+    
+    
+    
     public String getDescripcion() {
 		return descripcion;
 	}
 
 
+
+	public String getImagen2() {
+		return imagen2;
+	}
+
+	public void setImagen2(String imagen2) {
+		this.imagen2 = imagen2;
+	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
@@ -131,22 +145,22 @@ public class Pelicula {
 	}
 
 
-	public String getPresupuesto() {
+	public Double getPresupuesto() {
 		return presupuesto;
 	}
 
 
-	public void setPresupuesto(String presupuesto) {
+	public void setPresupuesto(Double presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 
 
-	public String getTaquilla() {
+	public Double getTaquilla() {
 		return taquilla;
 	}
 
 
-	public void setTaquilla(String taquilla) {
+	public void setTaquilla(Double taquilla) {
 		this.taquilla = taquilla;
 	}
 
