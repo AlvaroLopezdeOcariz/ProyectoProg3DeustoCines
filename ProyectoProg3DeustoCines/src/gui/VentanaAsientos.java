@@ -3,6 +3,9 @@ package gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import main.Deustocines;
+
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Map;
@@ -86,11 +89,17 @@ public class VentanaAsientos extends JDialog {
         JButton btnCancelar = new JButton("Cancelar Compra");
 
         btnConfirmar.addActionListener(e -> {
-        	if (asientosSeleccionados.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No has seleccionado ningun asiento. Por favor, seleccione uno.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            if (asientosSeleccionados.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No has seleccionado ningún asiento. Por favor, seleccione uno.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return;
-        	}
-            JOptionPane.showMessageDialog(this, "Compra confirmada.\nAsientos: " + asientosSeleccionados + "\nTotal asientos: €" + precioTotal);
+            }
+
+            // Agregar los asientos seleccionados al carrito
+            for (String asiento : asientosSeleccionados) {
+                Deustocines.carrito.agregarAsiento(asiento);
+            }
+
+            JOptionPane.showMessageDialog(this, "Asiento seleccionado.\nAsientos: " + asientosSeleccionados + "\nTotal asientos: €" + precioTotal);
 
             int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea comprar comida?", "Comprar comida", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.YES_OPTION) {
@@ -137,6 +146,7 @@ public class VentanaAsientos extends JDialog {
         new Thread(() -> {
             while (tiempoRestante > 0 && tiempoCorriendo) { // Agregar la condición de tiempoCorriendo
                 try {
+                	System.out.println("Hilo funcionando");
                     Thread.sleep(1000); // Dormimos 1 segundo
                     tiempoRestante--; // Reducimos 1 segundo del tiempo restante
                     SwingUtilities.invokeLater(() -> { // Actualizamos la interfaz en el hilo
@@ -149,6 +159,7 @@ public class VentanaAsientos extends JDialog {
                 }
             }
             if (tiempoRestante == 0) {
+            	System.out.println("Hilo terminado");
                 JOptionPane.showMessageDialog(VentanaAsientos.this, "Tiempo agotado. Selección cancelada.");
                 dispose(); // Se cierra la ventana si se acaba el tiempo
             }
