@@ -92,6 +92,7 @@ public class VentanaPrincipal extends JFrame {
         populares = new JLabel("Populares Ahora Mismo: ");
         populares.setForeground(Color.WHITE);
         populares.setFont(new Font("Verdana", Font.BOLD, 20));
+        
         titulosPeliculas.add(populares);
 
         // Agregar el panel principal a la ventana

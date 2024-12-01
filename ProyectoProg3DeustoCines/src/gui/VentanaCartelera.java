@@ -29,7 +29,9 @@ public class VentanaCartelera extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Panel superior con buscador y botón Volver
+        // Panel superior con buscador y botón Volver 
+       
+        
         panelSuperior = new JPanel(new BorderLayout());
         panelSuperior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panelSuperior.setBackground(new Color(230, 240, 255));
@@ -183,7 +185,8 @@ public class VentanaCartelera extends JFrame {
         panelInformacion.add(new JLabel("Descripción: " + pelicula.getDescripcion()));
         panelInformacion.add(new JLabel("Duración: " + pelicula.getDuracion()));
         panelInformacion.add(new JLabel("Género: " + pelicula.getGenero()));
-        panelInformacion.add(new JLabel("Precio: " + pelicula.getPrecio() + "€"));
+        panelInformacion.add(new JLabel("Valoración:" + pelicula.getValoracion()));
+        //panelInformacion.add(new JLabel("Precio: " + pelicula.getPrecio() + "€"));
 
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(e -> dialogoPelicula.dispose());
