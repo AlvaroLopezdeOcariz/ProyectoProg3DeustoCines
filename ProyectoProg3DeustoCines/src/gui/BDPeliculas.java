@@ -9,13 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class BDPeliculas {
 	
 	private static final String DB_URL = "jdbc:sqlite:Peliculas.db";
 
-	    // Método para inicializar la conexión y crear la tabla si no existe
+	    // Método para inicializar la conexión y crear las tablas si no existe
 	    public void InicializarBD() {
 	        String sqlCreateTable = "CREATE TABLE IF NOT EXISTS Peliculas ("
 	                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -66,14 +69,8 @@ public class BDPeliculas {
 	    
 	    
 	    public void insertarPeliculas() {
-	        // Consulta SQL para insertar una película
-	    /*	if(!estaVacia()) {
-	    		return;//no se insertan peliculas
-	    	}
-	    	
-	    	  */
-	    	
-	    	
+	   
+	    		//Cargar las  Peliculas
 	    		 File f = new File("src/peliculas.txt");
 	            ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
 	            if (!f.exists()) {
@@ -108,13 +105,12 @@ public class BDPeliculas {
 	            catch (FileNotFoundException e) {
 	                e.printStackTrace();
 	            }
-
+	            //Contar cuantas veces esta la pelicula en la tabla peliculas
 	            String comprobacion = "SELECT COUNT(*) FROM peliculas WHERE titulo=?";
 	            
 	        
 
-	    	   String sql = "INSERT INTO Peliculas (titulo, duracion, genero, descripcion,imagen, valoracion, productora, rentabilidad, presupuesto, taquilla)  "
-	                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    	
 	    	
 	    	   
 	    	   for (Pelicula pelicula : listaPeliculas) {
@@ -132,7 +128,7 @@ public class BDPeliculas {
 	                int count = rs.getInt(1);
 	                
 	                
-	                
+	                //Si la pelicula no esta se añade y si esta no se hace nada
 	                if(count==0) {
 	                
 	             
@@ -157,32 +153,8 @@ public class BDPeliculas {
 	    }
 	    
 	    
-	/*    
-	    private boolean estaVacia() {
-			
-	    	String i= "SELECT COUNT(*) AS total FROM Peliculas";
-	    	
-	    	try (Connection conexion = DriverManager.getConnection(DB_URL);
-	                Statement stmt = conexion.createStatement();
-	                ResultSet rs = stmt.executeQuery(i)){
-	    		
-	    		if(rs.next()) {
-	    			int total= rs.getInt("total");
-	    			return total==0;
-	    		}
-	    	}
-	    	catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	        return true; 
-	    	
-	    	
-	    	
-	    	
-	    }
-	    */
-	    
-	    
+	
+	    //Metodo para seleccionar las peliculas de la base de datos y meterlas en una lista
 	    public static  ArrayList<Pelicula> obtenerPeliculas() {
 	    	ArrayList<Pelicula> lsPeliculas= new ArrayList<>();
 	    	String sql = "SELECT * FROM Peliculas";
@@ -206,9 +178,78 @@ public class BDPeliculas {
 	    	
 	    }
 	    
-	  
-      
-	
+	  //Metodo para insertar Opiniones en la bd
+      public void insertarOpiniones() {
+    	   HashMap<String, HashMap<String, List<String>>> mapaOpiniones = new HashMap<>();
+           File f = new File("src/Opiniones.txt");
 
+           if (!f.exists()) {
+               System.err.println("El archivo Opiniones.txt no existe.");
+              
+           }
+
+           try {
+               Scanner sc = new Scanner(f);
+               while (sc.hasNext()) {
+                   String linea = sc.nextLine();
+                   String[] datos = linea.split(";");
+                   
+                   if (datos.length == 3) {
+                       String usuario = datos[0];
+                       String pelicula = datos[1];
+                       List<String> opiniones = new ArrayList<>(Arrays.asList(datos[2].split(",")));
+
+                       //mapaOpiniones.putIfAbsent(pelicula, new HashMap<>());
+                       if(!mapaOpiniones.containsKey(pelicula)) {
+                       	mapaOpiniones.put(pelicula,new HashMap<>());
+                       }
+                       
+                       mapaOpiniones.get(pelicula).put(usuario, opiniones);
+                   }
+               }
+               sc.close();
+           } catch (FileNotFoundException e) {
+               e.printStackTrace();
+           }
+           
+           //Se Comprueba si la opinion esta en la base de datos o no
+           
+           String comprobacion= "SELECT COUNT(*) FROM Opiniones WHERE texto=?";
+           
+           //Dentro del mapa se busca la opinion de un usuario sobre una pelicula y se comprueba si esta en la bd
+           for(String peli: mapaOpiniones.keySet()) {
+        	   try (Connection conexion = DriverManager.getConnection(DB_URL);
+    	    		   PreparedStatement pstmt = conexion.prepareStatement(comprobacion))
+    	        	
+    	        {
+        		   for(String user: mapaOpiniones.get(peli).keySet() ) {
+        			   for(String opi: mapaOpiniones.get(peli).get(user)) {
+        				   pstmt.setString(1, opi);
+        				   
+        				   ResultSet rs = pstmt.executeQuery();
+       	                rs.next();
+       	                int count = rs.getInt(1);
+       	                
+       	                //Si no esta se inserta y si esta se pasa a la siguiente
+       	                if(count==0) {
+       	                	String insertarOpi= "INSERT INTO Opiniones (autor,texto) VALUES(?,?)" ;
+       	                	PreparedStatement insertarPstm= conexion.prepareStatement(insertarOpi);
+       	                	
+       	                	insertarPstm.setString(1, user);
+       	                	insertarPstm.setString(2, opi);
+       	                	System.out.println("Opinion insertada exitosamente.");
+    	                	
+       	                }
+        				   
+        			   }
+        		   }
+    	        }  catch (SQLException e) {
+    	            e.printStackTrace();
+    	        }
+           }
+           
+           
+       }
+	
 
 }

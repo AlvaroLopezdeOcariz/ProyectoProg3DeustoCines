@@ -90,6 +90,7 @@ public class Deustocines {
         return false;
     }
     //METODO PARA CARGAR LAS OPINIONES DE OPINIONES.TXT 
+    
     public HashMap<String, HashMap<String, List<String>>> cargarOpiniones() {
         HashMap<String, HashMap<String, List<String>>> mapaOpiniones = new HashMap<>();
         File f = new File("src/Opiniones.txt");
@@ -110,7 +111,11 @@ public class Deustocines {
                     String pelicula = datos[1];
                     List<String> opiniones = new ArrayList<>(Arrays.asList(datos[2].split(",")));
 
-                    mapaOpiniones.putIfAbsent(pelicula, new HashMap<>());
+                    //mapaOpiniones.putIfAbsent(pelicula, new HashMap<>());
+                    if(mapaOpiniones.containsKey(pelicula)) {
+                    	mapaOpiniones.put(pelicula,new HashMap<>());
+                    }
+                    
                     mapaOpiniones.get(pelicula).put(usuario, opiniones);
                 }
             }
@@ -191,6 +196,8 @@ public class Deustocines {
     	BDPeliculas baseDatos= new BDPeliculas();
    	 	baseDatos.InicializarBD();
    	 	baseDatos.insertarPeliculas();
+   	 	baseDatos.insertarOpiniones();
+   	 
    	 	SwingUtilities.invokeLater(() -> new VentanaPrincipal().setVisible(true));
     	
     	

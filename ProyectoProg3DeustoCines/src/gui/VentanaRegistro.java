@@ -7,7 +7,7 @@ import javax.swing.*;
 public class VentanaRegistro extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private JFrame vActual, vAnterior;
+    private JFrame vActual;
     private JPanel panelSuperior, panelPrincipal, panelInferior;
     private JButton botonVolver, botonRegistrarse;
     private JLabel lblRegistro;
@@ -15,8 +15,6 @@ public class VentanaRegistro extends JFrame {
 
     public VentanaRegistro(JFrame vAnterior) {
         vActual = this;
-        this.vAnterior = vAnterior;
-
         setTitle("REGISTRARSE");
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
