@@ -9,23 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.ImageIcon;
 
 public class BDPeliculas {
 	
-	private ArrayList<Pelicula> peliculas;
-
-	 private static final String DB_URL = "jdbc:sqlite:Peliculas.db";
+	private static final String DB_URL = "jdbc:sqlite:Peliculas.db";
 
 	    // Método para inicializar la conexión y crear la tabla si no existe
 	    public void InicializarBD() {
 	        String sqlCreateTable = "CREATE TABLE IF NOT EXISTS Peliculas ("
 	                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-	                + "titulo TEXT NOT NULL,"
-	                
+	                + "titulo TEXT NOT NULL,"         
 	                + "duracion TEXT,"
 	                + "genero TEXT,"
 	                + "descripcion TEXT,"
@@ -78,7 +72,7 @@ public class BDPeliculas {
 	                        String descripcion = datos[1];
 	                        String duracion = datos[2];
 	                        String genero = datos[3];	                        
-	                        String i = ("/imagenes/" + datos[4]);
+	                        String i = ("/Imagenes/" + datos[4]);
 	                        Double valoracion= Double.parseDouble(datos[5]);
 	                        String distribuidora = datos[6];	  
 	                        Boolean rentable= Boolean.parseBoolean(datos[7]);
@@ -114,7 +108,8 @@ public class BDPeliculas {
 
 	            
 	            
-	                pstmt.setString(1, pelicula.getTitulo());           
+
+	    			   pstmt.setString(1, pelicula.getTitulo());           
 	                ResultSet rs = pstmt.executeQuery();
 	                rs.next();
 	                int count = rs.getInt(1);
@@ -136,7 +131,7 @@ public class BDPeliculas {
 	                     insertStmt.setBoolean(8, pelicula.getRentabilidad());
 	                     insertStmt.setDouble(9, pelicula.getPresupuesto());
 	                     insertStmt.setDouble(10, pelicula.getTaquilla());
-	                     insertStmt.executeUpdate();  // Inserta la nueva película
+	                     insertStmt.executeUpdate();  
 	                     System.out.println("Película insertada exitosamente.");
 	                	
 	                }   }    catch (SQLException e) {
@@ -180,7 +175,7 @@ public class BDPeliculas {
 	    		
 	    		
 	    		while(rs.next()) {
-	    			Pelicula peli = new Pelicula(rs.getString("titulo"),rs.getString("duracion"),rs.getString("genero"),rs.getDouble("valoracion"),null, rs.getString("productora"), rs.getBoolean("rentabilidad"), rs.getDouble("presupuesto"), rs.getDouble("taquilla") );
+	    			Pelicula peli = new Pelicula(rs.getString("titulo"),rs.getString("descripcion"),rs.getString("duracion"),rs.getString("genero"),rs.getString("imagen"),rs.getDouble("valoracion"), rs.getString("productora"), rs.getBoolean("rentabilidad"), rs.getDouble("presupuesto"), rs.getDouble("taquilla") );
 	    			lsPeliculas.add(peli);
 	    		}
 	    		

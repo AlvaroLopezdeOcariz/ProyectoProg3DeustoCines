@@ -11,7 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaCartelera extends JFrame {
-    private JFrame vActual, vAnterior;
+    private static final long serialVersionUID = 1L;
+	private JFrame vActual, vAnterior;
     private ArrayList<Pelicula> peliculas;
     private JPanel panelCartelera, panelSuperior;
     private JButton botonVolver;
@@ -88,8 +89,8 @@ public class VentanaCartelera extends JFrame {
         });
 
         // Cargar y mostrar todas las películas
-        peliculas = cargarPeliculas();
-        mostrarPeliculas(peliculas);
+        ArrayList<Pelicula> lsPelicula= listaImagenPeli();
+        mostrarPeliculas(lsPelicula);
 
         setVisible(true);
     }
@@ -120,7 +121,7 @@ public class VentanaCartelera extends JFrame {
         }
         return filtradas;
     }
-
+/*
     private ArrayList<Pelicula> cargarPeliculas() {
         ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
         File archivo = new File("src/peliculas.txt");
@@ -145,6 +146,22 @@ public class VentanaCartelera extends JFrame {
             e.printStackTrace();
         }
         return listaPeliculas;
+    }
+    */
+   
+    
+    private ArrayList<Pelicula> listaImagenPeli(){
+    	 ArrayList<Pelicula> listaPeliculas = BDPeliculas.obtenerPeliculas();
+		ArrayList<Pelicula> lsPeliculaImagen= new ArrayList<Pelicula>();
+		for(Pelicula peli: listaPeliculas) {
+			ImageIcon imagen =  new ImageIcon(getClass().getResource(peli.getImagen2()));
+			lsPeliculaImagen.add(new Pelicula(peli.getTitulo(), peli.getDescripcion(), peli.getDuracion(), peli.getGenero(), imagen, peli.getValoracion(), peli.getProductora(), peli.getRentabilidad(), peli.getPresupuesto(),peli.getTaquilla()));
+    	
+			
+    	
+		}
+    	return lsPeliculaImagen;
+    	
     }
 
     private void mostrarInformacionPelicula(Pelicula pelicula) {

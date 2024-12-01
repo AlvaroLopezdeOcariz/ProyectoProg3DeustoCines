@@ -1,5 +1,5 @@
 El Padrino;La vida de una poderosa familia de la mafia italiana, liderada por Don Vito Corleone, y los desafíos que enfrentan al proteger su legado;175;Drama;ElPadrino.jpg;4.9;Paramount Pictures;true;6000000;246120974
-El Señor de los Anillos: El Retorno del Rey;La épica batalla final por la Tierra Media, mientras Frodo y Sam llevan el anillo único al Monte del Destino;201;Aventura/Fantasía;ElRetornoDelRey.jpg;4.8;New Line Cinema;true;94000000;1146030912
+El Señor de los Anillos: El Retorno del Rey;La épica batalla final por la Tierra Media, mientras Frodo y Sam llevan el anillo único al Monte del Destino;201;Aventura/Fantasía;ElSeñorDeLosAnillos.jpg;4.8;New Line Cinema;true;94000000;1146030912
 Inception;Un ladrón que roba secretos a través de los sueños debe completar una misión peligrosa para recuperar su vida;148;Ciencia ficción;Inception.jpg;4.8;Warner Bros.;true;160000000;836800000
 Titanic;La historia de amor entre un artista pobre y una joven rica que se desarrolla en el trágico viaje del Titanic;195;Romance;Titanic.jpg;4.7;Paramount Pictures;true;200000000;2187000000
 Forrest Gump;La vida de un hombre con un corazón puro que presencia eventos históricos mientras busca a su amor de la infancia, Jenny;142;Drama/Romance;ForrestGump.jpg;4.7;Paramount Pictures;true;55000000;678200000
