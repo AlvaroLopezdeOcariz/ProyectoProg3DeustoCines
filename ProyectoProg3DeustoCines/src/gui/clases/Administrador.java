@@ -1,4 +1,4 @@
-package gui;
+package gui.clases;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

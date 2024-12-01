@@ -1,11 +1,13 @@
-package gui;
+package gui.ventanas;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import bd.BDPeliculas;
+import gui.clases.Pelicula;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

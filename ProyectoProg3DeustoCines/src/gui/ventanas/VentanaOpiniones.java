@@ -1,4 +1,4 @@
-package gui;
+package gui.ventanas;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import javax.swing.*;
 
+import gui.clases.Pelicula;
+import gui.clases.Usuario;
 import main.Deustocines;
 
 public class VentanaOpiniones extends JFrame {

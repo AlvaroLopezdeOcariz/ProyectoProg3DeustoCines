@@ -1,4 +1,4 @@
-package gui;
+package gui.clases;
 
 public class Usuario {
 private String nombre;

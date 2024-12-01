@@ -1,4 +1,4 @@
-package gui;
+package gui.ventanas;
 
 import java.awt.*;
 import java.awt.event.*;

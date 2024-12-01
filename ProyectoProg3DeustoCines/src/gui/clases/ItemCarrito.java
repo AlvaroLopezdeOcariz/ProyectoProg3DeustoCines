@@ -1,4 +1,4 @@
-package gui;
+package gui.clases;
 
 public class ItemCarrito {
 	private String descripcion;

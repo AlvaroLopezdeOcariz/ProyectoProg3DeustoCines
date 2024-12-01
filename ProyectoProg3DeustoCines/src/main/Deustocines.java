@@ -7,17 +7,15 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
-import gui.BDPeliculas;
-import gui.Carrito;
-import gui.Pelicula;
-import gui.Usuario;
-import gui.VentanaPrincipal;
+import bd.BDPeliculas;
+import gui.clases.Carrito;
+import gui.clases.Usuario;
+import gui.ventanas.VentanaPrincipal;
 
 public class Deustocines {
 	public static Carrito carrito = new Carrito();

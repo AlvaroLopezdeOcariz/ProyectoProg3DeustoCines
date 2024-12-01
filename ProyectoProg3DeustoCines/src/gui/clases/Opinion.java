@@ -1,4 +1,4 @@
-package gui;
+package gui.clases;
 
 public class Opinion {
 	private String autor;

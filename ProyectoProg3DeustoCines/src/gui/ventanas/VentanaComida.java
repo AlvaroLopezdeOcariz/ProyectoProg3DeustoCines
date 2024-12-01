@@ -1,8 +1,9 @@
-package gui;
+package gui.ventanas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import gui.clases.ItemCarrito;
 import main.Deustocines;
 
 import java.awt.*;

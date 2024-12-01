@@ -1,4 +1,4 @@
-package gui;
+package gui.clases;
 
 import java.util.ArrayList;
 import java.util.HashSet;

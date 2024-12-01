@@ -1,4 +1,4 @@
-package gui;
+package gui.ventanas;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

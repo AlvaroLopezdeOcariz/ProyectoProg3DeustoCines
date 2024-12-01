@@ -1,8 +1,11 @@
-package gui;
+package gui.ventanas;
 
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import bd.BDPeliculas;
+import gui.clases.Pelicula;
 
 public class VentanaPrincipal extends JFrame {
     private static final long serialVersionUID = 1L;
