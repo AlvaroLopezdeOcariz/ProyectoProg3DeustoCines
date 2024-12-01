@@ -185,7 +185,7 @@ public class VentanaCartelera extends JFrame {
         panelInformacion.add(new JLabel("Descripción: " + pelicula.getDescripcion()));
         panelInformacion.add(new JLabel("Duración: " + pelicula.getDuracion()));
         panelInformacion.add(new JLabel("Género: " + pelicula.getGenero()));
-        panelInformacion.add(new JLabel("Valoración:" + pelicula.getValoracion()));
+        panelInformacion.add(new JLabel("Valoración:" + pelicula.getValoracion() + "/5"));
         //panelInformacion.add(new JLabel("Precio: " + pelicula.getPrecio() + "€"));
 
         JButton btnCerrar = new JButton("Cerrar");
