@@ -5,13 +5,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
 import gui.BDPeliculas;
 import gui.Carrito;
+import gui.Pelicula;
 import gui.Usuario;
 import gui.VentanaPrincipal;
 
@@ -85,7 +89,104 @@ public class Deustocines {
         }
         return false;
     }
-    
+    //METODO DONDE CARGO LAS OPINIONES DE OPINIONES.TXT 
+    public HashMap<String, HashMap<String, List<String>>> cargarOpiniones() {
+        HashMap<String, HashMap<String, List<String>>> mapaOpiniones = new HashMap<>();
+        File f = new File("src/Opiniones.txt");
+
+        if (!f.exists()) {
+            System.err.println("El archivo Opiniones.txt no existe.");
+            return mapaOpiniones;
+        }
+
+        try {
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                String linea = sc.nextLine();
+                String[] datos = linea.split(";");
+                
+                if (datos.length == 3) {
+                    String usuario = datos[0];
+                    String pelicula = datos[1];
+                    List<String> opiniones = new ArrayList<>(Arrays.asList(datos[2].split(",")));
+
+                    mapaOpiniones.putIfAbsent(pelicula, new HashMap<>());
+                    mapaOpiniones.get(pelicula).put(usuario, opiniones);
+                }
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        
+        return mapaOpiniones;
+    }
+
+    HashMap<String, HashMap<String,List<String>>> mapaOpiniones = cargarOpiniones();
+    //MAPA QUE DE UNA PELICULA TE DA CLAVE:USUARIO VALOR:OPINIONES DE ESA PELICULA
+    public HashMap<String,List<String>> opinionesPeliculas(String peli) {
+    	HashMap<String,List<String>> mapaUsuariosOpiniones = new HashMap<String, List<String>>();
+    	for(String p:mapaOpiniones.keySet()){
+    		if(p.equals(peli)) {
+    			for(String usuario:mapaOpiniones.get(p).keySet()) {
+    				List<String> opiniones = mapaOpiniones.get(p).get(usuario);
+    				mapaUsuariosOpiniones.put(usuario, opiniones);
+    			}
+    			
+    			//mapaUsuariosOpiniones.put(mapaOpiniones.get(p).keySet().toString(), mapaOpiniones.get(p).values());
+    		}
+    	}
+    	System.out.print(mapaUsuariosOpiniones);
+		return mapaUsuariosOpiniones;
+    }
+    //GUARDA EN OPINIONES.TXT UNA NUEVA OPINIION
+    public void guardarOpinionEnArchivo(String usuario, String pelicula, String opinion) {
+        File f = new File("src/Opiniones.txt");
+        try {
+            HashMap<String, List<String>> opinionesPelicula;
+            if (mapaOpiniones.containsKey(pelicula)) {
+                opinionesPelicula = mapaOpiniones.get(pelicula);
+            } else {
+                opinionesPelicula = new HashMap<>();
+                mapaOpiniones.put(pelicula, opinionesPelicula);
+            }
+
+        
+            if (opinionesPelicula.containsKey(usuario)) {
+                List<String> opiniones = opinionesPelicula.get(usuario);
+                if (!opiniones.contains(opinion)) {
+                    opiniones.add(opinion); 
+                }
+            } else {
+                List<String> opiniones = new ArrayList<>();
+                opiniones.add(opinion);
+                opinionesPelicula.put(usuario, opiniones);
+            }
+
+            // Reescribe todo el archivo con el contenido actualizado
+            FileWriter fw = new FileWriter(f, false); // Sobrescribe el archivo
+            PrintWriter pw = new PrintWriter(fw);
+
+            for (String peli : mapaOpiniones.keySet()) {
+                HashMap<String, List<String>> usuariosOpiniones = mapaOpiniones.get(peli);
+                for (String user : usuariosOpiniones.keySet()) {
+                    List<String> opiniones = usuariosOpiniones.get(user);
+                    String linea = user + ";" + peli + ";" + String.join(",", opiniones);
+                    pw.println(linea);
+                }
+            }
+
+            pw.flush();
+            pw.close();
+        } catch (IOException e) {
+            System.err.println("Error al guardar la opinión en el archivo.");
+            e.printStackTrace();
+        }
+    }
+
+
+
     public static void main(String[] args) {
     	BDPeliculas baseDatos= new BDPeliculas();
    	 	baseDatos.InicializarBD();

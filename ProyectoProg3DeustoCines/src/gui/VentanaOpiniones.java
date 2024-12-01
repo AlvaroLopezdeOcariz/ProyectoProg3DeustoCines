@@ -3,8 +3,11 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.*;
+
+import main.Deustocines;
 
 public class VentanaOpiniones extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -16,6 +19,7 @@ public class VentanaOpiniones extends JFrame {
     private JTextArea areaOpiniones;
     private int contadorOpiniones = 0;
     private Pelicula pelicula;
+    private Deustocines deustocines;
 
     public VentanaOpiniones(JFrame vAnterior, Pelicula pelicula) {
         vActual = this;
@@ -26,6 +30,7 @@ public class VentanaOpiniones extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
 
         // Panel superior
         panelSuperior = new JPanel(new BorderLayout());
@@ -81,6 +86,8 @@ public class VentanaOpiniones extends JFrame {
                         areaOpiniones.append(Usuario.getUsuarioActual().getNomUsuario() + ": " + nuevaOpinion + "\n");
                         contadorOpiniones++;
                         lblContadorOpiniones.setText("Opiniones totales: " + contadorOpiniones);
+                        
+                        new Deustocines().guardarOpinionEnArchivo(Usuario.getUsuarioActual().getNomUsuario(), pelicula.getTitulo(), nuevaOpinion);
                     }
                 } else {
                     int option = JOptionPane.showConfirmDialog(VentanaOpiniones.this,
@@ -102,9 +109,25 @@ public class VentanaOpiniones extends JFrame {
         add(panelSuperior, BorderLayout.NORTH);
         add(panelOpiniones, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+        deustocines = new Deustocines();
+        HashMap<String, java.util.List<String>> opiniones = deustocines.opinionesPeliculas(pelicula.getTitulo());
 
-        // Mostrar un mensaje inicial en el área de opiniones si está vacía
-        areaOpiniones.setText("No hay opiniones todavía. ¡Sé el primero en opinar!\n");
+        // Si no hay opiniones, mostramos un mensaje indicativo
+        if (opiniones.isEmpty()) {
+            areaOpiniones.setText("No hay opiniones todavía. ¡Sé el primero en opinar!\n");
+        } else {
+            // Limpia el área de texto antes de añadir las opiniones
+            areaOpiniones.setText("");
+            // Añadir las opiniones directamente al JTextArea
+            for (String usuario : opiniones.keySet()) {
+                java.util.List<String> listaOpiniones = opiniones.get(usuario);
+                for (String opinion : listaOpiniones) {
+                    areaOpiniones.append(usuario + ": " + opinion + "\n");
+                }
+            }
+        }
+
+       
         
         setVisible(true);
     }
