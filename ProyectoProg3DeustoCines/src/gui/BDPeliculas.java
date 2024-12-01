@@ -31,9 +31,26 @@ public class BDPeliculas {
 	                + "taquilla REAL"
 	                + ");";
 
+	        String sqlCreateTableOpinion= "CREATE TABLE IF NOT EXISTS Opiniones("
+	        		+"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+	        		+"autor TEXT NOT NULL,"
+	        		+"texto TEXT"
+	        		+");";
+	        
+	        
+	        String sqlCreateTableUsuarios="CREATE TABLE IF NOT EXISTS Usuarios("
+	        		+"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+	        		+"nombre TEXT NOT NULL,"
+	        		+"nomUsuario TEXT,"
+	        		+"contrasenia TEXT"
+	        		+");";
+	        
+
 	        try (Connection conexion = DriverManager.getConnection(DB_URL);
 	             Statement consulta = conexion.createStatement()) {
 	            consulta.execute(sqlCreateTable);
+	            consulta.execute(sqlCreateTableOpinion);
+	            consulta.execute(sqlCreateTableUsuarios);
 	            
 	            
 	            
@@ -42,7 +59,7 @@ public class BDPeliculas {
 	            e.printStackTrace();
 	        }
 	    }
-	    
+
 	    
 
 	    
