@@ -1,8 +1,6 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -24,7 +22,7 @@ public class VentanaPrincipal extends JFrame {
 
         // Panel principal con fondo azul
         mainPanel = new JPanel();
-        mainPanel.setBackground(new Color(30, 30, 70)); // Azul oscuro
+        mainPanel.setBackground(new Color(30, 144, 255)); // Azul claro
         mainPanel.setLayout(new BorderLayout());
 
         // Panel del menú superior
@@ -43,6 +41,7 @@ public class VentanaPrincipal extends JFrame {
             JButton boton = new JButton(item);
             boton.setFont(new Font("Verdana", Font.BOLD, 11));
             boton.setBackground(new Color(0, 128, 255)); 
+            boton.setForeground(Color.WHITE);
             boton.setFocusPainted(false);
             boton.setOpaque(true);
             botonPanel.add(boton);
@@ -67,29 +66,47 @@ public class VentanaPrincipal extends JFrame {
 
         // Etiqueta "DEUSTOCINES"
         deustoCinesLabel = new JLabel("DeustoCines");
-        deustoCinesLabel.setForeground(new Color(70, 130, 180)); 
+        deustoCinesLabel.setForeground(new Color(30, 144, 255)); 
         deustoCinesLabel.setFont(new Font("Verdana", Font.BOLD, 18));
+        deustoCinesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         menuPanel.add(deustoCinesLabel, BorderLayout.WEST);
         menuPanel.add(botonPanel, BorderLayout.EAST);
         add(menuPanel, BorderLayout.NORTH);
 
-        // Panel para el título "Populares Ahora Mismo"
-        titulosPeliculas = new JPanel();
-        titulosPeliculas.setBackground(new Color(30, 30, 70)); // Mismo color que el fondo principal
-        titulosPeliculas.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 80));
-        mainPanel.add(titulosPeliculas, BorderLayout.CENTER);
+        // Panel para el título y películas
+        JPanel centroPanel = new JPanel();
+        centroPanel.setOpaque(false);
+        centroPanel.setLayout(new BorderLayout());
+
+        // Crear un panel para agrupar el título y las películas
+        JPanel tituloYPeliculasPanel = new JPanel();
+        tituloYPeliculasPanel.setOpaque(false);
+        tituloYPeliculasPanel.setLayout(new BoxLayout(tituloYPeliculasPanel, BoxLayout.Y_AXIS));
 
         // Etiqueta "Populares Ahora Mismo"
-        populares = new JLabel("Populares Ahora Mismo: ");
+        populares = new JLabel("POPULARES AHORA MISMO", SwingConstants.CENTER);
         populares.setForeground(Color.WHITE);
-        populares.setFont(new Font("Verdana", Font.BOLD, 20));
-        titulosPeliculas.add(populares);
+        populares.setFont(new Font("Verdana", Font.BOLD, 18));
+        populares.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar el título horizontalmente
+        populares.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        
+        // Agregar el título al panel
+        tituloYPeliculasPanel.add(populares);
+
+        // Panel para las películas populares
+        titulosPeliculas = new JPanel();
+        titulosPeliculas.setOpaque(false);
+        titulosPeliculas.setLayout(new GridLayout(1, 5, 20, 20)); // Una fila con 5 columnas
+        tituloYPeliculasPanel.add(titulosPeliculas);
+
+        // Agregar el panel agrupado al centro del BorderLayout
+        centroPanel.add(tituloYPeliculasPanel, BorderLayout.NORTH);
+        mainPanel.add(centroPanel, BorderLayout.CENTER);
         cargarPeliculasPopulares();
 
         // Agregar el panel principal a la ventana
         add(mainPanel);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
     
