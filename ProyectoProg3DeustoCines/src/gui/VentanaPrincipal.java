@@ -103,11 +103,97 @@ public class VentanaPrincipal extends JFrame {
         centroPanel.add(tituloYPeliculasPanel, BorderLayout.NORTH);
         mainPanel.add(centroPanel, BorderLayout.CENTER);
         cargarPeliculasPopulares();
+        cargarPeliculasDuracion();
 
         // Agregar el panel principal a la ventana
         add(mainPanel);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+    
+    private void cargarPeliculasDuracion() {
+        // Ordenar películas por duración (descendente y ascendente)
+        peliculas.sort((p1, p2) -> Integer.compare(Integer.parseInt(p2.getDuracion()), Integer.parseInt(p1.getDuracion())));
+        ArrayList<Pelicula> masLargas = new ArrayList<>();
+        for (int i = 0; i < 2 && i < peliculas.size(); i++) {
+            masLargas.add(peliculas.get(i));
+        }
+
+        peliculas.sort((p1, p2) -> Integer.compare(Integer.parseInt(p1.getDuracion()), Integer.parseInt(p2.getDuracion())));
+        ArrayList<Pelicula> masCortas = new ArrayList<>();
+        for (int i = 0; i < 2 && i < peliculas.size(); i++) {
+            masCortas.add(peliculas.get(i));
+        }
+
+        // Crear el panel inferior
+        JPanel panelInferior = new JPanel(new GridLayout(1, 2, 40, 0)); // Separación horizontal uniforme
+        panelInferior.setOpaque(false);
+        panelInferior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margen alrededor del panel
+
+        // Crear panel con título y películas de mayor duración
+        JPanel panelMayorDuracion = new JPanel();
+        panelMayorDuracion.setOpaque(false);
+        panelMayorDuracion.setLayout(new BorderLayout());
+        panelMayorDuracion.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Margen interno
+
+        JLabel tituloMayorDuracion = new JLabel("PELICULAS MAS LARGAS", SwingConstants.CENTER);
+        tituloMayorDuracion.setFont(new Font("Verdana", Font.BOLD, 18));
+        tituloMayorDuracion.setForeground(Color.WHITE);
+        panelMayorDuracion.add(tituloMayorDuracion, BorderLayout.NORTH);
+
+        JPanel peliculasLargasPanel = new JPanel(new GridLayout(1, 2, 20, 0)); // Separación entre películas
+        peliculasLargasPanel.setOpaque(false);
+        for (Pelicula pelicula : masLargas) {
+            peliculasLargasPanel.add(crearBotonPelicula(pelicula));
+        }
+        panelMayorDuracion.add(peliculasLargasPanel, BorderLayout.CENTER);
+
+        // Crear panel con título y películas de menor duración
+        JPanel panelMenorDuracion = new JPanel();
+        panelMenorDuracion.setOpaque(false);
+        panelMenorDuracion.setLayout(new BorderLayout());
+        panelMenorDuracion.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Margen interno
+
+        JLabel tituloMenorDuracion = new JLabel("PELICULAS MAS CORTAS", SwingConstants.CENTER);
+        tituloMenorDuracion.setFont(new Font("Verdana", Font.BOLD, 18));
+        tituloMenorDuracion.setForeground(Color.WHITE);
+        panelMenorDuracion.add(tituloMenorDuracion, BorderLayout.NORTH);
+
+        JPanel peliculasCortasPanel = new JPanel(new GridLayout(1, 2, 20, 0)); // Separación entre películas
+        peliculasCortasPanel.setOpaque(false);
+        for (Pelicula pelicula : masCortas) {
+            peliculasCortasPanel.add(crearBotonPelicula(pelicula));
+        }
+        panelMenorDuracion.add(peliculasCortasPanel, BorderLayout.CENTER);
+
+        // Añadir ambos paneles al panel inferior
+        panelInferior.add(panelMayorDuracion);
+        panelInferior.add(panelMenorDuracion);
+
+        // Añadir el panel inferior al mainPanel
+        mainPanel.add(panelInferior, BorderLayout.SOUTH);
+
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
+
+
+    private JButton crearBotonPelicula(Pelicula pelicula) {
+        ImageIcon imagenOriginal = new ImageIcon(getClass().getResource(pelicula.getImagen2()));
+        ImageIcon imagenRedimensionada = redimensionarImagen(imagenOriginal, 120, 150);
+
+        JButton botonPelicula = new JButton();
+        botonPelicula.setIcon(imagenRedimensionada);
+        botonPelicula.setFocusPainted(false);
+        botonPelicula.setContentAreaFilled(false);
+        botonPelicula.setBorderPainted(false);
+        botonPelicula.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonPelicula.addActionListener(e -> {
+            new VentanaCartelera(vActual).setVisible(true);
+            dispose();
+        });
+        return botonPelicula;
     }
     
     private void cargarPeliculasPopulares() {
