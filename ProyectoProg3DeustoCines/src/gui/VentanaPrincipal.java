@@ -67,7 +67,7 @@ public class VentanaPrincipal extends JFrame {
 
         // Etiqueta "DEUSTOCINES"
         deustoCinesLabel = new JLabel("DeustoCines");
-        deustoCinesLabel.setForeground(new Color(70, 130, 180)); // 
+        deustoCinesLabel.setForeground(new Color(70, 130, 180)); 
         deustoCinesLabel.setFont(new Font("Verdana", Font.BOLD, 18));
         menuPanel.add(deustoCinesLabel, BorderLayout.WEST);
         menuPanel.add(botonPanel, BorderLayout.EAST);

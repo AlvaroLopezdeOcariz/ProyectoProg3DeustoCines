@@ -22,7 +22,7 @@ public class VentanaInicioSesion extends JFrame {
         setTitle("INICIO DE SESION");
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        setLocationRelativeTo(null); 
 
         // Crear paneles
         panelSuperior = new JPanel(new BorderLayout());
@@ -129,7 +129,7 @@ public class VentanaInicioSesion extends JFrame {
             public void mouseExited(MouseEvent e) {}
         });
 
-        // Mostrar la ventana
+        
         setVisible(true);
     }
 }

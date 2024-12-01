@@ -58,7 +58,7 @@ public class VentanaAsientos extends JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int fila = tablaAsientos.getSelectedRow();
                 int columna = tablaAsientos.getSelectedColumn();
-                String asiento = String.format("%c%d", 'A' + fila, columna + 1);
+                String asiento = String.format("%c%d", 'A' + columna, fila + 1);
 
                 if (modeloTabla.getValueAt(fila, columna).equals("Ocupado")) {
                     return; // No se pueden seleccionar asientos ocupados

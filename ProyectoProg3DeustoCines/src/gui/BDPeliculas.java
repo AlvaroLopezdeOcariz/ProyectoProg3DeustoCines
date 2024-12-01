@@ -92,7 +92,7 @@ public class BDPeliculas {
 	                        String i = ("/Imagenes/" + datos[4]);
 	                        Double valoracion= Double.parseDouble(datos[5]);
 	                        String distribuidora = datos[6];	  
-	                        Boolean rentable= Boolean.parseBoolean(datos[7]);
+	                        Boolean rentable = Boolean.parseBoolean(datos[7]);
 	                        Double presupuesto = Double.parseDouble(datos[8]);
 	                        Double recaudacion=Double.parseDouble(datos[9]);
 	                        
@@ -109,7 +109,7 @@ public class BDPeliculas {
 	                e.printStackTrace();
 	            }
 
-	            String comprobacion= "SELECT COUNT(*) FROM peliculas WHERE titulo=?";
+	            String comprobacion = "SELECT COUNT(*) FROM peliculas WHERE titulo=?";
 	            
 	        
 
@@ -185,14 +185,14 @@ public class BDPeliculas {
 	    
 	    public static  ArrayList<Pelicula> obtenerPeliculas() {
 	    	ArrayList<Pelicula> lsPeliculas= new ArrayList<>();
-	    	String sql ="SELECT * FROM Peliculas";
+	    	String sql = "SELECT * FROM Peliculas";
 	    	try (Connection conexion = DriverManager.getConnection(DB_URL);
 	                Statement stmt = conexion.createStatement();
 	                ResultSet rs = stmt.executeQuery(sql)){
 	    		
 	    		
 	    		while(rs.next()) {
-	    			Pelicula peli = new Pelicula(rs.getString("titulo"),rs.getString("descripcion"),rs.getString("duracion"),rs.getString("genero"),rs.getString("imagen"),rs.getDouble("valoracion"), rs.getString("productora"), rs.getBoolean("rentabilidad"), rs.getDouble("presupuesto"), rs.getDouble("taquilla") );
+	    			Pelicula peli = new Pelicula(rs.getString("titulo"), rs.getString("descripcion"), rs.getString("duracion"), rs.getString("genero"), rs.getString("imagen"), rs.getDouble("valoracion"), rs.getString("productora"), rs.getBoolean("rentabilidad"), rs.getDouble("presupuesto"), rs.getDouble("taquilla") );
 	    			lsPeliculas.add(peli);
 	    		}
 	    		

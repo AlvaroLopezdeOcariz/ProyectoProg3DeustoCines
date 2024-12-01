@@ -39,10 +39,10 @@ public class VentanaAdministracion extends JFrame{
 		
 		
 		setSize(800,600);
-		setTitle("Tabla Administracion");
+		setTitle("Tabla Administración");
 		JPanel panel = new JPanel(new BorderLayout());
 		
-		  this.modeloDatos = new DefaultTableModel(new String[]{"Titulo", "Productora", "Presupuesto", "Recaudacion","Rentabilidad"}, 0) {
+		  this.modeloDatos = new DefaultTableModel(new String[]{"Título", "Productora", "Presupuesto", "Recaudación", "Rentabilidad"}, 0) {
 	            /**
 			 * 
 			 */
@@ -58,15 +58,15 @@ public class VentanaAdministracion extends JFrame{
 	       
 	        
 	        
-	        tabla= new JTable(modeloDatos);
+	        tabla = new JTable(modeloDatos);
 			
-			JScrollPane scrollProduct= new JScrollPane(tabla);
+			JScrollPane scrollProduct = new JScrollPane(tabla);
 			 
 			panel.add(scrollProduct, BorderLayout.CENTER); 
 			  
 			this.loadPro();
 			
-			TableCellRenderer cellRenderer= (table,value,isSelected,hasFocus,row, column) -> {
+			TableCellRenderer cellRenderer = (table, value, isSelected, hasFocus, row, column) -> {
 				  JLabel result = new JLabel(value.toString());
 				
 				  
@@ -120,7 +120,7 @@ public class VentanaAdministracion extends JFrame{
 	}
 	private void loadPro() {
 		ArrayList<Pelicula> listaPeliculas = BDPeliculas.obtenerPeliculas();
-	      /*  peliculas.add(new Pelicula("Inception", "2h 28m", "Ciencia Ficción", 4.8, new ImageIcon(getClass().getResource("/imagenes/Inception.jpg")),"Warner Bros",true,"160000000","839000000"));
+	      /*peliculas.add(new Pelicula("Inception", "2h 28m", "Ciencia Ficción", 4.8, new ImageIcon(getClass().getResource("/imagenes/Inception.jpg")),"Warner Bros",true,"160000000","839000000"));
 	        peliculas.add(new Pelicula("Titanic", "3h 15m", "Romance/Drama", 4.5, new ImageIcon(getClass().getResource("/imagenes/Titanic.jpg")),"20th Century Fox",true,"200000000","2260000000"));
 	        peliculas.add(new Pelicula("The Dark Knight", "2h 32m", "Acción/Crimen", 4.9, new ImageIcon(getClass().getResource("/imagenes/TheDarkNight.jpg")),"Warner Bros", true,"185000000","1010000000"));
 	        peliculas.add(new Pelicula("Toy Story", "1h 21m", "Animación/Familia", 4.7, new ImageIcon(getClass().getResource("/imagenes/ToyStory.jpg")),"Disney pixar",true,"30000000","394000000"));
@@ -131,7 +131,7 @@ public class VentanaAdministracion extends JFrame{
 		 this.modeloDatos.setRowCount(0);
 			//Se añaden las pelis uno a uno al modelo de datos
 			listaPeliculas.forEach(peli -> this.modeloDatos.addRow(
-					new Object[] {peli.getTitulo(),peli.getProductora(),peli.getPresupuesto(),peli.getTaquilla(),peli.getRentabilidad()} )
+					new Object[] {peli.getTitulo(), peli.getProductora(), peli.getPresupuesto(), peli.getTaquilla(), peli.getRentabilidad()} )
 			);
 		
 	}

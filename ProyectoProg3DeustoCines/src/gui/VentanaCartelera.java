@@ -30,8 +30,6 @@ public class VentanaCartelera extends JFrame {
         setLayout(new BorderLayout());
 
         // Panel superior con buscador y botón Volver 
-       
-        
         panelSuperior = new JPanel(new BorderLayout());
         panelSuperior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panelSuperior.setBackground(new Color(230, 240, 255));
@@ -91,7 +89,7 @@ public class VentanaCartelera extends JFrame {
         });
 
         // Cargar y mostrar todas las películas
-        ArrayList<Pelicula> lsPelicula= listaImagenPeli();
+        ArrayList<Pelicula> lsPelicula = listaImagenPeli();
         mostrarPeliculas(lsPelicula);
 
         setVisible(true);

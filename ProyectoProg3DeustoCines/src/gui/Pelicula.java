@@ -34,7 +34,7 @@ public class Pelicula {
 		this.productora = productora;
 		this.rentabilidad = rentabilidad;
 		this.presupuesto = presupuesto;
-		this.taquilla=taquilla;
+		this.taquilla = taquilla;
 	}
     
     public Pelicula(String titulo, String descripcion, String duracion, String genero, double precio) {
@@ -64,7 +64,7 @@ public class Pelicula {
 		this.productora = productora;
 		this.rentabilidad = rentabilidad;
 		this.presupuesto = presupuesto;
-		this.taquilla=taquilla;
+		this.taquilla = taquilla;
 		
     }
     
@@ -80,7 +80,7 @@ public class Pelicula {
 		this.productora = productora;
 		this.rentabilidad = rentabilidad;
 		this.presupuesto = presupuesto;
-		this.taquilla=taquilla;
+		this.taquilla = taquilla;
 		
     }
     // Getters para obtener la información de la película
