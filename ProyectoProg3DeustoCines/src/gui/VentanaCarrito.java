@@ -62,11 +62,7 @@ public class VentanaCarrito extends JDialog {
         btnPagar.setFont(new Font("Arial", Font.BOLD, 14));
         btnPagar.setBackground(new Color(50, 200, 50));
         btnPagar.setForeground(Color.WHITE);
-        btnPagar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Compra realizada. ¡Gracias!");
-            Deustocines.carrito.limpiarCarrito();
-            dispose();
-        });
+        btnPagar.addActionListener(e -> mostrarVentanaPago());
 
         JButton btnLimpiar = new JButton("Limpiar Carrito");
         btnLimpiar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -100,4 +96,70 @@ public class VentanaCarrito extends JDialog {
         add(panelInferior, BorderLayout.SOUTH);
         setVisible(true);
     }
+    
+    private void mostrarVentanaPago() {
+        JDialog ventanaPago = new JDialog(this, "Pago", true);
+        ventanaPago.setSize(400, 350);
+        ventanaPago.setLocationRelativeTo(this);
+        ventanaPago.setLayout(new BorderLayout());
+
+        // Etiqueta de título
+        JLabel lblTituloPago = new JLabel("Detalles de Pago", SwingConstants.CENTER);
+        lblTituloPago.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTituloPago.setForeground(new Color(50, 50, 150));
+        lblTituloPago.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        ventanaPago.add(lblTituloPago, BorderLayout.NORTH);
+
+        // Panel de campos
+        JPanel panelCampos = new JPanel(new GridLayout(4, 2, 10, 10));
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        JLabel lblTarjeta = new JLabel("Número de Tarjeta:");
+        JTextField txtTarjeta = new JTextField();
+        JLabel lblFecha = new JLabel("Fecha de Caducidad (MM/AA):");
+        JTextField txtFecha = new JTextField();
+        JLabel lblCVV = new JLabel("CVV:");
+        JTextField txtCVV = new JTextField();
+
+        panelCampos.add(lblTarjeta);
+        panelCampos.add(txtTarjeta);
+        panelCampos.add(lblFecha);
+        panelCampos.add(txtFecha);
+        panelCampos.add(lblCVV);
+        panelCampos.add(txtCVV);
+
+        ventanaPago.add(panelCampos, BorderLayout.CENTER);
+
+        // Panel inferior para el botón de confirmación
+        JPanel panelInferior = new JPanel(new BorderLayout());
+        panelInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel lblTotalPago = new JLabel("Total a Pagar: €" + String.format("%.2f", Deustocines.carrito.calcularTotal()));
+        lblTotalPago.setFont(new Font("Arial", Font.BOLD, 16));
+        lblTotalPago.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalPago.setForeground(new Color(50, 50, 150));
+
+        JButton btnConfirmar = new JButton("Confirmar Pago");
+        btnConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnConfirmar.setBackground(new Color(50, 200, 50));
+        btnConfirmar.setForeground(Color.WHITE);
+        btnConfirmar.addActionListener(e -> {
+            if (txtTarjeta.getText().isEmpty() || txtFecha.getText().isEmpty() || txtCVV.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(ventanaPago, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(ventanaPago, "Pago realizado con éxito. ¡Gracias!");
+                Deustocines.carrito.limpiarCarrito();
+                ventanaPago.dispose();
+                dispose();
+                ventanaPrincipal.setVisible(true);
+            }
+        });
+
+        panelInferior.add(lblTotalPago, BorderLayout.NORTH);
+        panelInferior.add(btnConfirmar, BorderLayout.SOUTH);
+
+        ventanaPago.add(panelInferior, BorderLayout.SOUTH);
+        ventanaPago.setVisible(true);
+    }
+
 }
