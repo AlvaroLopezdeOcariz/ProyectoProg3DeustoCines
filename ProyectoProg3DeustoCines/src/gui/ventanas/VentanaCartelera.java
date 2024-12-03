@@ -66,6 +66,9 @@ public class VentanaCartelera extends JFrame {
         JScrollPane scrollPanelCartelera = new JScrollPane(panelCartelera);
 
         add(scrollPanelCartelera, BorderLayout.CENTER);
+        
+        // Inicializar y cargar todas las peliculas
+        peliculas = listaImagenPeli();
 
         // Listener para el buscador
         txtPeliculaBuscar.getDocument().addDocumentListener(new DocumentListener() {
