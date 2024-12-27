@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import bd.BDPeliculas;
@@ -196,7 +197,7 @@ public class Deustocines {
    	 	baseDatos.insertarPeliculas();
    	 	baseDatos.insertarOpiniones();
    	 
-   	 	SwingUtilities.invokeLater(() -> new VentanaPrincipal().setVisible(true));
+   	 	SwingUtilities.invokeLater(() -> new VentanaPrincipal(null).setVisible(true));
     	
     	
     	

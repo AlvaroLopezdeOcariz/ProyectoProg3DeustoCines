@@ -48,5 +48,9 @@ public static void setUsuarioActual(Usuario usuario) {
 public static Usuario getUsuarioActual() {
     return usuarioactual;
 }
+public static void cerrarSesion() {
+	usuarioactual=null;
+	
+}
 
 }

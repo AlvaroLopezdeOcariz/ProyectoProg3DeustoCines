@@ -97,7 +97,7 @@ public class VentanaInicioSesion extends JFrame {
                     JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Has iniciado sesión con éxito.");
                     
                     vActual.dispose();
-                    vAnterior.setVisible(true);
+                    new VentanaPrincipal(vActual);
                 } else {
                     JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Usuario o Contraseña incorrecta.");
                 }
@@ -108,7 +108,7 @@ public class VentanaInicioSesion extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vActual.dispose();
-                vAnterior.setVisible(true);
+                new VentanaPrincipal(vActual);
             }
         });
 

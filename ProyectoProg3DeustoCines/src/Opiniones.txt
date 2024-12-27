@@ -1,2 +1,2 @@
-a;El Padrino;Me ha encantado la Peli,una pelicula de 10
+a;El Padrino;Me ha encantado la Peli,una pelicula de 10,perfecto
 1234;El Padrino;fascinante
