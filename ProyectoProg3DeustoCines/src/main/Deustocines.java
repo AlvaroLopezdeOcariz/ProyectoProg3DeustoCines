@@ -82,6 +82,7 @@ public class Deustocines {
 		HashMap<String,Usuario> usuarios = mapaUsuarios();
 	    if (usuarios.containsKey(usu)) {
 	    	Usuario u = usuarios.get(usu);
+	    	u.setUsuarioActual(u);
 	        return contra.equals(u.getContrasenia());
 	    }
 	    return false;

@@ -95,6 +95,7 @@ public class VentanaInicioSesion extends JFrame {
                 // Lógica de inicio de sesión
                 if (main.Deustocines.iniciarSesion(txtUsuario.getText(), new String(txtContrasenia.getPassword()))) {
                     JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Has iniciado sesión con éxito.");
+                    
                     vActual.dispose();
                     vAnterior.setVisible(true);
                 } else {
