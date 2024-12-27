@@ -1,10 +1,3 @@
-1234;1234;1234
-Ander;ander.urzelai@opendeusto.es;Abasolo15
-;;
-12345;12345;12345
-a;a;a
-;;
-
-AnderU;AnderU;1233
-J;JAVIER@HOTMAIL.COM;@
-A;andurzelai@gmail.com;1234
+1;1;1;false
+a;a;a;true
+1234;1234;1234;true

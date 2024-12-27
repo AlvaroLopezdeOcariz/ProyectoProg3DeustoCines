@@ -4,16 +4,24 @@ public class Usuario {
 private String nombre;
 private String nomUsuario;
 private String contrasenia;
+private Boolean esAdmin;
 private static Usuario usuarioactual = null;
 public Usuario() {
 	super();
 	// TODO Auto-generated constructor stub
 }
-public Usuario(String nombre, String nomUsuario, String contrasenia) {
+public Usuario(String nombre, String nomUsuario, String contrasenia, Boolean esAdmin) {
 	super();
 	this.nombre = nombre;
 	this.nomUsuario = nomUsuario;
 	this.contrasenia = contrasenia;
+	this.esAdmin=esAdmin;
+}
+public Boolean getEsAdmin() {
+	return esAdmin;
+}
+public void setEsAdmin(Boolean esAdmin) {
+	this.esAdmin = esAdmin;
 }
 public String getNombre() {
 	return nombre;

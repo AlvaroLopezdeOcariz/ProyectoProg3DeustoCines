@@ -11,6 +11,7 @@ public class VentanaRegistro extends JFrame {
     private JPanel panelSuperior, panelPrincipal, panelInferior;
     private JButton botonVolver, botonRegistrarse;
     private JLabel lblRegistro;
+    private JCheckBox adminCheckBox;
     private JTextField txtNombre, txtUsuario, txtContrasenia;
 
     public VentanaRegistro(JFrame vAnterior) {
@@ -50,33 +51,19 @@ public class VentanaRegistro extends JFrame {
         txtContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
         txtContrasenia.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2), "Ingresa tu Contraseña", 0, 0, new Font("Arial", Font.BOLD, 12), new Color(0, 102, 204)));
 
-        // Radio buttons para el tipo de usuario
-        JRadioButton usuarioAdmin = new JRadioButton("Administrador");
-        JRadioButton usuarioClient = new JRadioButton("Cliente");
-        ButtonGroup radioButtonGroup = new ButtonGroup();
+        adminCheckBox = new JCheckBox("Administrador");
 
-        radioButtonGroup.add(usuarioAdmin);
-        radioButtonGroup.add(usuarioClient);
-
-        JPanel panelRadioButton = new JPanel();
-        panelRadioButton.setLayout(new BoxLayout(panelRadioButton, BoxLayout.X_AXIS));
-        panelRadioButton.add(usuarioClient);
-        panelRadioButton.add(usuarioAdmin);
-        panelRadioButton.setBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2));
+        
 
         // Organizar los campos en el panel principal
-        JPanel panelArriba = new JPanel(new GridLayout(3, 1, 10, 10));
+        JPanel panelArriba = new JPanel(new GridLayout(4, 1, 10, 10));
         panelArriba.setBackground(Color.WHITE);
         panelArriba.add(txtNombre);
         panelArriba.add(txtUsuario);
-        panelArriba.add(panelRadioButton);
-
-        JPanel panelAbajo = new JPanel(new GridLayout(1, 1, 10, 10));
-        panelAbajo.setBackground(Color.WHITE);
-        panelAbajo.add(txtContrasenia);
+        panelArriba.add(txtContrasenia);
+        panelArriba.add(adminCheckBox);
 
         panelPrincipal.add(panelArriba);
-        panelPrincipal.add(panelAbajo);
 
         // Botones
         botonVolver = new JButton("Volver");
@@ -118,7 +105,7 @@ public class VentanaRegistro extends JFrame {
         botonRegistrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (main.Deustocines.IniciarRegistro(txtNombre.getText(), txtUsuario.getText(), txtContrasenia.getText())) {
+                if (main.Deustocines.IniciarRegistro(txtNombre.getText(), txtUsuario.getText(), txtContrasenia.getText(),adminCheckBox.isSelected())) {
                     JOptionPane.showMessageDialog(VentanaRegistro.this, "Te has registrado con éxito.");
                     vActual.dispose();
                     vAnterior.setVisible(true);
