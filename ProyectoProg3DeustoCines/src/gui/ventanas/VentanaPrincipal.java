@@ -63,8 +63,26 @@ public class VentanaPrincipal extends JFrame {
                     vActual.dispose();
                     new VentanaCartelera(vActual);
                 } else if (item.equals("ADMINISTRADOR")) {
-                	vActual.dispose();
-                    new VentanaAdministracion(vActual);
+                	if(Usuario.getUsuarioActual() !=null) {
+                		if(Usuario.getUsuarioActual().getEsAdmin()) {
+                			vActual.dispose();
+                            new VentanaAdministracion(vActual);
+                		}else {
+                			String nuevaOpinion = JOptionPane.showInputDialog(this,"No puedes acceder a este contenido");
+                		}
+                	}else {
+                		int option = JOptionPane.showConfirmDialog(this,
+                                "¿Estás registrado?", "REGISTRO", JOptionPane.YES_NO_OPTION);
+
+                        if (option == JOptionPane.YES_OPTION) {
+                            vActual.dispose();
+                            new VentanaInicioSesion(vActual);
+                        } else {
+                            vActual.dispose();
+                            new VentanaRegistro(vActual);
+                        }
+                	}
+                	
                    
                     
 
@@ -294,6 +312,24 @@ public class VentanaPrincipal extends JFrame {
                 } else if (item.equals("GESTION DE USUARIOS")) {
                     new VentanaGestionUsuarios(vActual).setVisible(true);
                     vActual.setVisible(false);
+                } else if (item.equals("MI PERFIL")) {
+                    // Crear un JPopupMenu para las opciones de "Cerrar Sesión" y "Perfil"
+                    JPopupMenu popupMenu = new JPopupMenu();
+                    JMenuItem perfilItem = new JMenuItem("Perfil");
+                    perfilItem.addActionListener(ev -> {
+                        // Mostrar la ventana de perfil
+                        new VentanaPerfil(vActual).setVisible(true);
+                    });
+                    
+                    JMenuItem cerrarSesionItem = new JMenuItem("Cerrar Sesión");
+                    cerrarSesionItem.addActionListener(ev -> {
+                        Usuario.cerrarSesion(); // Cerrar sesión
+                        actualizarMenu(); // Actualizar el menú tras cerrar sesión
+                        mainPanel.repaint();
+                    });
+                    popupMenu.add(perfilItem);
+                    popupMenu.add(cerrarSesionItem);
+                    popupMenu.show(boton, 0, boton.getHeight()); // Ajuste de posición
                 }
             });
         }
