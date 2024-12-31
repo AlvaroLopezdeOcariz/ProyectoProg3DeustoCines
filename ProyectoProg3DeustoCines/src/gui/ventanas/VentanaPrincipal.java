@@ -304,8 +304,26 @@ public class VentanaPrincipal extends JFrame {
                     new VentanaCartelera(vActual).setVisible(true);
                     vActual.dispose();
                 } else if (item.equals("ADMINISTRADOR")) {
-                    new VentanaAdministracion(vActual).setVisible(true);
-                    vActual.dispose();
+                    if(Usuario.getUsuarioActual() != null) {
+                    	if (Usuario.getUsuarioActual().getEsAdmin()) {
+                    		new VentanaAdministracion(vActual).setVisible(true);
+                            vActual.dispose();
+                    	}else {
+                    		JOptionPane.showMessageDialog(this, "No tienes permiso para acceder aqui");
+                    	}
+                    }else {
+                    	 int opciones = JOptionPane.showConfirmDialog(this,
+                                 "¿Estás registrado?", "REGISTRO", JOptionPane.YES_NO_OPTION);
+
+                         if (opciones == JOptionPane.YES_OPTION) {
+                             vActual.dispose();
+                             new VentanaInicioSesion(vActual);
+                         } else {
+                             vActual.dispose();
+                             new VentanaRegistro(vActual);
+                         }
+                    }
+                    
                 } else if (item.equals("CARRITO")) {
                     new VentanaCarrito(vActual).setVisible(true);
                     vActual.dispose();

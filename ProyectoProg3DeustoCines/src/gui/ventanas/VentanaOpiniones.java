@@ -92,10 +92,10 @@ public class VentanaOpiniones extends JFrame {
                         new Deustocines().guardarOpinionEnArchivo(Usuario.getUsuarioActual().getNomUsuario(), pelicula.getTitulo(), nuevaOpinion);
                     }
                 } else {
-                    int option = JOptionPane.showConfirmDialog(VentanaOpiniones.this,
+                    int opciones = JOptionPane.showConfirmDialog(VentanaOpiniones.this,
                             "¿Estás registrado?", "REGISTRO", JOptionPane.YES_NO_OPTION);
 
-                    if (option == JOptionPane.YES_OPTION) {
+                    if (opciones == JOptionPane.YES_OPTION) {
                         vActual.dispose();
                         new VentanaInicioSesion(vActual);
                     } else {

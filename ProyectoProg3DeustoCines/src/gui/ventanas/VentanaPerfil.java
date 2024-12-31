@@ -7,7 +7,8 @@ import gui.clases.Usuario;
 import java.awt.*;
 
 public class VentanaPerfil extends JFrame {
-    private static final long serialVersionUID = 1L;
+    private JPanel panel;
+    private JLabel nombreLabel,usuarioLabel,contraseniaLabel;
 
     public VentanaPerfil(JFrame vAnterior) {
         setTitle("Perfil de Usuario");
@@ -15,25 +16,24 @@ public class VentanaPerfil extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         
-    
-        JLabel nombreLabel = new JLabel("Nombre: " + Usuario.getUsuarioActual().getNombre());
+        nombreLabel = new JLabel("Nombre: " + Usuario.getUsuarioActual().getNombre());
         nombreLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
         
      
-        JLabel usuarioLabel = new JLabel("Nombre de Usuario: " + Usuario.getUsuarioActual().getNomUsuario());
+        usuarioLabel = new JLabel("Nombre de Usuario: " + Usuario.getUsuarioActual().getNomUsuario());
         usuarioLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
         
        
-        JLabel contrasenaLabel = new JLabel("Contraseña: " + Usuario.getUsuarioActual().getContrasenia());
-        contrasenaLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
+        contraseniaLabel = new JLabel("Contraseña: " + Usuario.getUsuarioActual().getContrasenia());
+        contraseniaLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
         
-
+       
         panel.add(nombreLabel);
         panel.add(usuarioLabel);
-        panel.add(contrasenaLabel);
+        panel.add(contraseniaLabel);
 
        
         JButton cerrarButton = new JButton("Cerrar");
