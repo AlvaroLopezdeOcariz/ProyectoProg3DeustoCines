@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import gui.clases.Pelicula;
+import gui.clases.Usuario;
 
 public class BDPeliculas {
 	
@@ -47,7 +48,8 @@ public class BDPeliculas {
 	        		+"id INTEGER PRIMARY KEY AUTOINCREMENT,"
 	        		+"nombre TEXT NOT NULL,"
 	        		+"nomUsuario TEXT,"
-	        		+"contrasenia TEXT"
+	        		+"contrasenia TEXT,"
+	        		+"admin BOOLEAN"
 	        		+");";
 	        
 
@@ -66,7 +68,69 @@ public class BDPeliculas {
 	    }
 
 	    
-
+	    public void insertarUsuarios() {
+	    	
+	    	File f= new File("src/UsuariosRegistrados.txt");
+	    	ArrayList<Usuario> listaUsuarios= new ArrayList<>();
+	    	if(!f.exists()) {
+	    		System.err.println("El archivo peliculas.txt no existe.");
+	    	}
+	    	try {
+	    		Scanner sc = new Scanner(f);
+	    		
+	    		while(sc.hasNext()) {
+	    			String linea = sc.nextLine();
+	    			String[] datos = linea.split(";");
+	    			if (datos.length== 4) {
+	    				String nom= datos[0];
+	    				String nomUsuario= datos[1];
+	    				String contra= datos[2];
+	    				Boolean admin= Boolean.parseBoolean(datos[3]);
+	    				listaUsuarios.add(new Usuario(nom,nomUsuario,contra, admin));
+	    				
+	    			}
+	    		}
+	    		
+	    	}catch (FileNotFoundException e) {
+                e.printStackTrace();}
+	    
+	    
+	    String comprobacion= "SELECT COUNT(*) FROM Usuarios WHERE nomUsuario=?";
+	    
+	    for(Usuario usu: listaUsuarios ) 
+	    {
+	    	  try (Connection conexion = DriverManager.getConnection(DB_URL);
+		    		   PreparedStatement pstmt = conexion.prepareStatement(comprobacion))
+		        	
+		        {
+		 	    		pstmt.setString(1, usu.getNomUsuario() );           
+		                ResultSet rs = pstmt.executeQuery();
+		                rs.next();
+		                int count = rs.getInt(1);
+		                
+		                if(count==0) {
+		                	String insertarUsuario= "INSERT INTO Usuarios(nombre,nomUsuario,contrasenia,admin) VALUES(?,?,?,?)";
+		                	PreparedStatement insertStmt= conexion.prepareStatement(insertarUsuario);
+		                	insertStmt.setString(1, usu.getNombre());
+		                	insertStmt.setString(2, usu.getNomUsuario());
+		                	insertStmt.setString(3,usu.getContrasenia());
+		                	insertStmt.setBoolean(4,usu.getEsAdmin());
+		                	System.out.println("Usuario insertada exitosamente.");
+		                }
+		                
+		                
+		                
+		        }catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+	    	  }
+	    
+	    	
+	    
+	    
+	    
+	    
+	    }
 	    
 	    
 	    
@@ -128,6 +192,9 @@ public class BDPeliculas {
 	                ResultSet rs = pstmt.executeQuery();
 	                rs.next();
 	                int count = rs.getInt(1);
+	                
+	                
+	                
 	                
 	                
 	                //Si la pelicula no esta se añade y si esta no se hace nada

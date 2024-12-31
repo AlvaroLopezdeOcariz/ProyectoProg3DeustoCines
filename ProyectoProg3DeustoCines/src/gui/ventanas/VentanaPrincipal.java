@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import bd.BDPeliculas;
+import gui.VentanaAdministracion;
+import gui.VentanaInicioSesion;
+import gui.VentanaPrincipal;
+import gui.VentanaRegistro;
 import gui.clases.Pelicula;
 import gui.clases.Usuario;
 
@@ -62,8 +66,11 @@ public class VentanaPrincipal extends JFrame {
                     vActual.dispose();
                     new VentanaCartelera(vActual);
                 } else if (item.equals("ADMINISTRADOR")) {
-                    vActual.dispose();
+                	vActual.dispose();
                     new VentanaAdministracion(vActual);
+                   
+                    
+
                 } else if (item.equals("CARRITO")) {
                     vActual.dispose();
                     new VentanaCarrito(vActual);

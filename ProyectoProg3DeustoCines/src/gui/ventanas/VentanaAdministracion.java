@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -117,14 +118,18 @@ public class VentanaAdministracion extends JFrame{
 	}
 	private void loadPro() {
 		ArrayList<Pelicula> listaPeliculas = BDPeliculas.obtenerPeliculas();
-	     
+	     DecimalFormat formato= new DecimalFormat("#,###");
 		 
 		 this.modeloDatos.setRowCount(0);
-			//Se añaden las pelis uno a uno al modelo de datos
-			listaPeliculas.forEach(peli -> this.modeloDatos.addRow(
-					new Object[] {peli.getTitulo(), peli.getProductora(), peli.getPresupuesto(), peli.getTaquilla(), peli.getRentabilidad()} )
-			);
-		
-	}
-	
+			
+		 // Añadir las películas al modelo de datos
+	        listaPeliculas.forEach(peli -> {
+	            String presupuestoFormateado = formato.format(peli.getPresupuesto());
+	            String recaudacionFormateada = formato.format(peli.getTaquilla());
+	     
+
+	            this.modeloDatos.addRow(new Object[] { peli.getTitulo(), peli.getProductora(), presupuestoFormateado, recaudacionFormateada, peli.getRentabilidad()
+	            });
+	        });
+	    }
 }

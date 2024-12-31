@@ -196,7 +196,7 @@ public class Deustocines {
    	 	baseDatos.InicializarBD();
    	 	baseDatos.insertarPeliculas();
    	 	baseDatos.insertarOpiniones();
-   	 
+   	 	baseDatos.insertarUsuarios();
    	 	SwingUtilities.invokeLater(() -> new VentanaPrincipal(null).setVisible(true));
     	
     	
