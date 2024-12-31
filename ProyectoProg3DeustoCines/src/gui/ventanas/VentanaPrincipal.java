@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import bd.BDPeliculas;
-import gui.VentanaAdministracion;
-import gui.VentanaInicioSesion;
-import gui.VentanaPrincipal;
-import gui.VentanaRegistro;
+
 import gui.clases.Pelicula;
 import gui.clases.Usuario;
 
@@ -257,70 +254,48 @@ public class VentanaPrincipal extends JFrame {
         return new ImageIcon(imagenRedimensionada);
     }
     private void actualizarMenu() {
-        botonPanel.removeAll(); // Elimina los botones actuales
+        botonPanel.removeAll();
 
         // Determinar los elementos del menú en función del estado del usuario
-        String[] menuItems = Usuario.getUsuarioActual() == null 
-            ? new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "INICIAR SESION/REGISTRARSE"} 
-            : new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "MI PERFIL"};
+        String[] menuItems;
+        Usuario usuarioActual = Usuario.getUsuarioActual();
+        if (usuarioActual == null) {
+            menuItems = new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "INICIAR SESION/REGISTRARSE"};
+        } else {
+            if (usuarioActual.getEsAdmin()) {
+                menuItems = new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "GESTION DE USUARIOS", "MI PERFIL"};
+            } else {
+                menuItems = new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "MI PERFIL"};
+            }
+        }
 
         for (String item : menuItems) {
-            if (item.equals("MI PERFIL")) {
-                // Crear un botón para "MI PERFIL"
-                JButton perfilButton = new JButton("MI PERFIL");
-                perfilButton.setFont(new Font("Verdana", Font.BOLD, 11));
-                perfilButton.setBackground(new Color(0, 128, 255)); 
-                perfilButton.setForeground(Color.WHITE);
-                perfilButton.setFocusPainted(false);
-                perfilButton.setOpaque(true);
+            JButton boton = new JButton(item);
+            boton.setFont(new Font("Verdana", Font.BOLD, 11));
+            boton.setBackground(new Color(0, 128, 255));
+            boton.setForeground(Color.WHITE);
+            boton.setFocusPainted(false);
+            boton.setOpaque(true);
+            botonPanel.add(boton);
 
-                perfilButton.addActionListener(e -> {
-                    // Crear un JPopupMenu para las opciones de "Cerrar Sesión" y "Perfil"
-                    JPopupMenu popupMenu = new JPopupMenu();
-                    JMenuItem perfilItem = new JMenuItem("Perfil");
-                    perfilItem.addActionListener(ev -> {
-                        // Mostrar la ventana de perfil
-                        new VentanaPerfil(vActual).setVisible(true);
-                    });
-                    
-                    JMenuItem cerrarSesionItem = new JMenuItem("Cerrar Sesión");
-                    cerrarSesionItem.addActionListener(ev -> {
-                        Usuario.cerrarSesion(); // Cerrar sesión
-                        actualizarMenu(); // Actualizar el menú tras cerrar sesión
-                        mainPanel.repaint();
-                    });
-
-                    popupMenu.add(perfilItem);
-                    popupMenu.add(cerrarSesionItem);
-                    popupMenu.show(perfilButton, perfilButton.getWidth() / 2, perfilButton.getHeight());
-                });
-
-                botonPanel.add(perfilButton);
-            } else {
-                JButton boton = new JButton(item);
-                boton.setFont(new Font("Verdana", Font.BOLD, 11));
-                boton.setBackground(new Color(0, 128, 255)); 
-                boton.setForeground(Color.WHITE);
-                boton.setFocusPainted(false);
-                boton.setOpaque(true);
-                botonPanel.add(boton);
-
-                boton.addActionListener(e -> {
-                    if (item.equals("INICIAR SESION/REGISTRARSE")) {
-                        new VentanaInicioSesion(vActual).setVisible(true);
-                        vActual.setVisible(false);
-                    } else if (item.equals("CARTELERA")) {
-                        new VentanaCartelera(vActual).setVisible(true);
-                        vActual.dispose();
-                    } else if (item.equals("ADMINISTRADOR")) {
-                        new VentanaAdministracion(vActual).setVisible(true);
-                        vActual.dispose();
-                    } else if (item.equals("CARRITO")) {
-                        new VentanaCarrito(vActual).setVisible(true);
-                        vActual.dispose();
-                    }
-                });
-            }
+            boton.addActionListener(e -> {
+                if (item.equals("INICIAR SESION/REGISTRARSE")) {
+                    new VentanaInicioSesion(vActual).setVisible(true);
+                    vActual.setVisible(false);
+                } else if (item.equals("CARTELERA")) {
+                    new VentanaCartelera(vActual).setVisible(true);
+                    vActual.dispose();
+                } else if (item.equals("ADMINISTRADOR")) {
+                    new VentanaAdministracion(vActual).setVisible(true);
+                    vActual.dispose();
+                } else if (item.equals("CARRITO")) {
+                    new VentanaCarrito(vActual).setVisible(true);
+                    vActual.dispose();
+                } else if (item.equals("GESTION DE USUARIOS")) {
+                    new VentanaGestionUsuarios(vActual).setVisible(true);
+                    vActual.setVisible(false);
+                }
+            });
         }
 
         botonPanel.revalidate(); // Revalida el panel

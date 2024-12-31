@@ -28,7 +28,7 @@ public class Deustocines {
 	        
 	         if (!f.exists()) {
 	             System.err.println("El archivo UsuariosRegistrados.txt no existe.");
-	             
+	             return mapaUsuarios;
 	         }
 	         
 	         try {
@@ -49,7 +49,7 @@ public class Deustocines {
 	             sc.close();
 	         } catch (FileNotFoundException e) {
 	             System.err.println("Error al abrir el fichero.");
-	         }
+	         }	         
 	        return mapaUsuarios;
 	    }
 	    
@@ -89,7 +89,6 @@ public class Deustocines {
 	    return false;
 	}
     //METODO PARA CARGAR LAS OPINIONES DE OPINIONES.TXT 
-    
     public HashMap<String, HashMap<String, List<String>>> cargarOpiniones() {
         HashMap<String, HashMap<String, List<String>>> mapaOpiniones = new HashMap<>();
         File f = new File("src/Opiniones.txt");
