@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import gui.clases.Pelicula;
 import gui.clases.Usuario;
@@ -15,7 +16,7 @@ public class VentanaOpiniones extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JFrame vActual, vAnterior;
-    private JPanel panelSuperior, panelOpiniones, panelInferior;
+    private JPanel panelSuperior, panelCentral, panelInferior;
     private JLabel lblTitulo, lblContadorOpiniones;
     private JButton botonOpinion, botonVolver;
     private JTextArea areaOpiniones;
@@ -33,16 +34,21 @@ public class VentanaOpiniones extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-
         // Panel superior
         panelSuperior = new JPanel(new BorderLayout());
-        panelSuperior.setBackground(new Color(0, 51, 102));
+        panelSuperior.setBackground(new Color(30, 144, 255));
+        panelSuperior.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
         lblTitulo = new JLabel("Opiniones de " + pelicula.getTitulo(), JLabel.CENTER);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setForeground(Color.WHITE);
 
         botonVolver = new JButton("Volver");
-        botonVolver.setBackground(Color.LIGHT_GRAY);
+        botonVolver.setFont(new Font("Arial", Font.BOLD, 12));
+        botonVolver.setBackground(Color.WHITE);
+        botonVolver.setForeground(new Color(30, 144, 255));
+        botonVolver.setFocusPainted(false); // Elimina el borde al enfocarse
+        botonVolver.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         botonVolver.addActionListener(e -> {
             vActual.dispose();
             vAnterior.setVisible(true);
@@ -51,34 +57,38 @@ public class VentanaOpiniones extends JFrame {
         panelSuperior.add(botonVolver, BorderLayout.WEST);
         panelSuperior.add(lblTitulo, BorderLayout.CENTER);
 
-        // Área de opiniones
-        areaOpiniones = new JTextArea(15, 50);
+        // Panel central
+        panelCentral = new JPanel();
+        panelCentral.setLayout(new BorderLayout());
+        panelCentral.setBackground(Color.WHITE);
+        panelCentral.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        areaOpiniones = new JTextArea(); // Texto para opiniones
         areaOpiniones.setEditable(false);
         areaOpiniones.setFont(new Font("Arial", Font.PLAIN, 16));
-        areaOpiniones.setLineWrap(true);
-        areaOpiniones.setWrapStyleWord(true);
+        areaOpiniones.setLineWrap(true); // Envuelve las lineas automaticamente
+        areaOpiniones.setWrapStyleWord(true); // Rompe las lineas por palabras
         JScrollPane scrollOpiniones = new JScrollPane(areaOpiniones);
+        scrollOpiniones.setBorder(BorderFactory.createTitledBorder("Opiniones"));
 
-        // Etiqueta para el contador de opiniones
         lblContadorOpiniones = new JLabel("Opiniones totales: " + contadorOpiniones);
         lblContadorOpiniones.setFont(new Font("Arial", Font.PLAIN, 14));
         lblContadorOpiniones.setForeground(new Color(0, 51, 102));
-
-        // Panel central
-        panelOpiniones = new JPanel();
-        panelOpiniones.setBackground(Color.WHITE);
-        panelOpiniones.setLayout(new BoxLayout(panelOpiniones, BoxLayout.Y_AXIS));
-        panelOpiniones.add(scrollOpiniones);
-        panelOpiniones.add(Box.createVerticalStrut(10));
-        panelOpiniones.add(lblContadorOpiniones);
+        
+        panelCentral.add(scrollOpiniones, BorderLayout.CENTER);
+        panelCentral.add(lblContadorOpiniones, BorderLayout.SOUTH);
 
         // Panel inferior
-        panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelInferior.setBackground(Color.LIGHT_GRAY);
+        panelInferior = new JPanel();
+        panelInferior.setBackground(new Color(240, 240, 240));
+        panelInferior.setBorder(new EmptyBorder(10, 10, 10, 10));
+
         botonOpinion = new JButton("Nueva Opinión");
         botonOpinion.setFont(new Font("Arial", Font.BOLD, 14));
-        botonOpinion.setBackground(new Color(0, 153, 76));
+        botonOpinion.setBackground(new Color(50, 205, 50)); // Verde vivo
         botonOpinion.setForeground(Color.WHITE);
+        botonOpinion.setFocusPainted(false); // Sin borde al enfocarse
+        botonOpinion.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         botonOpinion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,9 +96,8 @@ public class VentanaOpiniones extends JFrame {
                     String nuevaOpinion = JOptionPane.showInputDialog(VentanaOpiniones.this, "Escribe tu opinión:");
                     if (nuevaOpinion != null && !nuevaOpinion.isEmpty()) {
                         areaOpiniones.append(Usuario.getUsuarioActual().getNomUsuario() + ": " + nuevaOpinion + "\n");
-                        contadorOpiniones++;
+                        contadorOpiniones++; // Aumenta el contador
                         lblContadorOpiniones.setText("Opiniones totales: " + contadorOpiniones);
-                        
                         new Deustocines().guardarOpinionEnArchivo(Usuario.getUsuarioActual().getNomUsuario(), pelicula.getTitulo(), nuevaOpinion);
                     }
                 } else {
@@ -105,22 +114,27 @@ public class VentanaOpiniones extends JFrame {
                 }
             }
         });
+        
         panelInferior.add(botonOpinion);
 
         // Agregar paneles a la ventana
         add(panelSuperior, BorderLayout.NORTH);
-        add(panelOpiniones, BorderLayout.CENTER);
+        add(panelCentral, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+        
         deustocines = new Deustocines();
+        cargarOpiniones();
+
+        setVisible(true);
+    }
+    
+    private void cargarOpiniones() {
         HashMap<String, java.util.List<String>> opiniones = deustocines.opinionesPeliculas(pelicula.getTitulo());
 
-        // Si no hay opiniones, mostramos un mensaje indicativo
         if (opiniones.isEmpty()) {
             areaOpiniones.setText("No hay opiniones todavía. ¡Sé el primero en opinar!\n");
         } else {
-            // Limpia el área de texto antes de añadir las opiniones
             areaOpiniones.setText("");
-            // Añadir las opiniones directamente al JTextArea
             for (String usuario : opiniones.keySet()) {
                 java.util.List<String> listaOpiniones = opiniones.get(usuario);
                 for (String opinion : listaOpiniones) {
@@ -128,9 +142,5 @@ public class VentanaOpiniones extends JFrame {
                 }
             }
         }
-
-       
-        
-        setVisible(true);
     }
 }
