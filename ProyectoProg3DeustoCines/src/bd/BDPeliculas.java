@@ -52,6 +52,9 @@ public class BDPeliculas {
 	        		+"admin BOOLEAN"
 	        		+");";
 	        
+	       
+	        		
+	        
 
 	        try (Connection conexion = DriverManager.getConnection(DB_URL);
 	             Statement consulta = conexion.createStatement()) {
@@ -115,6 +118,7 @@ public class BDPeliculas {
 		                	insertStmt.setString(2, usu.getNomUsuario());
 		                	insertStmt.setString(3,usu.getContrasenia());
 		                	insertStmt.setBoolean(4,usu.getEsAdmin());
+		                	insertStmt.executeUpdate();  
 		                	System.out.println("Usuario insertada exitosamente.");
 		                }
 		                

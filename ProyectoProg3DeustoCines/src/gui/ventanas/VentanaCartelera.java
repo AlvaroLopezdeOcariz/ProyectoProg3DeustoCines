@@ -7,6 +7,7 @@ import javax.swing.event.DocumentListener;
 
 import bd.BDPeliculas;
 import gui.clases.Pelicula;
+import gui.clases.Usuario;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -212,7 +213,21 @@ public class VentanaCartelera extends JFrame {
         
         JButton btnCompras = new JButton("Comprar");
         btnCompras.addActionListener(e -> {
-            new VentanaAsientos(this).setVisible(true);
+        	
+        	if(Usuario.getUsuarioActual() != null) {
+                new VentanaAsientos(this).setVisible(true);}
+        	else {
+        	int opciones = JOptionPane.showConfirmDialog(this,
+                    "¿Estás registrado?", "REGISTRO", JOptionPane.YES_NO_OPTION);
+
+            if (opciones == JOptionPane.YES_OPTION) {
+                vActual.dispose();
+                new VentanaInicioSesion(vActual);
+            } else {
+                vActual.dispose();
+                new VentanaRegistro(vActual);
+            }
+        	}
         });
         
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
