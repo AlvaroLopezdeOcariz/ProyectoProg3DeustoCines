@@ -20,7 +20,7 @@ public class VentanaCarrito extends JDialog {
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
-     // Etiqueta de título
+        // Etiqueta de título
         JLabel lblTitulo = new JLabel("Carrito de Compras", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setForeground(new Color(50, 50, 150));
@@ -37,7 +37,7 @@ public class VentanaCarrito extends JDialog {
 
         // Añadir los asientos seleccionados
         for (var asiento : Deustocines.carrito.getAsientos()) {
-            modeloTabla.addRow(new Object[]{"Asiento: " + asiento, 10.0}); // Precio fijo de ejemplo
+            modeloTabla.addRow(new Object[]{"Asiento: " + asiento, 10.0}); // Precio fijo
         }
 
         JTable tablaCarrito = new JTable(modeloTabla);
@@ -145,7 +145,7 @@ public class VentanaCarrito extends JDialog {
         btnConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
         btnConfirmar.setBackground(new Color(50, 200, 50));
         btnConfirmar.setForeground(Color.WHITE);
-        btnConfirmar.addActionListener(e -> {
+        btnConfirmar.addActionListener(e -> { // Ayudado de IAG en este listener (ChatGPT)
             if (txtTarjeta.getText().isEmpty() || txtFecha.getText().isEmpty() || txtCVV.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(ventanaPago, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {

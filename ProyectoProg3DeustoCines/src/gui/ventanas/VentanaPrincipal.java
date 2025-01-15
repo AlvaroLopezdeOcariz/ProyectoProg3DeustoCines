@@ -265,7 +265,7 @@ public class VentanaPrincipal extends JFrame {
     }
 
 
-    // Método para redimensionar imágenes
+    // Método para redimensionar imágenes - IAG (ChatGPT)
     public ImageIcon redimensionarImagen(ImageIcon imagenOriginal, int ancho, int alto) {
         Image imagen = imagenOriginal.getImage();
         Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);

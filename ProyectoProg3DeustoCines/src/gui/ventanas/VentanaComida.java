@@ -59,7 +59,7 @@ public class VentanaComida extends JDialog {
             panelMenu.add(panelCategoria);
 
             // Crear opciones de comida dentro de la categoría
-            for (int item = 1; item < categorias[cat].length; item++) {
+            for (int item = 1; item < categorias[cat].length; item++) { 
                 String comida = categorias[cat][item];
                 double precio = precios[cat][item - 1];
 
@@ -99,7 +99,7 @@ public class VentanaComida extends JDialog {
         btnCancelar.setForeground(Color.BLACK);
         btnCancelar.setFocusPainted(false);
 
-        btnConfirmar.addActionListener(e -> {
+        btnConfirmar.addActionListener(e -> { // Listener hecho con la ayuda de IAG - ChatGPT
             totalComida = 0.0;
             comidaSeleccionada.clear();
 
@@ -139,10 +139,7 @@ public class VentanaComida extends JDialog {
 
     private String generarResumenCompra() {
         StringBuilder resumen = new StringBuilder("Resumen de su compra:\n\n");
-        comidaSeleccionada.forEach((comida, cantidad) -> resumen.append(comida)
-                .append(" x ")
-                .append(cantidad)
-                .append("\n"));
+        comidaSeleccionada.forEach((comida, cantidad) -> resumen.append(comida).append(" x ").append(cantidad).append("\n"));
         resumen.append("\nTotal: €").append(String.format("%.2f", totalComida));
         return resumen.toString();
     }

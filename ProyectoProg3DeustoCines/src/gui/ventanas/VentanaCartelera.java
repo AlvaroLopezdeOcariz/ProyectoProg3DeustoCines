@@ -251,6 +251,7 @@ public class VentanaCartelera extends JFrame {
         return boton;
     }
 
+    // Metodo para redimensionar las imagenes - IAG (ChatGPT)
     public ImageIcon redimensionarImagen(ImageIcon imagenOriginal, int ancho, int alto) {
         Image imagen = imagenOriginal.getImage();
         Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
