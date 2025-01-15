@@ -7,7 +7,7 @@ import javax.swing.*;
 public class VentanaInicioSesion extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private JFrame vActual, vAnterior;
+    private JFrame vActual;
     private JPanel panelInferior, panelPrincipal, panelSuperior;
     private JLabel lblInicio, etiquetaRegistro;
     private JTextField txtUsuario;
@@ -16,8 +16,6 @@ public class VentanaInicioSesion extends JFrame {
 
     public VentanaInicioSesion(JFrame vAnterior) {
         vActual = this;
-        this.vAnterior = vAnterior;
-
         // Configuración de la ventana
         setTitle("INICIO DE SESION");
         setSize(600, 400);

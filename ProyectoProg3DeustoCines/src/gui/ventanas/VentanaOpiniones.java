@@ -15,7 +15,7 @@ import main.Deustocines;
 public class VentanaOpiniones extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private JFrame vActual, vAnterior;
+    private JFrame vActual;
     private JPanel panelSuperior, panelCentral, panelInferior;
     private JLabel lblTitulo, lblContadorOpiniones;
     private JButton botonOpinion, botonVolver;
@@ -26,7 +26,6 @@ public class VentanaOpiniones extends JFrame {
 
     public VentanaOpiniones(JFrame vAnterior, Pelicula pelicula) {
         vActual = this;
-        this.vAnterior = vAnterior;
         this.pelicula = pelicula;
 
         setTitle("Opiniones de " + pelicula.getTitulo());

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import bd.BDPeliculas;

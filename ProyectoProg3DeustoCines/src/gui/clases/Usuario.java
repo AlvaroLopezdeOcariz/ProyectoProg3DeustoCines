@@ -41,7 +41,7 @@ public String getContrasenia() {
 public void setContrasenia(String contrasenia) {
 	this.contrasenia = contrasenia;
 }
-public static void setUsuarioActual(Usuario usuario) {
+public void setUsuarioActual(Usuario usuario) {
     usuarioactual = usuario;
 }
 

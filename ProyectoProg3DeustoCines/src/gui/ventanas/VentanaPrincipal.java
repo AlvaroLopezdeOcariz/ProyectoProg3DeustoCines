@@ -68,7 +68,7 @@ public class VentanaPrincipal extends JFrame {
                 			vActual.dispose();
                             new VentanaAdministracion(vActual);
                 		}else {
-                			String nuevaOpinion = JOptionPane.showInputDialog(this,"No puedes acceder a este contenido");
+                			JOptionPane.showInputDialog(this,"No puedes acceder a este contenido");
                 		}
                 	}else {
                 		int option = JOptionPane.showConfirmDialog(this,

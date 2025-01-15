@@ -2,13 +2,16 @@ package gui.ventanas;
 
 import java.util.HashMap;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import gui.clases.Usuario;
 
 public class ModeloTablaUsuarios extends DefaultTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String[] columnas = {"Nombre", "Nombre de Usuario", "Contraseña", "Administrador"};
 	private HashMap<String, Usuario> usuarios;
 	

@@ -11,13 +11,14 @@ import gui.clases.Usuario;
 import main.Deustocines;
 
 public class VentanaGestionUsuarios extends JFrame{
-	 private JFrame vActual,vAnterior;
-	 private JTable tabla;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTable tabla;
 	 private ModeloTablaUsuarios modeloTabla;
 	 private JScrollPane scrollTabla;
 	 public VentanaGestionUsuarios(JFrame vAnterior) {
-		 vActual=this;
-		 this.vAnterior=vAnterior;
 		 //clave=nomUsuario valor= Usuario
 		 HashMap<String, Usuario> usuarios = Deustocines.mapaUsuarios();
 

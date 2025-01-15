@@ -7,7 +7,11 @@ import gui.clases.Usuario;
 import java.awt.*;
 
 public class VentanaPerfil extends JFrame {
-    private JPanel panel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel panel;
     private JLabel nombreLabel,usuarioLabel,contraseniaLabel;
 
     public VentanaPerfil(JFrame vAnterior) {
