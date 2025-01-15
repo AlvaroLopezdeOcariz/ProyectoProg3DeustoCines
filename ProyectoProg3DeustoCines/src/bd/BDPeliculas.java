@@ -68,6 +68,12 @@ public class BDPeliculas {
 	       		
 	       		+ "    FOREIGN KEY (carrito_id) REFERENCES Carritos(id)"
 	       		+ ");";
+	       
+	       String sqlCreateTableAsientos= "CREATE TABLE IF NOT EXISTS Asientos("
+	    		   +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+	    		   +"id_Usuario INTEGER NOT NULL,"
+	    		   +"num_Asientos INTEGER,"
+	    		   +"FOREIGN KEY(id_Usuario) REFERENCES Usuarios(id) ON DELETE CASCADE); ";
 
 	        try (Connection conexion = DriverManager.getConnection(DB_URL);
 	             Statement consulta = conexion.createStatement()) {
@@ -76,12 +82,27 @@ public class BDPeliculas {
 	            consulta.execute(sqlCreateTableUsuarios);
 	            consulta.execute(sqlCreateTableCarritos);
 	            consulta.execute(sqlCreateTableItemCarritos);
-	            
+	            consulta.execute(sqlCreateTableAsientos);
 	            
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    public static void insertarAsientos(int usuarioId, int num_Asientos) {
+	    	String query= "INSERT INTO Asientos(id_usuario, num_Asientos) VALUES(?,?)";
+	    	try(Connection conexion = DriverManager.getConnection(DB_URL);
+	    	    	PreparedStatement insertStmt= conexion.prepareStatement(query)){
+	    		insertStmt.setInt(1, usuarioId);
+	    		insertStmt.setDouble(2, num_Asientos);
+	    		 insertStmt.executeUpdate();
+	    		 System.out.println("Asiento insertada exitosamente.");
+	    	
+	    	}catch(SQLException e) {
+	    		e.printStackTrace();
+	    	}
+	    }
+	    
 	    
 	    public static void insertarCarrito(int usuarioId, Double pago) {
 	    	String query= "INSERT INTO Carritos(id_usuario, total) VALUES(?,?)";

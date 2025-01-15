@@ -152,6 +152,7 @@ public class VentanaCarrito extends JDialog {
                 JOptionPane.showMessageDialog(ventanaPago, "Pago realizado con éxito. ¡Gracias!");
                 int idUsuario= BDPeliculas.obtenerIdUsuario(Usuario.getUsuarioActual().getNombre());
                 BDPeliculas.insertarCarrito(idUsuario, Deustocines.carrito.calcularTotal());
+                BDPeliculas.insertarAsientos(idUsuario, Deustocines.carrito.getAsientos().size());
                 Deustocines.carrito.limpiarCarrito();
                 ventanaPago.dispose();
                 dispose();
