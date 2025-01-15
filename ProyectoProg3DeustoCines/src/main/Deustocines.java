@@ -1,6 +1,8 @@
 package main;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +16,7 @@ import javax.swing.SwingUtilities;
 
 import bd.BDPeliculas;
 import gui.clases.Carrito;
+import gui.clases.Opinion;
 import gui.clases.Usuario;
 import gui.ventanas.VentanaPrincipal;
 
@@ -184,6 +187,49 @@ public class Deustocines {
         } catch (IOException e) {
             System.err.println("Error al guardar la opinión en el archivo.");
             e.printStackTrace();
+        }
+    }
+    
+    
+ // Método recursivo para cargar las opiniones desde el archivo
+    public static void cargarOpinionesRecursivo(List<Opinion> opiniones, BufferedReader reader) throws IOException {
+        // Leer una línea del archivo
+        String linea = reader.readLine();
+        
+        // Caso base: Si no hay más líneas, termina la recursión
+        if (linea == null) {
+            return;
+        }
+
+        // Dividir la línea en autor y texto de la opinión
+        String[] partes = linea.split(";");
+        if (partes.length == 2) {
+            String autor = partes[0].trim();
+            String texto = partes[1].trim();
+            // Crear la nueva opinión y agregarla a la lista
+            opiniones.add(new Opinion(autor, texto));
+        }
+        
+        // Llamada recursiva para cargar la siguiente opinión
+        cargarOpinionesRecursivo(opiniones, reader);
+    }
+    
+ // Método para leer el archivo y cargar las opiniones
+    public static List<Opinion> leerOpinionesDesdeArchivo(String archivo) {
+        List<Opinion> opiniones = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            cargarOpinionesRecursivo(opiniones, reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return opiniones;
+    }
+    
+ // Método recursivo para mostrar las opiniones
+    public static void mostrarOpinionesRecursivo(List<Opinion> opiniones, int indice) {
+        if (indice < opiniones.size()) {
+            System.out.println(opiniones.get(indice));  // Mostrar la opinión en el índice actual
+            mostrarOpinionesRecursivo(opiniones, indice + 1);  // Llamada recursiva al siguiente índice
         }
     }
 

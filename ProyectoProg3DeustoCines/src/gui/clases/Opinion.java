@@ -36,6 +36,11 @@ public class Opinion {
 		this.texto = texto;
 	}
 	
+	@Override
+    public String toString() {
+        return "Autor: " + autor + "\nComentario: " + texto + "\n--------------------------";
+    }
+	
 	
 	
 }
