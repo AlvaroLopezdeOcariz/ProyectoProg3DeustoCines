@@ -44,7 +44,7 @@ public class VentanaPrincipal extends JFrame {
         botonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
         // Crear los botones
-        String[] menuItems = {"CARTELERA", "ADMINISTRADOR", "CARRITO", "INICIAR SESION/REGISTRARSE"};
+        String[] menuItems = {"CARTELERA","CARRITO", "INICIAR SESION/REGISTRARSE"};
         for (String item : menuItems) {
             JButton boton = new JButton(item);
             boton.setFont(new Font("Verdana", Font.BOLD, 11));
@@ -271,6 +271,8 @@ public class VentanaPrincipal extends JFrame {
         Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
         return new ImageIcon(imagenRedimensionada);
     }
+    
+    //AYUDA DE CHATGPT
     private void actualizarMenu() {
         botonPanel.removeAll();
 
@@ -278,12 +280,12 @@ public class VentanaPrincipal extends JFrame {
         String[] menuItems;
         Usuario usuarioActual = Usuario.getUsuarioActual();
         if (usuarioActual == null) {
-            menuItems = new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "INICIAR SESION/REGISTRARSE"};
+            menuItems = new String[] {"CARTELERA","CARRITO", "INICIAR SESION/REGISTRARSE"};
         } else {
             if (usuarioActual.getEsAdmin()) {
                 menuItems = new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "GESTION DE USUARIOS", "MI PERFIL"};
             } else {
-                menuItems = new String[] {"CARTELERA", "ADMINISTRADOR", "CARRITO", "MI PERFIL"};
+                menuItems = new String[] {"CARTELERA", "CARRITO", "MI PERFIL"};
             }
         }
 

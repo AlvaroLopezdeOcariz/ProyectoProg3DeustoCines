@@ -11,7 +11,7 @@ public class VentanaRegistro extends JFrame {
     private JPanel panelSuperior, panelPrincipal, panelInferior;
     private JButton botonVolver, botonRegistrarse;
     private JLabel lblRegistro;
-    private JCheckBox adminCheckBox;
+  
     private JTextField txtNombre, txtUsuario, txtContrasenia;
 
     public VentanaRegistro(JFrame vAnterior) {
@@ -51,7 +51,7 @@ public class VentanaRegistro extends JFrame {
         txtContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
         txtContrasenia.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2), "Ingresa tu Contraseña", 0, 0, new Font("Arial", Font.BOLD, 12), new Color(0, 102, 204)));
 
-        adminCheckBox = new JCheckBox("Administrador");
+        
 
         
 
@@ -61,7 +61,7 @@ public class VentanaRegistro extends JFrame {
         panelArriba.add(txtNombre);
         panelArriba.add(txtUsuario);
         panelArriba.add(txtContrasenia);
-        panelArriba.add(adminCheckBox);
+        
 
         panelPrincipal.add(panelArriba);
 
@@ -105,7 +105,7 @@ public class VentanaRegistro extends JFrame {
         botonRegistrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (main.Deustocines.IniciarRegistro(txtNombre.getText(), txtUsuario.getText(), txtContrasenia.getText(),adminCheckBox.isSelected())) {
+                if (main.Deustocines.IniciarRegistro(txtNombre.getText(), txtUsuario.getText(), txtContrasenia.getText(),false)) {
                     JOptionPane.showMessageDialog(VentanaRegistro.this, "Te has registrado con éxito.");
                     vActual.dispose();
                     vAnterior.setVisible(true);

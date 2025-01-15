@@ -89,7 +89,7 @@ public class VentanaOpiniones extends JFrame {
         botonOpinion.setFocusPainted(false); // Sin borde al enfocarse
         botonOpinion.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         botonOpinion.addActionListener(new ActionListener() {
-            @Override
+            @Override//AYUDA DE CHATGPT POR MUCHOS ERRORES
             public void actionPerformed(ActionEvent e) {
                 if (Usuario.getUsuarioActual() != null) {
                     String nuevaOpinion = JOptionPane.showInputDialog(VentanaOpiniones.this, "Escribe tu opinión:");

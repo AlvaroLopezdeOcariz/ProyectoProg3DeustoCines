@@ -1,8 +1,6 @@
 package main;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +14,6 @@ import javax.swing.SwingUtilities;
 
 import bd.BDPeliculas;
 import gui.clases.Carrito;
-import gui.clases.Opinion;
 import gui.clases.Usuario;
 import gui.ventanas.VentanaPrincipal;
 
@@ -189,50 +186,51 @@ public class Deustocines {
             e.printStackTrace();
         }
     }
-    
-    
- // Método recursivo para cargar las opiniones desde el archivo
-    public static void cargarOpinionesRecursivo(List<Opinion> opiniones, BufferedReader reader) throws IOException {
-        // Leer una línea del archivo
-        String linea = reader.readLine();
-        
-        // Caso base: Si no hay más líneas, termina la recursión
-        if (linea == null) {
-            return;
+
+    //Metodo para editar usuarios (IA GENERATIVA CHATGPT)
+    public static void editarUsuarios(Usuario usuarioEditado) {
+        HashMap<String, Usuario> mapaUsuarios = mapaUsuarios();
+        if (!mapaUsuarios.containsKey(usuarioEditado.getNomUsuario())) {
+            System.err.println("El usuario no existe.");
+          
         }
 
-        // Dividir la línea en autor y texto de la opinión
-        String[] partes = linea.split(";");
-        if (partes.length == 2) {
-            String autor = partes[0].trim();
-            String texto = partes[1].trim();
-            // Crear la nueva opinión y agregarla a la lista
-            opiniones.add(new Opinion(autor, texto));
-        }
-        
-        // Llamada recursiva para cargar la siguiente opinión
-        cargarOpinionesRecursivo(opiniones, reader);
-    }
-    
- // Método para leer el archivo y cargar las opiniones
-    public static List<Opinion> leerOpinionesDesdeArchivo(String archivo) {
-        List<Opinion> opiniones = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
-            cargarOpinionesRecursivo(opiniones, reader);
+        try {
+            File tempFile = new File("src/UsuariosRegistrados_temp.txt"); // Archivo temporal
+            FileWriter fw = new FileWriter(tempFile);
+            PrintWriter pw = new PrintWriter(fw);
+
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                String linea = sc.nextLine();
+                String[] datos = linea.split(";");
+
+                if (datos.length == 4 && datos[1].equals(usuarioEditado.getNomUsuario())) {
+                    // Actualizamos la línea del usuario
+                    String nuevaLinea = datos[0] + ";" + datos[1] + ";" + datos[2] + ";" + usuarioEditado.getEsAdmin();
+                    pw.println(nuevaLinea);
+                } else {
+                    // Escribimos la línea tal cual
+                    pw.println(linea);
+                }
+            }
+
+            sc.close();
+            pw.flush();
+            pw.close();
+
+            // Reemplazamos el archivo original con el archivo temporal
+            if (f.delete()) {
+                tempFile.renameTo(f);
+            } else {
+                System.err.println("Error al reemplazar el archivo.");
+            }
+
         } catch (IOException e) {
+            System.err.println("Error al editar el usuario.");
             e.printStackTrace();
         }
-        return opiniones;
     }
-    
- // Método recursivo para mostrar las opiniones
-    public static void mostrarOpinionesRecursivo(List<Opinion> opiniones, int indice) {
-        if (indice < opiniones.size()) {
-            System.out.println(opiniones.get(indice));  // Mostrar la opinión en el índice actual
-            mostrarOpinionesRecursivo(opiniones, indice + 1);  // Llamada recursiva al siguiente índice
-        }
-    }
-
 
 
     public static void main(String[] args) {

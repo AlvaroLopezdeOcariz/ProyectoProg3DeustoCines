@@ -47,7 +47,7 @@ public class ModeloTablaUsuarios extends DefaultTableModel {
 	@Override
 	public boolean isCellEditable(int row, int column) {
 		// TODO Auto-generated method stub
-		return false;
+		return column == 3;
 	}
 
 	@Override
