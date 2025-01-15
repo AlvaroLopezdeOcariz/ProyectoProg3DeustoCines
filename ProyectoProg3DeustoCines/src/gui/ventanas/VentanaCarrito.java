@@ -3,6 +3,8 @@ package gui.ventanas;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import bd.BDPeliculas;
+import gui.clases.Usuario;
 import main.Deustocines;
 import java.awt.*;
 
@@ -148,6 +150,8 @@ public class VentanaCarrito extends JDialog {
                 JOptionPane.showMessageDialog(ventanaPago, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(ventanaPago, "Pago realizado con éxito. ¡Gracias!");
+                int idUsuario= BDPeliculas.obtenerIdUsuario(Usuario.getUsuarioActual().getNombre());
+                BDPeliculas.insertarCarrito(idUsuario, Deustocines.carrito.calcularTotal());
                 Deustocines.carrito.limpiarCarrito();
                 ventanaPago.dispose();
                 dispose();

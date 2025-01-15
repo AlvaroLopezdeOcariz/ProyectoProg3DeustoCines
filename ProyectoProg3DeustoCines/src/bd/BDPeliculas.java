@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import gui.clases.Carrito;
+import gui.clases.ItemCarrito;
 import gui.clases.Pelicula;
 import gui.clases.Usuario;
 
@@ -52,24 +54,70 @@ public class BDPeliculas {
 	        		+"admin BOOLEAN"
 	        		+");";
 	        
-	       
+	       String sqlCreateTableCarritos="CREATE TABLE IF NOT EXISTS Carritos ("
+	    		   +"id_Car INTEGER PRIMARY KEY AUTOINCREMENT,"
+	    		   +"id_Usuario INTEGER NOT NULL,"
+	    		   +"total REAL,"
+	    		   +"FOREIGN KEY(id_Usuario) REFERENCES Usuarios(id) ON DELETE CASCADE); ";
 	        		
-	        
+	       String sqlCreateTableItemCarritos="CREATE TABLE IF NOT EXISTS ItemsCarrito ("
+	       		+ "    id INTEGER PRIMARY KEY AUTOINCREMENT,"
+	       		+ "    carrito_id INTEGER NOT NULL,"
+	       		+ "    nombre_item TEXT NOT NULL,"
+	       		+ "    precio REAL NOT NULL,"
+	       		
+	       		+ "    FOREIGN KEY (carrito_id) REFERENCES Carritos(id)"
+	       		+ ");";
 
 	        try (Connection conexion = DriverManager.getConnection(DB_URL);
 	             Statement consulta = conexion.createStatement()) {
 	            consulta.execute(sqlCreateTable);
 	            consulta.execute(sqlCreateTableOpinion);
 	            consulta.execute(sqlCreateTableUsuarios);
-	            
-	            
+	            consulta.execute(sqlCreateTableCarritos);
+	            consulta.execute(sqlCreateTableItemCarritos);
 	            
 	            
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
-
+	    
+	    public static void insertarCarrito(int usuarioId, Double pago) {
+	    	String query= "INSERT INTO Carritos(id_usuario, total) VALUES(?,?)";
+	    	try(Connection conexion = DriverManager.getConnection(DB_URL);
+	    	PreparedStatement insertStmt= conexion.prepareStatement(query)){
+	    		insertStmt.setInt(1, usuarioId);
+	    		insertStmt.setDouble(2, pago);
+	    		 insertStmt.executeUpdate();
+	    		 System.out.println("Carrito insertada exitosamente.");
+	    		
+	    	}catch(SQLException e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	
+	    }
+	    
+	    public void insertarItemCarrito(Carrito carrito,int carritoId ) {
+	    	
+	    	for(ItemCarrito i :carrito.getItems()) {
+	    		
+	    	String query = "INSERT INTO ItemsCarrito (carrito_id, nombre_item, precio) VALUES (?, ?, ?, ?)";
+	    	try (Connection conexion = DriverManager.getConnection(DB_URL);
+	    	    	PreparedStatement insertStmt= conexion.prepareStatement(query)){
+	    		insertStmt.setInt(1, carritoId);
+	    		insertStmt.setString(2, i.toString());
+	    		insertStmt.setDouble(3, i.getPrecio());
+	    		insertStmt.executeUpdate();
+	    		System.out.println("Carrito insertada exitosamente.");
+	    		
+	    		
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    	}
+	    }
 	    
 	    public void insertarUsuarios() {
 	    	
@@ -92,8 +140,10 @@ public class BDPeliculas {
 	    				listaUsuarios.add(new Usuario(nom,nomUsuario,contra, admin));
 	    				
 	    			}
+	    			
+	    			
 	    		}
-	    		
+	    		sc.close();
 	    	}catch (FileNotFoundException e) {
                 e.printStackTrace();}
 	    
@@ -225,7 +275,31 @@ public class BDPeliculas {
 	        } }
 	    }
 	    
-	    
+	    public static int obtenerIdUsuario(String nombre) {
+	    	String query = "SELECT * FROM Usuarios WHERE nomUsuario=?";
+	    	try (Connection conexion = DriverManager.getConnection(DB_URL);
+	    			PreparedStatement pstmt = conexion.prepareStatement(query)){
+	    		
+	    		pstmt.setString(1, nombre);
+	    		
+	    		try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt("id"); // Devolver el ID de la actividad
+	                } else {
+	                    System.out.println("Usuario no encontrada.");
+	                }
+	            }
+	    		
+	    			
+	    		
+	    		
+	    	}catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    	
+	    	return 0;
+	    	
+	    }
 	
 	    //Metodo para seleccionar las peliculas de la base de datos y meterlas en una lista
 	    public static  ArrayList<Pelicula> obtenerPeliculas() {
