@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import bd.BDPeliculas;
+import gui.clases.ItemCarrito;
 import gui.clases.Usuario;
 import main.Deustocines;
 import java.awt.*;
@@ -12,6 +13,9 @@ public class VentanaCarrito extends JDialog {
     private static final long serialVersionUID = 1L;
     
     private JFrame ventanaPrincipal; // Guardamos la referencia a la ventana principal
+    private JTextField txtBuscarProducto; // Campo para ingresar el nombre del producto
+    private JButton btnBuscarProducto; // Botón para realizar la búsqueda
+    private JLabel lblMensajeBusqueda; // Etiqueta para mostrar mensaje de búsqueda
 
     public VentanaCarrito(JFrame parent) {
         super(parent, "Carrito de Compras", true);
@@ -56,7 +60,28 @@ public class VentanaCarrito extends JDialog {
         lblTotal.setFont(new Font("Arial", Font.BOLD, 18));
         lblTotal.setHorizontalAlignment(SwingConstants.RIGHT);
         panelInferior.add(lblTotal, BorderLayout.NORTH);
+        
+        
+        // Panel para búsqueda de producto
+        JPanel panelBusqueda = new JPanel(new FlowLayout());
+        panelBusqueda.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
+        txtBuscarProducto = new JTextField(20); // Campo de texto para ingresar el nombre del producto
+        panelBusqueda.add(txtBuscarProducto);
+
+        btnBuscarProducto = new JButton("Buscar Producto");
+        btnBuscarProducto.addActionListener(e -> buscarProducto()); // Método para buscar el producto
+        panelBusqueda.add(btnBuscarProducto);
+
+        lblMensajeBusqueda = new JLabel(""); // Mensaje de búsqueda
+        lblMensajeBusqueda.setFont(new Font("Arial", Font.BOLD, 14));
+        lblMensajeBusqueda.setForeground(Color.RED);
+        lblMensajeBusqueda.setHorizontalAlignment(SwingConstants.CENTER);
+        panelBusqueda.add(lblMensajeBusqueda);
+
+        panelInferior.add(panelBusqueda, BorderLayout.CENTER);
+
+        
         // Botones
         JPanel panelBotones = new JPanel(new GridLayout(1, 3, 10, 0));
 
@@ -97,6 +122,39 @@ public class VentanaCarrito extends JDialog {
 
         add(panelInferior, BorderLayout.SOUTH);
         setVisible(true);
+    }
+    
+    // Método para buscar el producto
+    private void buscarProducto() {
+        String descripcion = txtBuscarProducto.getText().trim();
+        if (descripcion.isEmpty()) {
+            lblMensajeBusqueda.setText("Por favor ingresa un nombre de producto.");
+            return;
+        }
+
+        lblMensajeBusqueda.setText(""); // Limpiar el mensaje de error previo
+
+        // Llamada recursiva para buscar el producto en el carrito
+        buscarProductoRecursivo(descripcion, 0);
+    }
+    
+ // Método recursivo para buscar un producto
+    private void buscarProductoRecursivo(String descripcion, int index) {
+        if (index >= Deustocines.carrito.getItems().size()) {
+            // Si no se encuentra el producto, mostramos un mensaje
+            lblMensajeBusqueda.setText("Producto no encontrado.");
+            return;
+        }
+
+        ItemCarrito item = Deustocines.carrito.getItems().get(index);
+        if (item.getDescripcion().equalsIgnoreCase(descripcion)) {
+            // Si se encuentra el producto, mostramos un mensaje
+            lblMensajeBusqueda.setText("Producto encontrado: " + item.getDescripcion() + " - Precio: €" + item.getPrecio());
+            return;
+        } else {
+            // Llamamos al siguiente índice recursivamente
+            buscarProductoRecursivo(descripcion, index + 1);
+        }
     }
     
     private void mostrarVentanaPago() {

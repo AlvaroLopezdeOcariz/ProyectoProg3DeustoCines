@@ -8,3 +8,5 @@ n;n;n;false
 t;t;t;false
 j;j;j;false
 ll;ll;ll;false
+A;ander;1234;false
+A;A;A;false
